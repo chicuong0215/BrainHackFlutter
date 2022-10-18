@@ -1,5 +1,4 @@
 import 'package:brain_hack/forget_password.dart';
-import 'package:brain_hack/input_new_password.dart';
 import 'package:flutter/material.dart';
 
 void main() {

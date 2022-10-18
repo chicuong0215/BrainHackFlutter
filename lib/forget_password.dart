@@ -7,6 +7,20 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ForgetPasswordHome(),
+    );
+  }
+}
+
+class ForgetPasswordHome extends StatelessWidget {
+  const ForgetPasswordHome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     Widget tvAppName = const Text('BRAIN HACK',
         style: TextStyle(
           fontSize: 45,
@@ -74,7 +88,13 @@ class ForgetPassword extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
           ),
-          child: const Text('Lấy mã'),
+          child: Container(
+            margin: EdgeInsets.only(left: 10, right: 10),
+            child: const Text('LẤY MÃ',
+                style: TextStyle(
+                  fontFamily: 'Fraunces',
+                )),
+          ),
         ),
         fillColor: Colors.white,
         border: OutlineInputBorder(
@@ -87,7 +107,7 @@ class ForgetPassword extends StatelessWidget {
     );
 
     Widget tvUsername = const Text(
-      'USERNAME',
+      'TÊN ĐĂNG NHẬP',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -133,154 +153,150 @@ class ForgetPassword extends StatelessWidget {
         style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
       ),
     );
-
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.all(15),
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
-          //body
-          child: Column(
-            children: [
-              //app name
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: tvAppName,
-              ),
-              //logo
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: imgvLogo,
-              ),
-              //forget password title
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: tvForgetPasswordTitle,
-              ),
-              //username
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15),
-                child: tvUsername,
-              ),
-              SizedBox(
-                height: 45,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.person,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 30),
-                        child: edtUsername,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              //email
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15),
-                child: tvEmail,
-              ),
-              SizedBox(
-                height: 45,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.email,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 30),
-                        child: edtEmail,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              //code
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15),
-                child: tvCode,
-              ),
-              SizedBox(
-                height: 45,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.sms,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 30),
-                        child: edtCode,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 30),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,
-                    minimumSize: const Size(180, 45),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(15),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
+        //body
+        child: Column(
+          children: [
+            //app name
+            Container(
+              margin: const EdgeInsets.only(top: 15),
+              child: tvAppName,
+            ),
+            //logo
+            Container(
+              margin: const EdgeInsets.only(top: 15),
+              child: imgvLogo,
+            ),
+            //forget password title
+            Container(
+              margin: const EdgeInsets.only(top: 15),
+              child: tvForgetPasswordTitle,
+            ),
+            //username
+            Container(
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+              child: tvUsername,
+            ),
+            SizedBox(
+              height: 45,
+              child: Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 30),
+                    child: const Icon(
+                      Icons.person,
+                      size: 40,
+                      color: Colors.white,
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const InputNewPassword()));
-                  },
-                  child: const Text(
-                    'TIẾP THEO',
-                    style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 30),
+                      child: edtUsername,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //email
+            Container(
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+              child: tvEmail,
+            ),
+            SizedBox(
+              height: 45,
+              child: Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 30),
+                    child: const Icon(
+                      Icons.email,
+                      size: 40,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 30),
+                      child: edtEmail,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //code
+            Container(
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+              child: tvCode,
+            ),
+            SizedBox(
+              height: 45,
+              child: Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 30),
+                    child: const Icon(
+                      Icons.sms,
+                      size: 40,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 30),
+                      child: edtCode,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 30),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange,
+                  minimumSize: const Size(180, 45),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-              ),
-              const Expanded(
-                flex: 5,
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    'CGD@Copyright',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const InputNewPassword(),
                     ),
+                  );
+                },
+                child: const Text(
+                  'TIẾP THEO',
+                  style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
+                ),
+              ),
+            ),
+            const Expanded(
+              flex: 5,
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  'CGD@Copyright',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

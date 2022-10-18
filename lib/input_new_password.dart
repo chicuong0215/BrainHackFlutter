@@ -128,7 +128,7 @@ class InputNewPassword extends StatelessWidget {
                 //old password
                 Container(
                   alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.only(left: 90, top: 15),
+                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
                   child: tvOldPassword,
                 ),
                 SizedBox(
@@ -155,7 +155,7 @@ class InputNewPassword extends StatelessWidget {
                 //new password
                 Container(
                   alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.only(left: 90, top: 15),
+                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
                   child: tvNewPassword,
                 ),
                 SizedBox(
@@ -180,7 +180,7 @@ class InputNewPassword extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 30),
                   child: btnChange,
                 ),
                 const Expanded(
@@ -202,9 +202,11 @@ class InputNewPassword extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           label: const Text(''),
-          shape: const CircleBorder(),
+          shape: CircleBorder(side: BorderSide()),
           icon: const Icon(Icons.arrow_back_ios_new),
           backgroundColor: Colors.blue,
         ),
