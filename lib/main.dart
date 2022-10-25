@@ -1,11 +1,9 @@
 import 'package:brain_hack/forget_password.dart';
-import 'package:brain_hack/input_new_password.dart';
-import 'package:brain_hack/login.dart';
-import 'package:brain_hack/register.dart';
+import 'package:brain_hack/friend_profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(ForgetPassword());
+  runApp(const ForgetPassword());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,11 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Brain Hack'),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: FriendProfile(),
     );
   }
 }
