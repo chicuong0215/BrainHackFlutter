@@ -1,3 +1,4 @@
+import 'package:brain_hack/dialog_facebook_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,7 +17,7 @@ class InputNewPassword extends StatelessWidget {
         ));
 
     Widget imgvLogo = const Image(
-      image: AssetImage('images/icon/logo.png'),
+      image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
       height: 180,
       width: 180,
@@ -34,6 +35,7 @@ class InputNewPassword extends StatelessWidget {
     );
 
     Widget edtOldPassword = TextField(
+      obscureText: true,
       textAlignVertical: TextAlignVertical.top,
       decoration: InputDecoration(
         filled: true,
@@ -48,6 +50,7 @@ class InputNewPassword extends StatelessWidget {
     );
 
     Widget edtNewPassword = TextField(
+      obscureText: true,
       textAlignVertical: TextAlignVertical.top,
       decoration: InputDecoration(
         filled: true,
@@ -62,7 +65,7 @@ class InputNewPassword extends StatelessWidget {
     );
 
     Widget tvOldPassword = const Text(
-      'OLD PASSWORD',
+      'MẬT KHẨU CŨ',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -72,7 +75,7 @@ class InputNewPassword extends StatelessWidget {
     );
 
     Widget tvNewPassword = const Text(
-      'NEW PASSWORD',
+      'MẬT KHẨU MỚI',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -89,7 +92,15 @@ class InputNewPassword extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        showDialog(
+          barrierColor: Colors.black26,
+          context: context,
+          builder: (context) {
+            return const DialogFacebookLogin();
+          },
+        );
+      },
       child: const Text(
         'THAY ĐỔI MẬT KHẨU',
         style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
@@ -101,6 +112,7 @@ class InputNewPassword extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           padding: const EdgeInsets.all(15),
           decoration: const BoxDecoration(
@@ -138,7 +150,7 @@ class InputNewPassword extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(left: 30),
                         child: const Icon(
-                          Icons.password,
+                          Icons.lock,
                           size: 40,
                           color: Colors.white,
                         ),
@@ -165,7 +177,7 @@ class InputNewPassword extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(left: 30),
                         child: const Icon(
-                          Icons.password,
+                          Icons.lock,
                           size: 40,
                           color: Colors.white,
                         ),
@@ -190,7 +202,7 @@ class InputNewPassword extends StatelessWidget {
                     child: Text(
                       'CGD@Copyright',
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
@@ -206,9 +218,9 @@ class InputNewPassword extends StatelessWidget {
             Navigator.pop(context);
           },
           label: const Text(''),
-          shape: CircleBorder(side: BorderSide()),
+          shape: const CircleBorder(side: BorderSide()),
           icon: const Icon(Icons.arrow_back_ios_new),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.orange,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       ),
