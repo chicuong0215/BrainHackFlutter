@@ -1,4 +1,5 @@
 import 'package:brain_hack/forget_password.dart';
+import 'package:brain_hack/friend_profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
