@@ -5,7 +5,11 @@ import 'package:brain_hack/register.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(ForgetPassword());
+<<<<<<<<< Temporary merge branch 1
+  runApp(const ForgetPassword());
+=========
+  runApp(Regiseter());
+>>>>>>>>> Temporary merge branch 2
 }
 
 class MyApp extends StatelessWidget {
