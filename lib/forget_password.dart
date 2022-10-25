@@ -31,7 +31,7 @@ class ForgetPasswordHome extends StatelessWidget {
         ));
 
     Widget imgvLogo = const Image(
-      image: AssetImage('images/icon/logo.png'),
+      image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
       height: 180,
       width: 180,
@@ -49,6 +49,7 @@ class ForgetPasswordHome extends StatelessWidget {
     );
 
     Widget edtUsername = TextField(
+      keyboardType: TextInputType.text,
       textAlignVertical: TextAlignVertical.top,
       decoration: InputDecoration(
         filled: true,
@@ -63,6 +64,7 @@ class ForgetPasswordHome extends StatelessWidget {
     );
 
     Widget edtEmail = TextField(
+      keyboardType: TextInputType.emailAddress,
       textAlignVertical: TextAlignVertical.top,
       decoration: InputDecoration(
         filled: true,
@@ -77,6 +79,7 @@ class ForgetPasswordHome extends StatelessWidget {
     );
 
     Widget edtCode = TextField(
+      keyboardType: TextInputType.number,
       textAlignVertical: TextAlignVertical.top,
       decoration: InputDecoration(
         filled: true,
@@ -154,6 +157,7 @@ class ForgetPasswordHome extends StatelessWidget {
       ),
     );
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: const EdgeInsets.all(15),
         decoration: const BoxDecoration(
@@ -289,7 +293,7 @@ class ForgetPasswordHome extends StatelessWidget {
                 child: Text(
                   'CGD@Copyright',
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
