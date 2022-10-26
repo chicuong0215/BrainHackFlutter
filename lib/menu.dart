@@ -1,4 +1,6 @@
+import 'package:brain_hack/menu_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Menu extends StatelessWidget {
   Widget imgvLogo = const Image(
@@ -38,23 +40,22 @@ class Menu extends StatelessWidget {
     ),
   );
   Widget btnAvatarRoom = Container(
+    padding: const EdgeInsets.only(top: 10),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
           iconSize: 50,
           onPressed: () {},
-          icon: Icon(
+          icon: const Icon(
             Icons.person,
             color: Colors.white,
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(right: 325, left: 0),
-        ),
         IconButton(
           iconSize: 50,
           onPressed: () {},
-          icon: Icon(
+          icon: const Icon(
             Icons.home_outlined,
             color: Colors.white,
           ),
@@ -64,9 +65,11 @@ class Menu extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        drawer: MenuDrawer(),
         body: Container(
           padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
@@ -75,17 +78,17 @@ class Menu extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                Padding(padding: EdgeInsets.all(10)),
+                btnAvatarRoom,
+                imgvLogo,
                 Container(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: imgvLogo,
-                ),
-                Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
+                      gradient: const LinearGradient(colors: [
+                        Colors.white,
+                        Color.fromARGB(255, 255, 185, 208)
+                      ]),
                     ),
                     width: 300,
                     height: 170,
@@ -93,23 +96,25 @@ class Menu extends StatelessWidget {
                     child: Column(children: [
                       tvGhepTran,
                       Container(
-                        padding: EdgeInsets.only(top: 40),
+                        padding: const EdgeInsets.only(top: 40),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 255, 89, 0),
-                            minimumSize: Size(200, 60),
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 89, 0),
+                            minimumSize: const Size(200, 60),
                             shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  width: 2.5,
-                                  color: Color.fromARGB(255, 0, 0, 0)),
+                              side: const BorderSide(
+                                  width: 2.5, color: Color(0xFF090050)),
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
                           onPressed: () {},
-                          child: Text(
-                            'GHÉP',
-                            style:
-                                TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
+                          child: const Text(
+                            'BẮT ĐẦU',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Fraunces',
+                                color: Color(0xFF090050)),
                           ),
                         ),
                       ),
@@ -121,11 +126,11 @@ class Menu extends StatelessWidget {
                     Container(
                       child: Container(
                         padding: const EdgeInsets.only(top: 90),
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: Color.fromARGB(255, 0, 32, 59),
+                            color: Color.fromARGB(255, 0, 50, 91),
                           ),
                           width: 400,
                           height: 90,
@@ -140,25 +145,25 @@ class Menu extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           top: 150, bottom: 0, left: 100, right: 100),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          onPrimary: Color.fromARGB(255, 66, 15, 15),
-                          backgroundColor: Color.fromARGB(255, 255, 25, 0),
-                          minimumSize: Size(200, 60),
+                          backgroundColor: const Color(0xFFFC5658),
+                          minimumSize: const Size(200, 60),
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 2.5, color: Colors.white),
+                            side: const BorderSide(
+                                width: 2.5, color: Color(0xFF090050)),
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'PLAY',
                           style: TextStyle(
                               fontSize: 20,
                               fontFamily: 'Fraunces',
-                              color: Colors.black),
+                              color: Color(0xFF090050)),
                         ),
                       ),
                     ),
