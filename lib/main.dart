@@ -7,7 +7,7 @@ import 'package:brain_hack/update_information.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Login());
+  runApp(Menu());
 }
 
 class MyApp extends StatelessWidget {

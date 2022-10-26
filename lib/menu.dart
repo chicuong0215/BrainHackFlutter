@@ -37,38 +37,70 @@ class Menu extends StatelessWidget {
       color: Color.fromARGB(255, 255, 0, 144),
     ),
   );
+  Widget btnAvatarRoom = Container(
+    child: Row(
+      children: [
+        IconButton(
+          iconSize: 50,
+          onPressed: () {},
+          icon: Icon(
+            Icons.person,
+            color: Colors.white,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 325, left: 0),
+        ),
+        IconButton(
+          iconSize: 50,
+          onPressed: () {},
+          icon: Icon(
+            Icons.home_outlined,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
           child: Center(
             child: Column(
               children: [
-                Padding(padding: EdgeInsets.all(10)),
                 Container(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 10, left: 10),
+                  child: btnAvatarRoom,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 0),
                   child: imgvLogo,
                 ),
                 Container(
+                  padding: EdgeInsets.only(top: 0),
                   decoration: BoxDecoration(),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
-                    ),
+                        borderRadius: BorderRadius.circular(15),
+                        gradient: LinearGradient(colors: [
+                          Color.fromARGB(255, 255, 255, 255),
+                          Color.fromARGB(255, 255, 178, 231)
+                        ])),
                     width: 300,
                     height: 170,
-                    padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 20, right: 20),
                     child: Column(children: [
                       tvGhepTran,
                       Container(
-                        padding: EdgeInsets.only(top: 40),
+                        padding: EdgeInsets.only(top: 30, bottom: 5),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 255, 89, 0),
