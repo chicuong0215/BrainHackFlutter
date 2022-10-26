@@ -92,15 +92,7 @@ class InputNewPassword extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      onPressed: () {
-        showDialog(
-          barrierColor: Colors.black26,
-          context: context,
-          builder: (context) {
-            return const DialogFacebookLogin();
-          },
-        );
-      },
+      onPressed: () {},
       child: const Text(
         'THAY ĐỔI MẬT KHẨU',
         style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),

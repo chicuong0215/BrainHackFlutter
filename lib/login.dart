@@ -1,4 +1,7 @@
+import 'package:brain_hack/dialog_facebook_login.dart';
+import 'package:brain_hack/dialog_google_login_dart';
 import 'package:brain_hack/forget_password.dart';
+import 'package:brain_hack/menu.dart';
 import 'package:brain_hack/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +31,7 @@ class LoginHome extends StatelessWidget {
       ),
     );
     Widget imgvLogo = const Image(
-      image: AssetImage('images/icon/logo.png'),
+      image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
       height: 180,
       width: 180,
@@ -94,7 +97,14 @@ class LoginHome extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Menu(),
+          ),
+        );
+      },
       child: const Text(
         'ĐĂNG NHẬP',
         style: TextStyle(
@@ -141,11 +151,12 @@ class LoginHome extends StatelessWidget {
     Widget ibtnGoogle = IconButton(
       iconSize: 40,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Regiseter(),
-          ),
+        showDialog(
+          barrierColor: Colors.black26,
+          context: context,
+          builder: (context) {
+            return const DialogGoogleLogin();
+          },
         );
       },
       icon: Image.asset(
@@ -156,7 +167,15 @@ class LoginHome extends StatelessWidget {
     Widget ibtnFacebook = IconButton(
       color: Colors.blue,
       iconSize: 40,
-      onPressed: () {},
+      onPressed: () {
+        showDialog(
+          barrierColor: Colors.black26,
+          context: context,
+          builder: (context) {
+            return const DialogFacebookLogin();
+          },
+        );
+      },
       icon: Image.asset('images/icon/facebook.png'),
     );
 
