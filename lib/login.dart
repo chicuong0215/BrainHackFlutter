@@ -1,5 +1,5 @@
 import 'package:brain_hack/dialog_facebook_login.dart';
-import 'package:brain_hack/dialog_google_login_dart';
+import 'package:brain_hack/dialog_google_login.dart';
 import 'package:brain_hack/forget_password.dart';
 import 'package:brain_hack/menu.dart';
 import 'package:brain_hack/register.dart';

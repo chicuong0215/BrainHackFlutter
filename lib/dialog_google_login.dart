@@ -114,7 +114,8 @@ class DialogGoogleLoginHome extends State<DialogGoogleLogin> {
           padding: const EdgeInsets.all(10),
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: Color(0xFFFFEADC)),
+                borderRadius: BorderRadius.circular(30),
+                color: Color(0xFFFFEADC)),
             padding: const EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
