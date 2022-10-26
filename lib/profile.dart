@@ -17,7 +17,7 @@ class _ProfileState extends State<Profile> {
             iconSize: 70,
             onPressed: () {},
             icon: const Image(
-              image: AssetImage('images/icon/logo.png'),
+              image: AssetImage('images/icon/logo_v2.png'),
             ),
           ),
         ),
