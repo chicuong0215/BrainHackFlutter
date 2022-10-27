@@ -6,11 +6,11 @@ class DialogFacebookLogin extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return DialogFacebookLoginHome();
+    return _DialogFacebookLogin();
   }
 }
 
-class DialogFacebookLoginHome extends State<DialogFacebookLogin> {
+class _DialogFacebookLogin extends State<DialogFacebookLogin> {
   @override
   void initState() {
     super.initState();

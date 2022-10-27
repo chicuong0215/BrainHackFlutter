@@ -4,22 +4,17 @@ import 'package:brain_hack/forget_password.dart';
 import 'package:brain_hack/menu.dart';
 import 'package:brain_hack/register.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginHome(),
-    );
+    return LoginHome();
   }
 }
 
 class LoginHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Widget tvAppName = const Text(
       'BRAIN HACK',
       style: TextStyle(
@@ -136,7 +131,7 @@ class LoginHome extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Regiseter(),
+            builder: (context) => Register(),
           ),
         );
       },
@@ -179,148 +174,145 @@ class LoginHome extends StatelessWidget {
       icon: Image.asset('images/icon/facebook.png'),
     );
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.all(15),
-          //background
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
-          child: Center(
-            child: Column(
-              children: [
-                //name app
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  child: tvAppName,
-                ),
-                //logo
-                Container(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: imgvLogo,
-                ),
-                //text login
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  child: tvLogin,
-                ),
-                //text username
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                  child: tvUsername,
-                ),
-                Container(
-                  height: 45,
-                  child: Row(
-                    children: [
-                      //icon username
-                      Container(
-                        margin: EdgeInsets.only(left: 30),
-                        child: const Icon(
-                          Icons.person,
-                          size: 40,
-                          color: Colors.white,
-                        ),
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(15),
+        //background
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
+        child: Center(
+          child: Column(
+            children: [
+              //name app
+              Container(
+                margin: const EdgeInsets.only(top: 15),
+                child: tvAppName,
+              ),
+              //logo
+              Container(
+                padding: const EdgeInsets.only(top: 15),
+                child: imgvLogo,
+              ),
+              //text login
+              Container(
+                margin: const EdgeInsets.only(top: 15),
+                child: tvLogin,
+              ),
+              //text username
+              Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                child: tvUsername,
+              ),
+              Container(
+                height: 45,
+                child: Row(
+                  children: [
+                    //icon username
+                    Container(
+                      margin: EdgeInsets.only(left: 30),
+                      child: const Icon(
+                        Icons.person,
+                        size: 40,
+                        color: Colors.white,
                       ),
-                      //text filed username
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 40),
-                          child: txtUsername,
-                        ),
+                    ),
+                    //text filed username
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 40),
+                        child: txtUsername,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                //text password
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                  child: tvPassword,
-                ),
-                Container(
-                  height: 45,
-                  child: Row(
-                    children: [
-                      //icon password
-                      Container(
-                        padding: EdgeInsets.only(left: 30),
-                        child: const Icon(
-                          Icons.lock_outlined,
-                          size: 40,
-                          color: Colors.white,
-                        ),
+              ),
+              //text password
+              Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                child: tvPassword,
+              ),
+              Container(
+                height: 45,
+                child: Row(
+                  children: [
+                    //icon password
+                    Container(
+                      padding: EdgeInsets.only(left: 30),
+                      child: const Icon(
+                        Icons.lock_outlined,
+                        size: 40,
+                        color: Colors.white,
                       ),
-                      //text filed password
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 40),
-                          child: txtPassword,
-                        ),
+                    ),
+                    //text filed password
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 40),
+                        child: txtPassword,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                //button login
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  child: btnLogin,
-                ),
-                //text button forget
-                Container(
-                  margin: EdgeInsets.only(top: 15),
-                  child: tbtnForget,
-                ),
-                //text button register and text loginer
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      tbtnRegister,
-                      const Text(
-                        'HOẶC ĐĂNG NHẬP BẰNG',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      //icon button login with goole
-                      Container(
-                        child: ibtnGoogle,
-                      ),
-                      //icon button login with facebook
-                      Container(
-                        child: ibtnFacebook,
-                      ),
-                    ],
-                  ),
-                ),
-                const Expanded(
-                  flex: 5,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      'CGD@Copyright',
+              ),
+              //button login
+              Container(
+                margin: const EdgeInsets.only(top: 15),
+                child: btnLogin,
+              ),
+              //text button forget
+              Container(
+                margin: EdgeInsets.only(top: 15),
+                child: tbtnForget,
+              ),
+              //text button register and text loginer
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    tbtnRegister,
+                    const Text(
+                      'HOẶC ĐĂNG NHẬP BẰNG',
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
                       ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //icon button login with goole
+                    Container(
+                      child: ibtnGoogle,
+                    ),
+                    //icon button login with facebook
+                    Container(
+                      child: ibtnFacebook,
+                    ),
+                  ],
+                ),
+              ),
+              const Expanded(
+                flex: 5,
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    'CGD@Copyright',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -6,11 +6,11 @@ class DialogGoogleLogin extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return DialogGoogleLoginHome();
+    return _DialogGoogleLogin();
   }
 }
 
-class DialogGoogleLoginHome extends State<DialogGoogleLogin> {
+class _DialogGoogleLogin extends State<DialogGoogleLogin> {
   @override
   void initState() {
     super.initState();

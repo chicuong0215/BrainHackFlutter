@@ -1,13 +1,9 @@
-import 'package:brain_hack/forget_password.dart';
-import 'package:brain_hack/friend_profile.dart';
 import 'package:brain_hack/login.dart';
-import 'package:brain_hack/menu.dart';
-import 'package:brain_hack/profile.dart';
-import 'package:brain_hack/update_information.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(Login());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,9 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FriendProfile(),
+      home: Login(),
     );
   }
 }

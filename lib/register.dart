@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Regiseter extends StatelessWidget {
+class Register extends StatelessWidget {
   Widget tvAppName = const Text('BRAIN HACK',
       style: TextStyle(
         fontSize: 45,
@@ -94,205 +94,202 @@ class Regiseter extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Container(
-          padding: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
-          child: Center(
-            child: Container(
-              padding: EdgeInsets.only(
-                bottom: 0,
-              ),
-              child: Column(
-                children: [
-                  //BrainHack
-                  Container(
-                    margin: EdgeInsets.only(top: 15),
-                    child: tvAppName,
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
+        child: Center(
+          child: Container(
+            padding: EdgeInsets.only(
+              bottom: 0,
+            ),
+            child: Column(
+              children: [
+                //BrainHack
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: tvAppName,
+                ),
+                Container(padding: EdgeInsets.only(top: 15), child: imgvLogo),
+                Container(
+                  padding: EdgeInsets.only(top: 15),
+                  child: Text(
+                    'ĐĂNG KÝ',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Fraunces',
+                      fontStyle: FontStyle.italic,
+                      color: Colors.orange,
+                    ),
                   ),
-                  Container(padding: EdgeInsets.only(top: 15), child: imgvLogo),
-                  Container(
-                    padding: EdgeInsets.only(top: 15),
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),
+                  child: tvUsername,
+                ),
+                Container(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Icon(
+                          Icons.person,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10, right: 40),
+                          child: txtUsername,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),
+                  child: tvPassword,
+                ),
+                //txtPassword
+                Container(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Icon(
+                          Icons.lock_outlined,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10, right: 40),
+                          child: txtPassword,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),
+                  child: tvEmail,
+                ),
+                // xâc nhận mật khẩu
+                Container(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Icon(
+                          Icons.password_outlined,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10, right: 40),
+                          child: txtRepassword,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),
+                  child: Text(
+                    'EMAIL',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Fraunces',
+                      color: Colors.orange,
+                    ),
+                  ),
+                ),
+                //email
+                Container(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                          left: 25,
+                        ),
+                        child: Icon(
+                          Icons.email,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10, right: 40),
+                          child: txtEmail,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //NÚT ĐĂNG KÍ
+                Container(
+                  padding: EdgeInsets.only(top: 15),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      minimumSize: Size(200, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onPressed: () {},
                     child: Text(
                       'ĐĂNG KÝ',
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Fraunces',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.orange,
-                      ),
+                      style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),
-                    child: tvUsername,
-                  ),
-                  Container(
-                    height: 45,
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(left: 25),
-                          child: Icon(
-                            Icons.person,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10, right: 40),
-                            child: txtUsername,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),
-                    child: tvPassword,
-                  ),
-                  //txtPassword
-                  Container(
-                    height: 45,
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(left: 25),
-                          child: Icon(
-                            Icons.lock_outlined,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10, right: 40),
-                            child: txtPassword,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),
-                    child: tvEmail,
-                  ),
-                  // xâc nhận mật khẩu
-                  Container(
-                    height: 45,
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(left: 25),
-                          child: Icon(
-                            Icons.password_outlined,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10, right: 40),
-                            child: txtRepassword,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),
+                ),
+                //NÚT LÀM MÀU
+                const Expanded(
+                  flex: 5,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
                     child: Text(
-                      'EMAIL',
+                      'CGD@Copyright',
                       style: TextStyle(
-                        fontSize: 18,
+                        color: Color.fromARGB(255, 255, 255, 255),
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'Fraunces',
-                        color: Colors.orange,
+                        fontSize: 15,
                       ),
                     ),
                   ),
-                  //email
-                  Container(
-                    height: 45,
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(
-                            left: 25,
-                          ),
-                          child: Icon(
-                            Icons.email,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10, right: 40),
-                            child: txtEmail,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  //NÚT ĐĂNG KÍ
-                  Container(
-                    padding: EdgeInsets.only(top: 15),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                        minimumSize: Size(200, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'ĐĂNG KÝ',
-                        style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
-                      ),
-                    ),
-                  ),
-                  //NÚT LÀM MÀU
-                  const Expanded(
-                    flex: 5,
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        'CGD@Copyright',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            label: const Text(''),
-            shape: CircleBorder(side: BorderSide()),
-            icon: const Icon(Icons.arrow_back_ios_new),
-            backgroundColor: Colors.orange),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          label: const Text(''),
+          shape: CircleBorder(side: BorderSide()),
+          icon: const Icon(Icons.arrow_back_ios_new),
+          backgroundColor: Colors.orange),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }
