@@ -1,3 +1,4 @@
+import 'package:brain_hack/dialog_exit.dart';
 import 'package:flutter/material.dart';
 
 class MenuDrawer extends StatelessWidget {
@@ -36,48 +37,63 @@ class MenuDrawer extends StatelessWidget {
           ListTile(
             title: const Button(
               title: "LỊCH SỬ",
+              widget: DialogExit(),
             ),
             onTap: () {},
           ),
           ListTile(
             title: const Button(
               title: "CÁ NHÂN",
+              widget: DialogExit(),
             ),
             onTap: () {},
           ),
           ListTile(
             title: const Button(
               title: "XẾP HẠNG",
+              widget: DialogExit(),
             ),
             onTap: () {},
           ),
           ListTile(
             title: const Button(
               title: "TÚI ĐỒ",
+              widget: DialogExit(),
             ),
             onTap: () {},
           ),
           ListTile(
             title: const Button(
               title: "BẠN BÈ",
+              widget: DialogExit(),
             ),
             onTap: () {},
           ),
           ListTile(
             title: const Button(
               title: "CỬA HÀNG",
+              widget: DialogExit(),
             ),
             onTap: () {},
           ),
           ListTile(
             title: const Button(
               title: "CÀI ĐẶT",
+              widget: DialogExit(),
             ),
             onTap: () {},
           ),
           ListTile(
             title: const Button(
               title: "THÔNG TIN",
+              widget: DialogExit(),
+            ),
+            onTap: () {},
+          ),
+          ListTile(
+            title: const Button(
+              title: "ĐĂNG XUẤT",
+              widget: DialogExit(),
             ),
             onTap: () {},
           )
@@ -89,7 +105,9 @@ class MenuDrawer extends StatelessWidget {
 
 class Button extends StatelessWidget {
   final String title;
-  const Button({Key? key, required this.title}) : super(key: key);
+  final Widget widget;
+  const Button({Key? key, required this.title, required this.widget})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +119,16 @@ class Button extends StatelessWidget {
           borderRadius: BorderRadius.circular(0),
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pop(context);
+        showDialog(
+          barrierColor: Colors.black26,
+          context: context,
+          builder: (context) {
+            return widget;
+          },
+        );
+      },
       child: Text(
         title,
         style: const TextStyle(

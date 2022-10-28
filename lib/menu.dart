@@ -1,5 +1,4 @@
 import 'package:brain_hack/dialog_challenge.dart';
-import 'package:brain_hack/dialog_exit.dart';
 import 'package:brain_hack/menu_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +53,7 @@ class _Menu extends State<Menu> {
           )
         ],
       ),
-      drawer: const MenuDrawer(),
+      drawer: MenuDrawer(),
       body: Container(
         padding: const EdgeInsets.all(45),
         decoration: const BoxDecoration(
@@ -116,23 +115,21 @@ class _Menu extends State<Menu> {
               Stack(
                 children: [
                   Container(
+                    padding: const EdgeInsets.only(top: 90),
+                    decoration: const BoxDecoration(),
                     child: Container(
-                      padding: const EdgeInsets.only(top: 90),
-                      decoration: const BoxDecoration(),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: const Color.fromARGB(255, 0, 50, 91),
-                        ),
-                        width: 400,
-                        height: 90,
-                        padding:
-                            const EdgeInsets.only(top: 0, left: 50, right: 50),
-                        child: Column(
-                          children: [
-                            tvLuyenTap,
-                          ],
-                        ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: const Color.fromARGB(255, 0, 50, 91),
+                      ),
+                      width: 400,
+                      height: 90,
+                      padding:
+                          const EdgeInsets.only(top: 0, left: 50, right: 50),
+                      child: Column(
+                        children: [
+                          tvLuyenTap,
+                        ],
                       ),
                     ),
                   ),
