@@ -1,3 +1,5 @@
+import 'package:brain_hack/dialog_challenge.dart';
+import 'package:brain_hack/dialog_exit.dart';
 import 'package:brain_hack/menu_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -88,7 +90,15 @@ class _Menu extends State<Menu> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            barrierColor: Colors.black26,
+                            context: context,
+                            builder: (context) {
+                              return const DialogChallenge();
+                            },
+                          );
+                        },
                         child: const Text(
                           'BẮT ĐẦU',
                           style: TextStyle(
