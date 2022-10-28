@@ -1,5 +1,4 @@
 import 'package:brain_hack/login.dart';
-import 'package:brain_hack/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Menu(),
+      home: Login(),
     );
   }
 }
