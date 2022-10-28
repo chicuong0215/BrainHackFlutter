@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MenuDrawer extends StatelessWidget {
@@ -12,10 +11,10 @@ class MenuDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 30, bottom: 30),
             child: const Icon(
               Icons.person,
-              size: 45,
+              size: 60,
               color: Colors.orange,
             ),
           ),

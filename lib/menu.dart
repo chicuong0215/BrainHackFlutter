@@ -2,6 +2,8 @@ import 'package:brain_hack/menu_drawer.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatefulWidget {
+  const Menu({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _Menu();
@@ -50,9 +52,9 @@ class _Menu extends State<Menu> {
           )
         ],
       ),
-      drawer: MenuDrawer(),
+      drawer: const MenuDrawer(),
       body: Container(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(45),
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
@@ -110,7 +112,7 @@ class _Menu extends State<Menu> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: Color.fromARGB(255, 0, 50, 91),
+                          color: const Color.fromARGB(255, 0, 50, 91),
                         ),
                         width: 400,
                         height: 90,
