@@ -7,7 +7,7 @@ import 'package:brain_hack/update_information.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Login());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Profile(),
+      home: FriendProfile(),
     );
   }
 }

@@ -14,22 +14,39 @@ class _FriendProfileState extends State<FriendProfile> {
       children: [
         Container(
           child: IconButton(
-            iconSize: 70,
+            iconSize: 100,
             onPressed: () {},
             icon: const Image(
-              image: AssetImage('images/icon/logo.png'),
+              image: AssetImage('images/icon/logo_v2.png'),
             ),
           ),
         ),
         Container(
           margin: EdgeInsets.only(left: 30),
-          child: const Text(
-            'PROFILE',
-            style: TextStyle(
-              fontSize: 70,
-              fontFamily: 'Fraunces',
-              color: Colors.orange,
-            ),
+          child: Column(
+            children: [
+              Container(
+                height: 35,
+                child: const Text(
+                  'HỒ SƠ',
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontFamily: 'Fraunces',
+                    color: Colors.orange,
+                  ),
+                ),
+              ),
+              Container(
+                child: const Text(
+                  'BẠN BÈ',
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontFamily: 'Fraunces',
+                    color: Colors.orange,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
@@ -241,8 +258,10 @@ class _FriendProfileState extends State<FriendProfile> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 15),
+                color: Colors.blue,
+                padding: EdgeInsets.only(left: 5),
                 child: Text(
+                  overflow: TextOverflow.visible,
                   'NVA@GMAIL.COM',
                   style: GoogleFonts.bungee(
                     textStyle:
@@ -291,7 +310,7 @@ class _FriendProfileState extends State<FriendProfile> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 15),
+                padding: EdgeInsets.only(left: 5),
                 child: Text(
                   '20/12/2002',
                   style: GoogleFonts.bungee(
@@ -314,55 +333,52 @@ class _FriendProfileState extends State<FriendProfile> {
         ),
       ],
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            //padding: EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/bg.jpg"), fit: BoxFit.cover),
-            ),
-            child: Column(
-              children: [
-                //title
-                Container(
-                  child: rowTitle,
+    return Scaffold(
+      body: Center(
+        child: Container(
+          //padding: EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover),
+          ),
+          child: Column(
+            children: [
+              //title
+              Container(
+                child: rowTitle,
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 20, left: 20, right: 20, bottom: 10),
+                child: Column(
+                  children: [
+                    //stats
+                    Container(
+                      child: personalStats,
+                    ),
+                    // Personal Information
+                    Container(
+                      height: 350,
+                      margin: EdgeInsets.only(top: 20, left: 25),
+                      child: personalInformation,
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                      top: 20, left: 20, right: 20, bottom: 10),
-                  child: Column(
-                    children: [
-                      //stats
-                      Container(
-                        child: personalStats,
-                      ),
-                      // Personal Information
-                      Container(
-                        height: 270,
-                        margin: EdgeInsets.only(top: 20, left: 25),
-                        child: personalInformation,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          label: const Text(''),
-          shape: CircleBorder(side: BorderSide()),
-          icon: const Icon(Icons.arrow_back_ios_new),
-          backgroundColor: Colors.blue,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        label: const Text(''),
+        shape: CircleBorder(side: BorderSide()),
+        icon: const Icon(Icons.arrow_back_ios_new),
+        backgroundColor: Colors.blue,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }

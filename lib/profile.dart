@@ -14,7 +14,7 @@ class _ProfileState extends State<Profile> {
       children: [
         Container(
           child: IconButton(
-            iconSize: 70,
+            iconSize: 100,
             onPressed: () {},
             icon: const Image(
               image: AssetImage('images/icon/logo_v2.png'),
@@ -398,46 +398,43 @@ class _ProfileState extends State<Profile> {
         ),
       ],
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            //padding: EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/bg.jpg"), fit: BoxFit.cover),
-            ),
-            child: Column(
-              children: [
-                //title
-                Container(
-                  child: rowTitle,
+    return Scaffold(
+      body: Center(
+        child: Container(
+          //padding: EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover),
+          ),
+          child: Column(
+            children: [
+              //title
+              Container(
+                child: rowTitle,
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 20, left: 20, right: 20, bottom: 10),
+                child: Column(
+                  children: [
+                    //stats
+                    Container(
+                      child: personalStats,
+                    ),
+                    // Personal Information
+                    Container(
+                      height: 270,
+                      margin: EdgeInsets.only(top: 20, left: 20),
+                      child: personalInformation,
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                      top: 20, left: 20, right: 20, bottom: 10),
-                  child: Column(
-                    children: [
-                      //stats
-                      Container(
-                        child: personalStats,
-                      ),
-                      // Personal Information
-                      Container(
-                        height: 270,
-                        margin: EdgeInsets.only(top: 20, left: 20),
-                        child: personalInformation,
-                      ),
-                    ],
-                  ),
-                ),
-                //footer
-                Container(
-                  child: footer,
-                ),
-              ],
-            ),
+              ),
+              //footer
+              Container(
+                child: footer,
+              ),
+            ],
           ),
         ),
       ),
