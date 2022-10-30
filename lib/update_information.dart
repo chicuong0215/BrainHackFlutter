@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class UpdateInformation extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => UpdateInformationState();
+  State<StatefulWidget> createState() => _UpdateInformationState();
 }
 
-class UpdateInformationState extends State<UpdateInformation> {
+class _UpdateInformationState extends State<UpdateInformation> {
   String? gender;
   @override
   Widget build(BuildContext context) {

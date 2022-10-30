@@ -1,23 +1,8 @@
 import 'package:brain_hack/input_new_password.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ForgetPassword extends StatelessWidget {
   const ForgetPassword({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ForgetPasswordHome(),
-    );
-  }
-}
-
-class ForgetPasswordHome extends StatelessWidget {
-  const ForgetPasswordHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +77,7 @@ class ForgetPasswordHome extends StatelessWidget {
             ),
           ),
           child: Container(
-            margin: EdgeInsets.only(left: 10, right: 10),
+            margin: const EdgeInsets.only(left: 10, right: 10),
             child: const Text('LẤY MÃ',
                 style: TextStyle(
                   fontFamily: 'Fraunces',
@@ -303,6 +288,16 @@ class ForgetPasswordHome extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        label: const Text(''),
+        shape: const CircleBorder(side: BorderSide()),
+        icon: const Icon(Icons.arrow_back_ios_new),
+        backgroundColor: Colors.orange,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }

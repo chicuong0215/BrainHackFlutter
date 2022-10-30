@@ -1,25 +1,20 @@
 import 'package:brain_hack/dialog_facebook_login.dart';
-import 'package:brain_hack/dialog_google_login_dart';
+import 'package:brain_hack/dialog_google_login.dart';
 import 'package:brain_hack/forget_password.dart';
 import 'package:brain_hack/menu.dart';
 import 'package:brain_hack/register.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginHome(),
-    );
+    return _LoginHome();
   }
 }
 
-class LoginHome extends StatelessWidget {
+class _LoginHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Widget tvAppName = const Text(
       'BRAIN HACK',
       style: TextStyle(
@@ -136,7 +131,7 @@ class LoginHome extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Regiseter(),
+            builder: (context) => Register(),
           ),
         );
       },

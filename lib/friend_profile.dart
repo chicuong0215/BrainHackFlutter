@@ -261,7 +261,6 @@ class _FriendProfileState extends State<FriendProfile> {
                 color: Colors.blue,
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  overflow: TextOverflow.visible,
                   'NVA@GMAIL.COM',
                   style: GoogleFonts.bungee(
                     textStyle:

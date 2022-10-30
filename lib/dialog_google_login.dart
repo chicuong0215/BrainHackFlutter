@@ -6,11 +6,11 @@ class DialogGoogleLogin extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return DialogGoogleLoginHome();
+    return _DialogGoogleLogin();
   }
 }
 
-class DialogGoogleLoginHome extends State<DialogGoogleLogin> {
+class _DialogGoogleLogin extends State<DialogGoogleLogin> {
   @override
   void initState() {
     super.initState();
@@ -114,7 +114,8 @@ class DialogGoogleLoginHome extends State<DialogGoogleLogin> {
           padding: const EdgeInsets.all(10),
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: Color(0xFFFFEADC)),
+                borderRadius: BorderRadius.circular(30),
+                color: Color(0xFFFFEADC)),
             padding: const EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
