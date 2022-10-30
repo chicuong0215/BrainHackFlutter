@@ -166,20 +166,6 @@ class _Menu extends State<Menu> {
                   ),
                 ],
               ),
-              const Expanded(
-                flex: 5,
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    'CGD@Copyright',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),

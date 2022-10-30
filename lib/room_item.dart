@@ -65,7 +65,8 @@ class _RoomItem extends State<RoomItem> {
                 img,
                 const Text(
                   "Đang thi\nđấu...",
-                  style: TextStyle(color: Colors.white, fontSize: 9),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 12),
                 )
               ],
             ),

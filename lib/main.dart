@@ -1,3 +1,4 @@
+import 'package:brain_hack/create_room.dart';
 import 'package:brain_hack/login.dart';
 import 'package:brain_hack/menu.dart';
 import 'package:brain_hack/profile.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Menu(),
+      home: Login(),
     );
   }
 }
