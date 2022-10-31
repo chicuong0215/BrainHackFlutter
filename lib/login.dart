@@ -36,19 +36,25 @@ class LoginHome extends StatelessWidget {
     Widget tvLogin = const Text(
       'ĐĂNG NHẬP',
       style: TextStyle(
-        fontSize: 35,
-        fontWeight: FontWeight.w700,
-        fontFamily: 'Fraunces',
-        fontStyle: FontStyle.italic,
-        color: Colors.orange,
-      ),
+          fontSize: 35,
+          fontWeight: FontWeight.w700,
+          fontFamily: 'Fraunces',
+          fontStyle: FontStyle.italic,
+          color: Colors.orange,
+          shadows: [
+            Shadow(
+              offset: Offset(-1, -1),
+              blurRadius: 1,
+              color: Color.fromARGB(255, 33, 243, 229),
+            )
+          ]),
     );
     Widget tvUsername = const Text(
       'USERNAME',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -69,7 +75,7 @@ class LoginHome extends StatelessWidget {
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -96,28 +102,32 @@ class LoginHome extends StatelessWidget {
       ),
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Menu(),
-          ),
-        );
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => Menu(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ));
       },
       child: const Text(
         'ĐĂNG NHẬP',
         style: TextStyle(
           fontSize: 18,
-          fontFamily: 'Fraunces',
+          fontFamily: 'Alata',
         ),
       ),
     );
     Widget tbtnForget = TextButton(
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ForgetPassword(),
-          ),
-        );
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => const ForgetPassword(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ));
       },
       child: const Text(
         'QUÊN MẬT KHẨU',
@@ -131,11 +141,13 @@ class LoginHome extends StatelessWidget {
     Widget tbtnRegister = TextButton(
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Register(),
-          ),
-        );
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => Register(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ));
       },
       child: const Text(
         'ĐĂNG KÝ',

@@ -1,14 +1,13 @@
-import 'package:brain_hack/playing.dart';
 import 'package:flutter/material.dart';
 
-class CreateRoom extends StatefulWidget {
+class EditRoom extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _CreateRoom();
+    return _EditRoom();
   }
 }
 
-class _CreateRoom extends State<CreateRoom> {
+class _EditRoom extends State<EditRoom> {
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -36,8 +35,8 @@ class _CreateRoom extends State<CreateRoom> {
         )
       ],
     );
-    Widget tvCreateRoom = const Text(
-      "TẠO\nPHÒNG",
+    Widget tvEditRoom = const Text(
+      "CHỈNH SỬA",
       textAlign: TextAlign.center,
       style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -51,50 +50,44 @@ class _CreateRoom extends State<CreateRoom> {
             )
           ]),
     );
-    Widget btnCreate = ElevatedButton(
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.transparent)),
-        onPressed: () {
-          Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (_, __, ___) => Playing(),
-                transitionDuration: const Duration(milliseconds: 500),
-                transitionsBuilder: (_, a, __, c) =>
-                    FadeTransition(opacity: a, child: c),
-              ));
-        },
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Image.asset(
-              'images/icon/create.gif',
-              width: 112,
-              height: 112,
-            ),
-            const Text(
-              'TẠO',
-              style: TextStyle(
-                  color: Colors.yellow,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(3, 3),
-                      blurRadius: 1,
-                      color: Colors.blue,
-                    )
-                  ]),
-            ),
-          ],
-        ));
+    Widget tvId = const Text(
+      'ID PHÒNG: 000006',
+      style: TextStyle(color: Colors.red, fontSize: 30),
+    );
+    Widget imgEdit = Stack(
+      alignment: Alignment.center,
+      children: [
+        IconButton(
+          iconSize: 512,
+          onPressed: () {},
+          icon: const Image(
+            image: AssetImage('images/icon/create.gif'),
+          ),
+        ),
+        const Text(
+          'CHỈNH SỬA',
+          style: TextStyle(
+              color: Colors.yellow,
+              fontSize: 21,
+              fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(
+                  offset: Offset(3, 3),
+                  blurRadius: 1,
+                  color: Colors.blue,
+                )
+              ]),
+        ),
+      ],
+    );
     return Scaffold(
       backgroundColor: const Color(0xFF090050),
       body: SingleChildScrollView(
         child: Column(
           children: [
             rowTitle,
-            tvCreateRoom,
+            tvEditRoom,
+            tvId,
             SizedBox(
               child: Row(
                 children: [
@@ -157,7 +150,12 @@ class _CreateRoom extends State<CreateRoom> {
                 )
               ],
             ),
-            btnCreate
+            Container(
+              padding: EdgeInsets.only(top: 15),
+              width: 150,
+              height: 150,
+              child: imgEdit,
+            )
           ],
         ),
       ),
@@ -187,7 +185,7 @@ class TextCustom extends StatelessWidget {
       textAlign: TextAlign.center,
       style: const TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 45,
+          fontSize: 36,
           color: Colors.white,
           shadows: [
             Shadow(
@@ -204,7 +202,7 @@ class TextFieldCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 60,
       padding: const EdgeInsets.only(left: 15),
       child: TextField(
           textAlign: TextAlign.center,

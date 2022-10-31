@@ -20,7 +20,7 @@ class Register extends StatelessWidget {
     style: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
-      fontFamily: 'Fraunces',
+      fontFamily: 'Alata',
       color: Colors.orange,
     ),
   );
@@ -66,7 +66,7 @@ class Register extends StatelessWidget {
     style: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
-      fontFamily: 'Fraunces',
+      fontFamily: 'Alata',
       color: Colors.orange,
     ),
   );
@@ -75,7 +75,7 @@ class Register extends StatelessWidget {
     style: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
-      fontFamily: 'Fraunces',
+      fontFamily: 'Alata',
       color: Colors.orange,
     ),
   );
@@ -118,12 +118,18 @@ class Register extends StatelessWidget {
                   child: Text(
                     'ĐĂNG KÝ',
                     style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Fraunces',
-                      fontStyle: FontStyle.italic,
-                      color: Colors.orange,
-                    ),
+                        fontSize: 36,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Fraunces',
+                        fontStyle: FontStyle.italic,
+                        color: Colors.orange,
+                        shadows: [
+                          Shadow(
+                            offset: Offset(-1, -1),
+                            blurRadius: 1,
+                            color: Color.fromARGB(255, 33, 243, 229),
+                          )
+                        ]),
                   ),
                 ),
                 Container(
@@ -257,22 +263,7 @@ class Register extends StatelessWidget {
                     onPressed: () {},
                     child: Text(
                       'ĐĂNG KÝ',
-                      style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
-                    ),
-                  ),
-                ),
-                //NÚT LÀM MÀU
-                const Expanded(
-                  flex: 5,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      'CGD@Copyright',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
+                      style: TextStyle(fontSize: 18, fontFamily: 'Alata'),
                     ),
                   ),
                 ),

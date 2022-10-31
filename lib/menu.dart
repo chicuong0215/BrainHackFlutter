@@ -41,135 +41,142 @@ class _Menu extends State<Menu> {
         color: Color.fromARGB(255, 255, 0, 144),
       ),
     );
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.red, size: 40),
-        title: null,
-        backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.play_circle),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Rooms(),
-                ),
-              );
-            },
-          )
-        ],
-      ),
-      drawer: MenuDrawer(),
-      body: Container(
-        padding: const EdgeInsets.all(45),
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
-        child: Center(
-          child: Column(
-            children: [
-              imgvLogo,
-              Container(
-                decoration: const BoxDecoration(),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    gradient: const LinearGradient(colors: [
-                      Colors.white,
-                      Color.fromARGB(255, 255, 185, 208)
-                    ]),
-                  ),
-                  width: 300,
-                  height: 170,
-                  padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
-                  child: Column(children: [
-                    tvGhepTran,
-                    Container(
-                      padding: const EdgeInsets.only(top: 40),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 255, 89, 0),
-                          minimumSize: const Size(200, 60),
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                                width: 2.5, color: Color(0xFF090050)),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        onPressed: () {
-                          showDialog(
-                            barrierColor: Colors.black26,
-                            context: context,
-                            builder: (context) {
-                              return const DialogChallenge();
-                            },
-                          );
-                        },
-                        child: const Text(
-                          'BẮT ĐẦU',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Fraunces',
-                              color: Color(0xFF090050)),
-                        ),
-                      ),
-                    ),
-                  ]),
-                ),
-              ),
-              Stack(
+    return WillPopScope(
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            iconTheme: const IconThemeData(color: Colors.red, size: 40),
+            title: null,
+            backgroundColor: Colors.transparent,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.kitchen),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (_, __, ___) => Rooms(),
+                        transitionDuration: const Duration(milliseconds: 500),
+                        transitionsBuilder: (_, a, __, c) =>
+                            FadeTransition(opacity: a, child: c),
+                      ));
+                },
+              )
+            ],
+          ),
+          drawer: MenuDrawer(),
+          body: Container(
+            padding: const EdgeInsets.all(45),
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
+            child: Center(
+              child: Column(
                 children: [
+                  imgvLogo,
                   Container(
-                    padding: const EdgeInsets.only(top: 90),
                     decoration: const BoxDecoration(),
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: const Color.fromARGB(255, 0, 50, 91),
+                        borderRadius: BorderRadius.circular(15),
+                        gradient: const LinearGradient(colors: [
+                          Colors.white,
+                          Color.fromARGB(255, 255, 185, 208)
+                        ]),
                       ),
-                      width: 400,
-                      height: 90,
+                      width: 300,
+                      height: 170,
                       padding:
-                          const EdgeInsets.only(top: 0, left: 50, right: 50),
-                      child: Column(
-                        children: [
-                          tvLuyenTap,
-                        ],
-                      ),
+                          const EdgeInsets.only(top: 5, left: 20, right: 20),
+                      child: Column(children: [
+                        tvGhepTran,
+                        Container(
+                          padding: const EdgeInsets.only(top: 40),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 255, 89, 0),
+                              minimumSize: const Size(200, 60),
+                              shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                    width: 2.5, color: Color(0xFF090050)),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                barrierColor: Colors.black26,
+                                context: context,
+                                builder: (context) {
+                                  return const DialogChallenge();
+                                },
+                              );
+                            },
+                            child: const Text(
+                              'BẮT ĐẦU',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Fraunces',
+                                  color: Color(0xFF090050)),
+                            ),
+                          ),
+                        ),
+                      ]),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                        top: 150, bottom: 0, left: 100, right: 100),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFC5658),
-                        minimumSize: const Size(200, 60),
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(
-                              width: 2.5, color: Color(0xFF090050)),
-                          borderRadius: BorderRadius.circular(30),
+                  Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(top: 90),
+                        decoration: const BoxDecoration(),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: const Color.fromARGB(255, 0, 50, 91),
+                          ),
+                          width: 400,
+                          height: 90,
+                          padding: const EdgeInsets.only(
+                              top: 0, left: 50, right: 50),
+                          child: Column(
+                            children: [
+                              tvLuyenTap,
+                            ],
+                          ),
                         ),
                       ),
-                      onPressed: () {},
-                      child: const Text(
-                        'PLAY',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Fraunces',
-                            color: Color(0xFF090050)),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            top: 150, bottom: 0, left: 100, right: 100),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFFC5658),
+                            minimumSize: const Size(200, 60),
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                  width: 2.5, color: Color(0xFF090050)),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            'PLAY',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'Fraunces',
+                                color: Color(0xFF090050)),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
-    );
+        onWillPop: () async {
+          return true;
+        });
   }
 }

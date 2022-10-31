@@ -130,7 +130,7 @@ class _Rooms extends State<Rooms> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(3),
           color: Colors.white,
         ),
       ],
