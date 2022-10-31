@@ -1,5 +1,6 @@
 import 'package:brain_hack/dialog_challenge.dart';
 import 'package:brain_hack/menu_drawer.dart';
+import 'package:brain_hack/rooms.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatefulWidget {
@@ -49,7 +50,14 @@ class _Menu extends State<Menu> {
         actions: [
           IconButton(
             icon: const Icon(Icons.play_circle),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Rooms(),
+                ),
+              );
+            },
           )
         ],
       ),

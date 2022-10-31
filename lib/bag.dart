@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Shop extends StatelessWidget {
+class Bag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget title = Container(
@@ -21,11 +21,11 @@ class Shop extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 70),
+            margin: EdgeInsets.only(left: 60, top: 10),
             child: const Text(
-              'SHOP',
+              'TÚI ĐỒ',
               style: TextStyle(
-                fontSize: 50,
+                fontSize: 45,
                 fontFamily: 'Fraunces',
                 color: Color(0xFFFC5658),
                 shadows: [
@@ -39,108 +39,6 @@ class Shop extends StatelessWidget {
           ),
         ],
       ),
-    );
-    Widget unitCoin = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          child: Text.rich(
-            TextSpan(
-              text: 'COIN : ',
-              style: GoogleFonts.bungee(
-                textStyle: const TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFFFC5658),
-                  shadows: [
-                    Shadow(
-                        blurRadius: 1.0,
-                        color: Colors.white,
-                        offset: Offset(-2.0, 2.0)),
-                  ],
-                ),
-              ),
-              children: [
-                TextSpan(
-                  text: '100',
-                  style: GoogleFonts.bungee(
-                    textStyle: const TextStyle(
-                      fontSize: 20,
-                      color: Color(0xFFFC5658),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 5),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.lightBlue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(7),
-              ),
-            ),
-            onPressed: () {},
-            child: const Text(
-              '+',
-              style: TextStyle(fontSize: 25, color: Colors.white),
-            ),
-          ),
-        ),
-      ],
-    );
-    Widget unitCGD = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          child: Text.rich(
-            TextSpan(
-              text: 'CGD : ',
-              style: GoogleFonts.bungee(
-                textStyle: const TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFFFC5658),
-                  shadows: [
-                    Shadow(
-                        blurRadius: 1.0,
-                        color: Colors.white,
-                        offset: Offset(-2.0, 2.0)),
-                  ],
-                ),
-              ),
-              children: [
-                TextSpan(
-                  text: '100',
-                  style: GoogleFonts.bungee(
-                    textStyle: const TextStyle(
-                      fontSize: 20,
-                      color: Color(0xFFFC5658),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 5),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.lightBlue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(7),
-              ),
-            ),
-            onPressed: () {},
-            child: const Text(
-              '+',
-              style: TextStyle(fontSize: 25, color: Colors.white),
-            ),
-          ),
-        ),
-      ],
     );
     Widget itemOne = Column(
       children: [
@@ -208,43 +106,6 @@ class Shop extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                alignment: Alignment.bottomLeft,
-                child: Text.rich(
-                  TextSpan(
-                    text: 'SỞ HỮU : ',
-                    style: GoogleFonts.bungee(
-                      textStyle: const TextStyle(
-                        fontSize: 15,
-                        color: Color(0xFF94DD26),
-                        shadows: [
-                          Shadow(
-                            blurRadius: 10.0,
-                            color: Color(0xFF79FFA0),
-                          ),
-                        ],
-                      ),
-                    ),
-                    children: [
-                      TextSpan(
-                        text: '2',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                            fontSize: 15,
-                            color: Color(0xFF94DD26),
-                            shadows: [
-                              Shadow(
-                                blurRadius: 10.0,
-                                color: Color(0xFF79FFA0),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -253,14 +114,14 @@ class Shop extends StatelessWidget {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.all(15),
-              primary: Color(0xFF94DD26),
+              primary: Color(0xFFFF001b),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(7),
               ),
             ),
             onPressed: () {},
             child: const Text(
-              '20 CDG',
+              ' SỐ LƯỢNG : 2 ',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
@@ -273,6 +134,7 @@ class Shop extends StatelessWidget {
           height: 150,
           width: 150,
           decoration: BoxDecoration(
+            //color: Colors.red,
             border: Border.all(
               color: Color(0xFF79ffa0),
               width: 5,
@@ -325,24 +187,6 @@ class Shop extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  'ĐÃ SỞ HỮU ',
-                  style: GoogleFonts.bungee(
-                    textStyle: const TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF94DD26),
-                      shadows: [
-                        Shadow(
-                          blurRadius: 10.0,
-                          color: Color(0xFF79FFA0),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -351,14 +195,14 @@ class Shop extends StatelessWidget {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.all(15),
-              primary: Color(0xFFFF001b),
+              primary: Color(0xFFF3168D8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(7),
               ),
             ),
             onPressed: () {},
             child: const Text(
-              '20 CDG',
+              'ĐANG SỬ DỤNG',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
@@ -371,6 +215,7 @@ class Shop extends StatelessWidget {
           height: 150,
           width: 150,
           decoration: BoxDecoration(
+            //color: Colors.red,
             border: Border.all(
               color: Color(0xFF79ffa0),
               width: 5,
@@ -380,9 +225,7 @@ class Shop extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.center,
-                child: Image(
-                  image: AssetImage('images/icon/item_1.png'),
-                ),
+                child: Image(image: AssetImage('images/icon/item_3.png')),
               ),
               Container(
                 child: Row(
@@ -425,24 +268,6 @@ class Shop extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  'CHƯA SỞ HỮU ',
-                  style: GoogleFonts.bungee(
-                    textStyle: const TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFFFF001b),
-                      shadows: [
-                        Shadow(
-                          blurRadius: 10.0,
-                          color: Color(0xFFFC5658),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -451,14 +276,14 @@ class Shop extends StatelessWidget {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.all(15),
-              primary: Color(0xFF94DD26),
+              primary: Color(0xFFF3168D8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(7),
               ),
             ),
             onPressed: () {},
             child: const Text(
-              '20 CDG',
+              'ĐANG SỬ DỤNG',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
@@ -471,6 +296,7 @@ class Shop extends StatelessWidget {
           height: 150,
           width: 150,
           decoration: BoxDecoration(
+            //color: Colors.red,
             border: Border.all(
               color: Color(0xFF79ffa0),
               width: 5,
@@ -480,9 +306,7 @@ class Shop extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.center,
-                child: Image(
-                  image: AssetImage('images/icon/item_2.png'),
-                ),
+                child: Image(image: AssetImage('images/icon/item_4.png')),
               ),
               Container(
                 child: Row(
@@ -525,24 +349,6 @@ class Shop extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  'CHƯA SỞ HỮU ',
-                  style: GoogleFonts.bungee(
-                    textStyle: const TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFFFF001b),
-                      shadows: [
-                        Shadow(
-                          blurRadius: 10.0,
-                          color: Color(0xFFFC5658),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -558,7 +364,7 @@ class Shop extends StatelessWidget {
             ),
             onPressed: () {},
             child: const Text(
-              '20 CDG',
+              'SỬ DỤNG',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
@@ -570,46 +376,45 @@ class Shop extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            // title
             Container(
               child: title,
             ),
-            // Coin
             Container(
-              margin: EdgeInsets.only(left: 100, right: 60),
-              child: unitCoin,
-            ),
-            //CGD
-            Container(
-              margin: EdgeInsets.only(left: 100, right: 60),
-              child: unitCGD,
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              //color: Colors.red,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    child: itemOne,
-                  ),
-                  Container(
-                    child: itemTwo,
-                  ),
-                ],
+              margin: EdgeInsets.all(20),
+              height: 550,
+              decoration: BoxDecoration(
+                border: Border.all(width: 5, color: Colors.white),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 50),
-              //color: Colors.red,
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    child: itemThree,
+                    //margin: EdgeInsets.only(top: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          child: itemOne,
+                        ),
+                        Container(
+                          child: itemTwo,
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
-                    child: itemFour,
+                    //margin: EdgeInsets.only(top: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          child: itemThree,
+                        ),
+                        Container(
+                          child: itemFour,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

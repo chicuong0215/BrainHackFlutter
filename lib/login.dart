@@ -175,101 +175,103 @@ class _LoginHome extends StatelessWidget {
     );
 
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(15),
-        //background
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
-        child: Center(
-          child: Column(
-            children: [
-              //name app
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: tvAppName,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Image.asset(
+                "images/bg.jpg",
+                fit: BoxFit.cover,
               ),
-              //logo
-              Container(
-                padding: const EdgeInsets.only(top: 15),
-                child: imgvLogo,
-              ),
-              //text login
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: tvLogin,
-              ),
-              //text username
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                child: tvUsername,
-              ),
-              Container(
-                height: 45,
-                child: Row(
-                  children: [
-                    //icon username
-                    Container(
-                      margin: EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.person,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    //text filed username
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 40),
-                        child: txtUsername,
-                      ),
-                    ),
-                  ],
+            ),
+            Column(
+              children: [
+                //name app
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: tvAppName,
                 ),
-              ),
-              //text password
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                child: tvPassword,
-              ),
-              Container(
-                height: 45,
-                child: Row(
-                  children: [
-                    //icon password
-                    Container(
-                      padding: EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.lock_outlined,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    //text filed password
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 40),
-                        child: txtPassword,
-                      ),
-                    ),
-                  ],
+                //logo
+                Container(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: imgvLogo,
                 ),
-              ),
-              //button login
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: btnLogin,
-              ),
-              //text button forget
-              Container(
-                margin: EdgeInsets.only(top: 15),
-                child: tbtnForget,
-              ),
-              //text button register and text loginer
-              Container(
-                child: Row(
+                //text login
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: tvLogin,
+                ),
+                //text username
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                  child: tvUsername,
+                ),
+                Container(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      //icon username
+                      Container(
+                        margin: EdgeInsets.only(left: 30),
+                        child: const Icon(
+                          Icons.person,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      //text filed username
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 40),
+                          child: txtUsername,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //text password
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                  child: tvPassword,
+                ),
+                SizedBox(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      //icon password
+                      Container(
+                        padding: EdgeInsets.only(left: 30),
+                        child: const Icon(
+                          Icons.lock_outlined,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      //text filed password
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 40),
+                          child: txtPassword,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //button login
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: btnLogin,
+                ),
+                //text button forget
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: tbtnForget,
+                ),
+                //text button register and text loginer
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     tbtnRegister,
@@ -282,9 +284,7 @@ class _LoginHome extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              Container(
-                child: Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //icon button login with goole
@@ -297,23 +297,24 @@ class _LoginHome extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              const Expanded(
-                flex: 5,
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    'CGD@Copyright',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
+
+                const Expanded(
+                  flex: 5,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      'CGD@Copyright',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );

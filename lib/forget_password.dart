@@ -35,7 +35,7 @@ class ForgetPassword extends StatelessWidget {
 
     Widget edtUsername = TextField(
       keyboardType: TextInputType.text,
-      textAlignVertical: TextAlignVertical.top,
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -50,7 +50,7 @@ class ForgetPassword extends StatelessWidget {
 
     Widget edtEmail = TextField(
       keyboardType: TextInputType.emailAddress,
-      textAlignVertical: TextAlignVertical.top,
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -65,7 +65,7 @@ class ForgetPassword extends StatelessWidget {
 
     Widget edtCode = TextField(
       keyboardType: TextInputType.number,
-      textAlignVertical: TextAlignVertical.top,
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         filled: true,
         suffixIcon: ElevatedButton(
@@ -142,152 +142,142 @@ class ForgetPassword extends StatelessWidget {
       ),
     );
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        padding: const EdgeInsets.all(15),
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
-        //body
-        child: Column(
-          children: [
-            //app name
-            Container(
-              margin: const EdgeInsets.only(top: 15),
-              child: tvAppName,
+      body: SingleChildScrollView(
+          child: Stack(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Image.asset(
+              "images/bg.jpg",
+              fit: BoxFit.cover,
             ),
-            //logo
-            Container(
-              margin: const EdgeInsets.only(top: 15),
-              child: imgvLogo,
-            ),
-            //forget password title
-            Container(
-              margin: const EdgeInsets.only(top: 15),
-              child: tvForgetPasswordTitle,
-            ),
-            //username
-            Container(
-              alignment: Alignment.topLeft,
-              padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-              child: tvUsername,
-            ),
-            SizedBox(
-              height: 45,
-              child: Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 30),
-                    child: const Icon(
-                      Icons.person,
-                      size: 40,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 30),
-                      child: edtUsername,
-                    ),
-                  ),
-                ],
+          ),
+          Column(
+            children: [
+              //app name
+              Container(
+                margin: const EdgeInsets.only(top: 15),
+                child: tvAppName,
               ),
-            ),
-            //email
-            Container(
-              alignment: Alignment.topLeft,
-              padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-              child: tvEmail,
-            ),
-            SizedBox(
-              height: 45,
-              child: Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 30),
-                    child: const Icon(
-                      Icons.email,
-                      size: 40,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 30),
-                      child: edtEmail,
-                    ),
-                  ),
-                ],
+              //logo
+              Container(
+                margin: const EdgeInsets.only(top: 15),
+                child: imgvLogo,
               ),
-            ),
-            //code
-            Container(
-              alignment: Alignment.topLeft,
-              padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-              child: tvCode,
-            ),
-            SizedBox(
-              height: 45,
-              child: Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 30),
-                    child: const Icon(
-                      Icons.sms,
-                      size: 40,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 30),
-                      child: edtCode,
-                    ),
-                  ),
-                ],
+              //forget password title
+              Container(
+                margin: const EdgeInsets.only(top: 15),
+                child: tvForgetPasswordTitle,
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 30),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  minimumSize: const Size(180, 45),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const InputNewPassword(),
+              //username
+              Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                child: tvUsername,
+              ),
+              SizedBox(
+                height: 45,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 30),
+                      child: const Icon(
+                        Icons.person,
+                        size: 40,
+                        color: Colors.white,
+                      ),
                     ),
-                  );
-                },
-                child: const Text(
-                  'TIẾP THEO',
-                  style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 30),
+                        child: edtUsername,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            const Expanded(
-              flex: 5,
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: Text(
-                  'CGD@Copyright',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
+              //email
+              Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                child: tvEmail,
+              ),
+              SizedBox(
+                height: 45,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 30),
+                      child: const Icon(
+                        Icons.email,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 30),
+                        child: edtEmail,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              //code
+              Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                child: tvCode,
+              ),
+              SizedBox(
+                height: 45,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 30),
+                      child: const Icon(
+                        Icons.sms,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 30),
+                        child: edtCode,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 30),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    minimumSize: const Size(180, 45),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const InputNewPassword(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'TIẾP THEO',
+                    style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          )
+        ],
+      )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.pop(context);

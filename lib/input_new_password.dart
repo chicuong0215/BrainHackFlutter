@@ -34,7 +34,7 @@ class InputNewPassword extends StatelessWidget {
 
     Widget edtOldPassword = TextField(
       obscureText: true,
-      textAlignVertical: TextAlignVertical.top,
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -49,7 +49,7 @@ class InputNewPassword extends StatelessWidget {
 
     Widget edtNewPassword = TextField(
       obscureText: true,
-      textAlignVertical: TextAlignVertical.top,
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -97,105 +97,94 @@ class InputNewPassword extends StatelessWidget {
       ),
     );
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        padding: const EdgeInsets.all(15),
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
-        //body
-        child: Center(
-          child: Column(
-            children: [
-              //app name
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: tvAppName,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Image.asset(
+                "images/bg.jpg",
+                fit: BoxFit.cover,
               ),
-              //logo
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: imgvLogo,
-              ),
-              //new password title
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: tvNewPasswordTitle,
-              ),
-              //old password
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                child: tvOldPassword,
-              ),
-              SizedBox(
-                height: 45,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.lock,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 30),
-                        child: edtOldPassword,
-                      ),
-                    ),
-                  ],
+            ),
+            Column(
+              children: [
+                //app name
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: tvAppName,
                 ),
-              ),
-              //new password
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                child: tvNewPassword,
-              ),
-              SizedBox(
-                height: 45,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.lock,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 30),
-                        child: edtNewPassword,
-                      ),
-                    ),
-                  ],
+                //logo
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: imgvLogo,
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 30),
-                child: btnChange,
-              ),
-              const Expanded(
-                flex: 5,
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    'CGD@Copyright',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
+                //new password title
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: tvNewPasswordTitle,
+                ),
+                //old password
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                  child: tvOldPassword,
+                ),
+                SizedBox(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 30),
+                        child: const Icon(
+                          Icons.lock,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 30),
+                          child: edtOldPassword,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
+                //new password
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                  child: tvNewPassword,
+                ),
+                SizedBox(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 30),
+                        child: const Icon(
+                          Icons.lock,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 30),
+                          child: edtNewPassword,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: btnChange,
+                ),
+              ],
+            )
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
