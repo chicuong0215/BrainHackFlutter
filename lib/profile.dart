@@ -1,3 +1,4 @@
+import 'package:brain_hack/update_information.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -43,9 +44,10 @@ class _ProfileState extends State<Profile> {
             children: [
               Container(
                 child: const CircleAvatar(
+                  backgroundColor: Color.fromARGB(255, 179, 223, 255),
                   radius: 85,
                   child: Image(
-                    image: AssetImage('images/icon/logo.png'),
+                    image: AssetImage('images/icon/logo_v2.png'),
                   ),
                 ),
               ),
@@ -368,7 +370,9 @@ class _ProfileState extends State<Profile> {
         Container(
           child: IconButton(
             iconSize: 75,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: const CircleAvatar(
               child: Icon(Icons.arrow_back_ios_new),
             ),
@@ -381,10 +385,24 @@ class _ProfileState extends State<Profile> {
           decoration: BoxDecoration(
               color: Colors.orange[700],
               borderRadius: BorderRadius.circular(30)),
-          child: Text(
-            'CHỈNH SỬA THÔNG TIN',
-            style: GoogleFonts.bungee(
-              textStyle: const TextStyle(fontSize: 18, color: Colors.white),
+          child: TextButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => UpdateInformation(),
+                    transitionDuration: const Duration(milliseconds: 500),
+                    transitionsBuilder: (_, a, __, c) =>
+                        FadeTransition(opacity: a, child: c),
+                  ));
+            },
+            child: const Text(
+              'CHỈNH SỬA THÔNG TIN',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
