@@ -30,25 +30,31 @@ class LoginHome extends StatelessWidget {
     Widget imgvLogo = const Image(
       image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
-      height: 180,
-      width: 180,
+      height: 240,
+      width: 240,
     );
     Widget tvLogin = const Text(
       'ĐĂNG NHẬP',
       style: TextStyle(
-        fontSize: 35,
-        fontWeight: FontWeight.w700,
-        fontFamily: 'Fraunces',
-        fontStyle: FontStyle.italic,
-        color: Colors.orange,
-      ),
+          fontSize: 35,
+          fontWeight: FontWeight.w700,
+          fontFamily: 'Fraunces',
+          fontStyle: FontStyle.italic,
+          color: Colors.orange,
+          shadows: [
+            Shadow(
+              offset: Offset(-1, -1),
+              blurRadius: 1,
+              color: Color.fromARGB(255, 33, 243, 229),
+            )
+          ]),
     );
     Widget tvUsername = const Text(
       'USERNAME',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -69,7 +75,7 @@ class LoginHome extends StatelessWidget {
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -96,28 +102,32 @@ class LoginHome extends StatelessWidget {
       ),
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Menu(),
-          ),
-        );
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => Menu(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ));
       },
       child: const Text(
         'ĐĂNG NHẬP',
         style: TextStyle(
           fontSize: 18,
-          fontFamily: 'Fraunces',
+          fontFamily: 'Alata',
         ),
       ),
     );
     Widget tbtnForget = TextButton(
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ForgetPassword(),
-          ),
-        );
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => const ForgetPassword(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ));
       },
       child: const Text(
         'QUÊN MẬT KHẨU',
@@ -131,11 +141,13 @@ class LoginHome extends StatelessWidget {
     Widget tbtnRegister = TextButton(
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Register(),
-          ),
-        );
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => Register(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ));
       },
       child: const Text(
         'ĐĂNG KÝ',
@@ -190,18 +202,18 @@ class LoginHome extends StatelessWidget {
             Column(
               children: [
                 //name app
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  child: tvAppName,
-                ),
+                // Container(
+                //   margin: const EdgeInsets.only(top: 15),
+                //   child: tvAppName,
+                // ),
                 //logo
                 Container(
-                  padding: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 55),
                   child: imgvLogo,
                 ),
                 //text login
                 Container(
-                  margin: const EdgeInsets.only(top: 15),
+                  // margin: const EdgeInsets.only(top: 15),
                   child: tvLogin,
                 ),
                 //text username

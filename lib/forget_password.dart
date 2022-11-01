@@ -18,19 +18,25 @@ class ForgetPassword extends StatelessWidget {
     Widget imgvLogo = const Image(
       image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
-      height: 180,
-      width: 180,
+      height: 240,
+      width: 240,
     );
 
     Widget tvForgetPasswordTitle = const Text(
       'QUÊN MẬT KHẨU',
       style: TextStyle(
-        fontSize: 36,
-        fontWeight: FontWeight.w700,
-        fontFamily: 'Fraunces',
-        fontStyle: FontStyle.italic,
-        color: Colors.orange,
-      ),
+          fontSize: 36,
+          fontWeight: FontWeight.w700,
+          fontFamily: 'Fraunces',
+          fontStyle: FontStyle.italic,
+          color: Colors.orange,
+          shadows: [
+            Shadow(
+              offset: Offset(-1, -1),
+              blurRadius: 1,
+              color: Color.fromARGB(255, 33, 243, 229),
+            )
+          ]),
     );
 
     Widget edtUsername = TextField(
@@ -80,7 +86,7 @@ class ForgetPassword extends StatelessWidget {
             margin: const EdgeInsets.only(left: 10, right: 10),
             child: const Text('LẤY MÃ',
                 style: TextStyle(
-                  fontFamily: 'Fraunces',
+                  fontFamily: 'Alata',
                 )),
           ),
         ),
@@ -99,7 +105,7 @@ class ForgetPassword extends StatelessWidget {
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -109,7 +115,7 @@ class ForgetPassword extends StatelessWidget {
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -119,26 +125,35 @@ class ForgetPassword extends StatelessWidget {
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
 
-    Widget btnContinue = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.orange,
-        minimumSize: const Size(180, 45),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+    Widget btnContinue = Container(
+      padding: const EdgeInsets.only(top: 30),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.orange,
+          minimumSize: const Size(180, 45),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
         ),
-      ),
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const InputNewPassword()));
-      },
-      child: const Text(
-        'TIẾP THEO',
-        style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
+        onPressed: () {
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => InputNewPassword(),
+                transitionDuration: const Duration(milliseconds: 500),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              ));
+        },
+        child: const Text(
+          'TIẾP THEO',
+          style: TextStyle(fontSize: 18, fontFamily: 'Alata'),
+        ),
       ),
     );
     return Scaffold(
@@ -155,18 +170,18 @@ class ForgetPassword extends StatelessWidget {
           Column(
             children: [
               //app name
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: tvAppName,
-              ),
+              // Container(
+              //   margin: const EdgeInsets.only(top: 15),
+              //   child: tvAppName,
+              // ),
               //logo
               Container(
-                margin: const EdgeInsets.only(top: 15),
+                margin: const EdgeInsets.only(top: 55),
                 child: imgvLogo,
               ),
               //forget password title
               Container(
-                margin: const EdgeInsets.only(top: 15),
+                // margin: const EdgeInsets.only(top: 15),
                 child: tvForgetPasswordTitle,
               ),
               //username
@@ -250,30 +265,7 @@ class ForgetPassword extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 30),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,
-                    minimumSize: const Size(180, 45),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const InputNewPassword(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'TIẾP THEO',
-                    style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
-                  ),
-                ),
-              ),
+              btnContinue,
             ],
           )
         ],
@@ -285,7 +277,7 @@ class ForgetPassword extends StatelessWidget {
         label: const Text(''),
         shape: const CircleBorder(side: BorderSide()),
         icon: const Icon(Icons.arrow_back_ios_new),
-        backgroundColor: Colors.orange,
+        backgroundColor: const Color(0xFF3B4DA3),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
