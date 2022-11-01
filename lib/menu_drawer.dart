@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:brain_hack/about.dart';
 import 'package:brain_hack/bag.dart';
 import 'package:brain_hack/dialog_exit.dart';
 import 'package:brain_hack/login.dart';
@@ -154,6 +155,7 @@ class Button extends StatelessWidget {
           case 'settings':
             break;
           case 'about':
+            screen = About();
             break;
         }
         Navigator.pop(context);
