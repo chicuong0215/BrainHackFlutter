@@ -23,7 +23,7 @@ class _DialogChallenge extends State<DialogChallenge> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Color.fromARGB(255, 0, 0, 0),
-          minimumSize: const Size(200, 60),
+          minimumSize: const Size(180, 60),
           shape: RoundedRectangleBorder(
             side: const BorderSide(
                 width: 2.5, color: Color.fromARGB(255, 255, 255, 255)),
@@ -44,7 +44,7 @@ class _DialogChallenge extends State<DialogChallenge> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFFFC5658),
-          minimumSize: const Size(200, 60),
+          minimumSize: const Size(180, 60),
           shape: RoundedRectangleBorder(
             side: const BorderSide(width: 2.5, color: Color(0xFF090050)),
             borderRadius: BorderRadius.circular(30),
@@ -67,14 +67,14 @@ class _DialogChallenge extends State<DialogChallenge> {
     );
     return Dialog(
       insetPadding:
-          const EdgeInsets.only(top: 280, bottom: 280, left: 40, right: 40),
+          const EdgeInsets.only(top: 260, bottom: 260, left: 40, right: 40),
       // ignore: sort_child_properties_last
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             gradient: const LinearGradient(
                 colors: [Colors.white, Color.fromARGB(255, 255, 185, 208)]),
-            color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.8)),
+            color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.9)),
         padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

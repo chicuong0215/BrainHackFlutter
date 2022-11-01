@@ -18,8 +18,8 @@ class _Menu extends State<Menu> {
     Widget imgvLogo = const Image(
       image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
-      height: 230,
-      width: 230,
+      height: 240,
+      width: 240,
     );
     Widget tvLuyenTap = const Text(
       'Luyện Tập',
@@ -34,7 +34,7 @@ class _Menu extends State<Menu> {
     Widget tvGhepTran = const Text(
       'THÁCH ĐẤU',
       style: TextStyle(
-        fontSize: 40,
+        fontSize: 35,
         fontWeight: FontWeight.w700,
         fontFamily: 'Fraunces',
         fontStyle: FontStyle.italic,
@@ -66,7 +66,7 @@ class _Menu extends State<Menu> {
           ),
           drawer: MenuDrawer(),
           body: Container(
-            padding: const EdgeInsets.all(45),
+            padding: const EdgeInsets.all(55),
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
@@ -147,14 +147,15 @@ class _Menu extends State<Menu> {
                       ),
                       Container(
                         padding: const EdgeInsets.only(
-                            top: 150, bottom: 0, left: 100, right: 100),
+                            top: 150, bottom: 0, left: 70, right: 70),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFFC5658),
-                            minimumSize: const Size(200, 60),
+                            minimumSize: const Size(250, 60),
                             shape: RoundedRectangleBorder(
                               side: const BorderSide(
-                                  width: 2.5, color: Color(0xFF090050)),
+                                  width: 2.5,
+                                  color: Color.fromARGB(255, 53, 53, 55)),
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),

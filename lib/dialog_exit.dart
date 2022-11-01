@@ -22,7 +22,7 @@ class _DialogExit extends State<DialogExit> {
       child: const Text(
         "Bạn Có Muốn ",
         style: TextStyle(
-            fontSize: 50,
+            fontSize: 30,
             fontFamily: 'Fraunces',
             color: Color.fromARGB(255, 255, 0, 0),
             fontWeight: FontWeight.bold),
@@ -35,7 +35,7 @@ class _DialogExit extends State<DialogExit> {
       child: const Text(
         "Đăng Xuất ",
         style: TextStyle(
-            fontSize: 50,
+            fontSize: 30,
             fontFamily: 'Fraunces',
             color: Color.fromARGB(255, 255, 0, 0),
             fontWeight: FontWeight.bold),
@@ -47,7 +47,7 @@ class _DialogExit extends State<DialogExit> {
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        minimumSize: const Size(200, 60),
+        minimumSize: const Size(150, 60),
         shape: RoundedRectangleBorder(
           side: const BorderSide(
               width: 2.5, color: Color.fromARGB(255, 255, 255, 255)),
@@ -58,7 +58,7 @@ class _DialogExit extends State<DialogExit> {
       child: const Text(
         'KHÔNG',
         style: TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             fontFamily: 'Fraunces',
             color: Color.fromARGB(255, 255, 255, 255)),
       ),
@@ -68,7 +68,7 @@ class _DialogExit extends State<DialogExit> {
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFFFC5658),
-        minimumSize: const Size(200, 60),
+        minimumSize: const Size(150, 60),
         shape: RoundedRectangleBorder(
           side: const BorderSide(width: 2.5, color: Color(0xFF090050)),
           borderRadius: BorderRadius.circular(30),
@@ -78,7 +78,7 @@ class _DialogExit extends State<DialogExit> {
       child: const Text(
         'CÓ',
         style: TextStyle(
-            fontSize: 20, fontFamily: 'Fraunces', color: Color(0xFF090050)),
+            fontSize: 18, fontFamily: 'Fraunces', color: Color(0xFF090050)),
       ),
     ),
   );
@@ -86,14 +86,14 @@ class _DialogExit extends State<DialogExit> {
   Widget build(BuildContext context) {
     return Dialog(
       insetPadding:
-          const EdgeInsets.only(top: 230, bottom: 230, left: 40, right: 40),
+          const EdgeInsets.only(top: 250, bottom: 250, left: 20, right: 20),
       // ignore: sort_child_properties_last
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             gradient: const LinearGradient(
                 colors: [Colors.white, Color.fromARGB(255, 255, 185, 208)]),
-            color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.8)),
+            color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.9)),
         padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

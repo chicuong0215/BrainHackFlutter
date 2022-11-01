@@ -30,8 +30,8 @@ class LoginHome extends StatelessWidget {
     Widget imgvLogo = const Image(
       image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
-      height: 180,
-      width: 180,
+      height: 240,
+      width: 240,
     );
     Widget tvLogin = const Text(
       'ĐĂNG NHẬP',
@@ -202,18 +202,18 @@ class LoginHome extends StatelessWidget {
             Column(
               children: [
                 //name app
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  child: tvAppName,
-                ),
+                // Container(
+                //   margin: const EdgeInsets.only(top: 15),
+                //   child: tvAppName,
+                // ),
                 //logo
                 Container(
-                  padding: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 55),
                   child: imgvLogo,
                 ),
                 //text login
                 Container(
-                  margin: const EdgeInsets.only(top: 15),
+                  // margin: const EdgeInsets.only(top: 15),
                   child: tvLogin,
                 ),
                 //text username

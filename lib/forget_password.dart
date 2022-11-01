@@ -18,8 +18,8 @@ class ForgetPassword extends StatelessWidget {
     Widget imgvLogo = const Image(
       image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
-      height: 210,
-      width: 210,
+      height: 240,
+      width: 240,
     );
 
     Widget tvForgetPasswordTitle = const Text(
@@ -181,7 +181,7 @@ class ForgetPassword extends StatelessWidget {
               ),
               //forget password title
               Container(
-                margin: const EdgeInsets.only(top: 15),
+                // margin: const EdgeInsets.only(top: 15),
                 child: tvForgetPasswordTitle,
               ),
               //username

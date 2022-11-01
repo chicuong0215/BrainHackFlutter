@@ -165,7 +165,7 @@ class _Rooms extends State<Rooms> {
           label: const Text(''),
           shape: const CircleBorder(side: BorderSide()),
           icon: const Icon(Icons.arrow_back_ios_new),
-          backgroundColor: Colors.orange),
+          backgroundColor: const Color(0xFF3B4DA3)),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }

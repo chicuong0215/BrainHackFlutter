@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CreateRoom(),
+      home: Intro(),
     );
   }
 }

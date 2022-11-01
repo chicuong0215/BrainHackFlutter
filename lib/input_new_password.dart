@@ -17,8 +17,8 @@ class InputNewPassword extends StatelessWidget {
     Widget imgvLogo = const Image(
       image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
-      height: 210,
-      width: 210,
+      height: 240,
+      width: 240,
     );
 
     Widget tvNewPasswordTitle = const Text(
@@ -116,18 +116,18 @@ class InputNewPassword extends StatelessWidget {
             Column(
               children: [
                 //app name
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  child: tvAppName,
-                ),
+                // Container(
+                //   margin: const EdgeInsets.only(top: 15),
+                //   child: tvAppName,
+                // ),
                 //logo
                 Container(
-                  margin: const EdgeInsets.only(top: 15),
+                  margin: const EdgeInsets.only(top: 55),
                   child: imgvLogo,
                 ),
                 //new password title
                 Container(
-                  margin: const EdgeInsets.only(top: 15),
+                  // margin: const EdgeInsets.only(top: 15),
                   child: tvNewPasswordTitle,
                 ),
                 //old password
