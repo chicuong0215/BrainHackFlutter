@@ -13,6 +13,8 @@ class Login extends StatelessWidget {
 }
 
 class LoginHome extends StatelessWidget {
+  const LoginHome({super.key});
+
   @override
   Widget build(BuildContext context) {
     Widget tvAppName = const Text(
@@ -28,25 +30,31 @@ class LoginHome extends StatelessWidget {
     Widget imgvLogo = const Image(
       image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
-      height: 180,
-      width: 180,
+      height: 240,
+      width: 240,
     );
     Widget tvLogin = const Text(
       'ĐĂNG NHẬP',
       style: TextStyle(
-        fontSize: 35,
-        fontWeight: FontWeight.w700,
-        fontFamily: 'Fraunces',
-        fontStyle: FontStyle.italic,
-        color: Colors.orange,
-      ),
+          fontSize: 35,
+          fontWeight: FontWeight.w700,
+          fontFamily: 'Fraunces',
+          fontStyle: FontStyle.italic,
+          color: Colors.orange,
+          shadows: [
+            Shadow(
+              offset: Offset(-1, -1),
+              blurRadius: 1,
+              color: Color.fromARGB(255, 33, 243, 229),
+            )
+          ]),
     );
     Widget tvUsername = const Text(
       'USERNAME',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -67,7 +75,7 @@ class LoginHome extends StatelessWidget {
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -94,28 +102,32 @@ class LoginHome extends StatelessWidget {
       ),
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Menu(),
-          ),
-        );
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => Menu(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ));
       },
       child: const Text(
         'ĐĂNG NHẬP',
         style: TextStyle(
           fontSize: 18,
-          fontFamily: 'Fraunces',
+          fontFamily: 'Alata',
         ),
       ),
     );
     Widget tbtnForget = TextButton(
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ForgetPassword(),
-          ),
-        );
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => const ForgetPassword(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ));
       },
       child: const Text(
         'QUÊN MẬT KHẨU',
@@ -129,11 +141,13 @@ class LoginHome extends StatelessWidget {
     Widget tbtnRegister = TextButton(
       onPressed: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Register(),
-          ),
-        );
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => Register(),
+              transitionDuration: const Duration(milliseconds: 500),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ));
       },
       child: const Text(
         'ĐĂNG KÝ',
@@ -175,101 +189,103 @@ class LoginHome extends StatelessWidget {
     );
 
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(15),
-        //background
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
-        child: Center(
-          child: Column(
-            children: [
-              //name app
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: tvAppName,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Image.asset(
+                "images/bg.jpg",
+                fit: BoxFit.cover,
               ),
-              //logo
-              Container(
-                padding: const EdgeInsets.only(top: 15),
-                child: imgvLogo,
-              ),
-              //text login
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: tvLogin,
-              ),
-              //text username
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                child: tvUsername,
-              ),
-              Container(
-                height: 45,
-                child: Row(
-                  children: [
-                    //icon username
-                    Container(
-                      margin: EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.person,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    //text filed username
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 40),
-                        child: txtUsername,
-                      ),
-                    ),
-                  ],
+            ),
+            Column(
+              children: [
+                //name app
+                // Container(
+                //   margin: const EdgeInsets.only(top: 15),
+                //   child: tvAppName,
+                // ),
+                //logo
+                Container(
+                  padding: const EdgeInsets.only(top: 55),
+                  child: imgvLogo,
                 ),
-              ),
-              //text password
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                child: tvPassword,
-              ),
-              Container(
-                height: 45,
-                child: Row(
-                  children: [
-                    //icon password
-                    Container(
-                      padding: EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.lock_outlined,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    //text filed password
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 40),
-                        child: txtPassword,
-                      ),
-                    ),
-                  ],
+                //text login
+                Container(
+                  // margin: const EdgeInsets.only(top: 15),
+                  child: tvLogin,
                 ),
-              ),
-              //button login
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: btnLogin,
-              ),
-              //text button forget
-              Container(
-                margin: EdgeInsets.only(top: 15),
-                child: tbtnForget,
-              ),
-              //text button register and text loginer
-              Container(
-                child: Row(
+                //text username
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                  child: tvUsername,
+                ),
+                Container(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      //icon username
+                      Container(
+                        margin: EdgeInsets.only(left: 30),
+                        child: const Icon(
+                          Icons.person,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      //text filed username
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 40),
+                          child: txtUsername,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //text password
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
+                  child: tvPassword,
+                ),
+                SizedBox(
+                  height: 45,
+                  child: Row(
+                    children: [
+                      //icon password
+                      Container(
+                        padding: EdgeInsets.only(left: 30),
+                        child: const Icon(
+                          Icons.lock_outlined,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      //text filed password
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 40),
+                          child: txtPassword,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //button login
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: btnLogin,
+                ),
+                //text button forget
+                Container(
+                  margin: const EdgeInsets.only(top: 15),
+                  child: tbtnForget,
+                ),
+                //text button register and text loginer
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     tbtnRegister,
@@ -282,38 +298,13 @@ class LoginHome extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              Container(
-                child: Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //icon button login with goole
-                    Container(
-                      child: ibtnGoogle,
-                    ),
-                    //icon button login with facebook
-                    Container(
-                      child: ibtnFacebook,
-                    ),
-                  ],
+                  children: [ibtnGoogle, ibtnFacebook],
                 ),
-              ),
-              const Expanded(
-                flex: 5,
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    'CGD@Copyright',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+              ],
+            )
+          ],
         ),
       ),
     );
