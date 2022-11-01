@@ -14,7 +14,7 @@ class _ProfileState extends State<Profile> {
       children: [
         Container(
           child: IconButton(
-            iconSize: 70,
+            iconSize: 100,
             onPressed: () {},
             icon: const Image(
               image: AssetImage('images/icon/logo_v2.png'),
@@ -22,11 +22,11 @@ class _ProfileState extends State<Profile> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(left: 30),
+          margin: EdgeInsets.only(left: 20),
           child: const Text(
-            'PROFILE',
+            'HỒ SƠ',
             style: TextStyle(
-              fontSize: 70,
+              fontSize: 50,
               fontFamily: 'Fraunces',
               color: Colors.orange,
             ),
@@ -243,7 +243,7 @@ class _ProfileState extends State<Profile> {
               Container(
                 padding: EdgeInsets.only(left: 15),
                 child: Text(
-                  'NVA@GMAIL.COM',
+                  'NVA@GMAIl',
                   style: GoogleFonts.bungee(
                     textStyle:
                         const TextStyle(fontSize: 25, color: Colors.orange),
@@ -377,67 +377,64 @@ class _ProfileState extends State<Profile> {
         Container(
           alignment: Alignment.center,
           height: 40,
-          width: 280,
+          width: 230,
           decoration: BoxDecoration(
               color: Colors.orange[700],
               borderRadius: BorderRadius.circular(30)),
           child: Text(
             'CHỈNH SỬA THÔNG TIN',
             style: GoogleFonts.bungee(
-              textStyle: const TextStyle(fontSize: 20, color: Colors.white),
+              textStyle: const TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
         ),
         Container(
           child: IconButton(
             color: Colors.white,
-            iconSize: 60,
+            iconSize: 50,
             onPressed: () {},
             icon: Icon(Icons.settings),
           ),
         ),
       ],
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            //padding: EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/bg.jpg"), fit: BoxFit.cover),
-            ),
-            child: Column(
-              children: [
-                //title
-                Container(
-                  child: rowTitle,
+    return Scaffold(
+      body: Center(
+        child: Container(
+          //padding: EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover),
+          ),
+          child: Column(
+            children: [
+              //title
+              Container(
+                child: rowTitle,
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 20, left: 20, right: 20, bottom: 10),
+                child: Column(
+                  children: [
+                    //stats
+                    Container(
+                      child: personalStats,
+                    ),
+                    // Personal Information
+                    Container(
+                      height: 270,
+                      margin: EdgeInsets.only(top: 20, left: 20),
+                      child: personalInformation,
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                      top: 20, left: 20, right: 20, bottom: 10),
-                  child: Column(
-                    children: [
-                      //stats
-                      Container(
-                        child: personalStats,
-                      ),
-                      // Personal Information
-                      Container(
-                        height: 270,
-                        margin: EdgeInsets.only(top: 20, left: 25),
-                        child: personalInformation,
-                      ),
-                    ],
-                  ),
-                ),
-                //footer
-                Container(
-                  child: footer,
-                ),
-              ],
-            ),
+              ),
+              //footer
+              Container(
+                child: footer,
+              ),
+            ],
           ),
         ),
       ),

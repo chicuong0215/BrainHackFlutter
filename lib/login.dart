@@ -8,13 +8,11 @@ import 'package:flutter/material.dart';
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LoginHome();
+    return _LoginHome();
   }
 }
 
-class LoginHome extends StatelessWidget {
-  const LoginHome({super.key});
-
+class _LoginHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget tvAppName = const Text(
@@ -300,10 +298,34 @@ class LoginHome extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [ibtnGoogle, ibtnFacebook],
+                  children: [
+                    //icon button login with goole
+                    Container(
+                      child: ibtnGoogle,
+                    ),
+                    //icon button login with facebook
+                    Container(
+                      child: ibtnFacebook,
+                    ),
+                  ],
+                ),
+
+                const Expanded(
+                  flex: 5,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      'CGD@Copyright',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
