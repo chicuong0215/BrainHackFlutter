@@ -176,6 +176,7 @@ class Shop extends StatelessWidget {
                         'XEM CHI TIẾT',
                         style: TextStyle(
                           fontSize: 15,
+                          fontWeight: FontWeight.bold,
                           color: Color(0xFFCBDEFF),
                           shadows: [
                             Shadow(
@@ -293,6 +294,7 @@ class Shop extends StatelessWidget {
                         'XEM CHI TIẾT',
                         style: TextStyle(
                           fontSize: 15,
+                          fontWeight: FontWeight.bold,
                           color: Color(0xFFCBDEFF),
                           shadows: [
                             Shadow(
@@ -393,6 +395,7 @@ class Shop extends StatelessWidget {
                         'XEM CHI TIẾT',
                         style: TextStyle(
                           fontSize: 15,
+                          fontWeight: FontWeight.bold,
                           color: Color(0xFFCBDEFF),
                           shadows: [
                             Shadow(
@@ -493,6 +496,7 @@ class Shop extends StatelessWidget {
                         'XEM CHI TIẾT',
                         style: TextStyle(
                           fontSize: 15,
+                          fontWeight: FontWeight.bold,
                           color: Color(0xFFCBDEFF),
                           shadows: [
                             Shadow(
