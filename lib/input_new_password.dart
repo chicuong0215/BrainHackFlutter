@@ -1,6 +1,4 @@
-import 'package:brain_hack/dialog_facebook_login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class InputNewPassword extends StatelessWidget {
   const InputNewPassword({super.key});
@@ -19,24 +17,30 @@ class InputNewPassword extends StatelessWidget {
     Widget imgvLogo = const Image(
       image: AssetImage('images/icon/logo_v2.png'),
       fit: BoxFit.fitWidth,
-      height: 180,
-      width: 180,
+      height: 240,
+      width: 240,
     );
 
     Widget tvNewPasswordTitle = const Text(
       'MẬT KHẨU MỚI',
       style: TextStyle(
-        fontSize: 36,
-        fontWeight: FontWeight.w700,
-        fontFamily: 'Fraunces',
-        fontStyle: FontStyle.italic,
-        color: Colors.orange,
-      ),
+          fontSize: 36,
+          fontWeight: FontWeight.w700,
+          fontFamily: 'Fraunces',
+          fontStyle: FontStyle.italic,
+          color: Colors.orange,
+          shadows: [
+            Shadow(
+              offset: Offset(-1, -1),
+              blurRadius: 1,
+              color: Color.fromARGB(255, 33, 243, 229),
+            )
+          ]),
     );
 
     Widget edtOldPassword = TextField(
       obscureText: true,
-      textAlignVertical: TextAlignVertical.top,
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -51,7 +55,7 @@ class InputNewPassword extends StatelessWidget {
 
     Widget edtNewPassword = TextField(
       obscureText: true,
-      textAlignVertical: TextAlignVertical.top,
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -69,7 +73,7 @@ class InputNewPassword extends StatelessWidget {
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -79,7 +83,7 @@ class InputNewPassword extends StatelessWidget {
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Fraunces',
+        fontFamily: 'Alata',
         color: Colors.orange,
       ),
     );
@@ -95,38 +99,35 @@ class InputNewPassword extends StatelessWidget {
       onPressed: () {},
       child: const Text(
         'THAY ĐỔI MẬT KHẨU',
-        style: TextStyle(fontSize: 18, fontFamily: 'Fraunces'),
+        style: TextStyle(fontSize: 18, fontFamily: 'Alata'),
       ),
     );
-
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
-          padding: const EdgeInsets.all(15),
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/bg.jpg"), fit: BoxFit.cover)),
-          //body
-          child: Center(
-            child: Column(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Image.asset(
+                "images/bg.jpg",
+                fit: BoxFit.cover,
+              ),
+            ),
+            Column(
               children: [
                 //app name
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  child: tvAppName,
-                ),
+                // Container(
+                //   margin: const EdgeInsets.only(top: 15),
+                //   child: tvAppName,
+                // ),
                 //logo
                 Container(
-                  margin: const EdgeInsets.only(top: 15),
+                  margin: const EdgeInsets.only(top: 55),
                   child: imgvLogo,
                 ),
                 //new password title
                 Container(
-                  margin: const EdgeInsets.only(top: 15),
+                  // margin: const EdgeInsets.only(top: 15),
                   child: tvNewPasswordTitle,
                 ),
                 //old password
@@ -187,35 +188,21 @@ class InputNewPassword extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 30),
                   child: btnChange,
                 ),
-                const Expanded(
-                  flex: 5,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      'CGD@Copyright',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ),
               ],
-            ),
-          ),
+            )
+          ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          label: const Text(''),
-          shape: const CircleBorder(side: BorderSide()),
-          icon: const Icon(Icons.arrow_back_ios_new),
-          backgroundColor: Colors.orange,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        label: const Text(''),
+        shape: const CircleBorder(side: BorderSide()),
+        icon: const Icon(Icons.arrow_back_ios_new),
+        backgroundColor: const Color(0xFF3B4DA3),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }
