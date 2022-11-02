@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Menu(),
+      home: Intro(),
     );
   }
 }
