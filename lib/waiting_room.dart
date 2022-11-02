@@ -1,13 +1,14 @@
+import 'package:brain_hack/playing.dart';
 import 'package:flutter/material.dart';
 
-class Trainning extends StatefulWidget {
+class WaitingRoom extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _Trainning();
+    return _WaitingRoom();
   }
 }
 
-class _Trainning extends State<Trainning> {
+class _WaitingRoom extends State<WaitingRoom> {
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -35,9 +36,12 @@ class _Trainning extends State<Trainning> {
         )
       ],
     );
-
+    Widget tvId = const Text(
+      'ID Phòng: 000006',
+      style: TextStyle(fontSize: 18, color: Colors.red),
+    );
     Widget tvTitle = const Text(
-      "LUYỆN TẬP",
+      "",
       textAlign: TextAlign.center,
       style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -51,37 +55,60 @@ class _Trainning extends State<Trainning> {
             )
           ]),
     );
-    Widget tvCauHoi = const Text(
-      "Câu 1",
-      textAlign: TextAlign.center,
-      style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Color.fromARGB(255, 255, 0, 0),
-          shadows: [
-            Shadow(
-              offset: Offset(3, 3),
-              blurRadius: 1,
-              color: Color.fromARGB(255, 255, 251, 0),
-            )
-          ]),
-    );
-    Widget colScore = Column(
+    Widget person = Column(
+      // ignore: prefer_const_literals_to_create_immutables
       children: [
-        TextButton(
-          child: Text(
-            "NEXT",
-            style: TextStyle(fontSize: 50),
-          ),
-          onPressed: () async {},
+        // ignore: prefer_const_constructors
+        Icon(
+          Icons.person,
+          color: Colors.white,
+          size: 46,
+        ),
+        const Text(
+          'A',
+          style: TextStyle(color: Colors.white),
+        ),
+        // ignore: prefer_const_constructors
+        Text(
+          'Sẵn Sàng',
+          style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  offset: Offset(2, 2),
+                  blurRadius: 1,
+                  color: Colors.purple,
+                )
+              ]),
         )
       ],
     );
-
+    Widget btnStart = Column(
+      children: [
+        TextButton(
+          child: Text(
+            "BẮT ĐẦU",
+            style: TextStyle(fontSize: 30),
+          ),
+          onPressed: () {
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => Playing(),
+                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ));
+          },
+        )
+      ],
+    );
     Widget rowFooter = Container(
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Stack(
             alignment: Alignment.center,
@@ -91,37 +118,11 @@ class _Trainning extends State<Trainning> {
                 width: 90,
                 height: 90,
               ),
-              Row(
-                children: [
-                  const Text(
-                    '30',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        shadows: [
-                          Shadow(
-                              offset: Offset(2, 2),
-                              blurRadius: 1,
-                              color: Colors.blue)
-                        ]),
-                  ),
-                  const Text(
-                    'S',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        shadows: [
-                          Shadow(
-                              offset: Offset(2, 2),
-                              blurRadius: 1,
-                              color: Colors.red)
-                        ]),
-                  )
-                ],
-              )
+              Container(
+                child: btnStart,
+              ),
             ],
           ),
-          colScore
         ],
       ),
     );
@@ -130,24 +131,20 @@ class _Trainning extends State<Trainning> {
       decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.2),
           borderRadius: BorderRadius.circular(18)),
-      child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18),
-            color: Colors.blue.withOpacity(0.5),
-          ),
-          padding: const EdgeInsets.all(10),
-          width: 150,
-          height: 90,
-          child: const Text('A. This is a text. This is a text',
-              style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
-                Shadow(
-                  offset: Offset(1, 1),
-                  blurRadius: 1,
-                  color: Colors.blue,
-                )
-              ]))),
     );
-
+    Widget txtChat = TextField(
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: Colors.blueGrey,
+          ),
+        ),
+      ),
+      obscureText: true,
+    );
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -162,26 +159,28 @@ class _Trainning extends State<Trainning> {
           Column(
             children: [
               rowTitle,
+              tvId,
               tvTitle,
-              Padding(padding: EdgeInsets.only(top: 50)),
-              tvCauHoi,
-              Padding(padding: EdgeInsets.only(top: 40)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [person, person, person],
+              ),
               Stack(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.center,
                 children: [
                   Image.asset('images/playing_bg.png'),
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(top: 45, left: 15),
-                        width: 300,
-                        height: 150,
-                        child: const Text(
-                          'TRƯỜNG CAO ĐẲNG KỸ THUẬT CAO THẮNG CÓ BAO NHIÊU BẠN NỮ',
+                  SizedBox(
+                    height: 300,
+                    width: 300,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'CHAT',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.yellow,
-                              fontSize: 21,
+                              fontSize: 30,
                               shadows: [
                                 Shadow(
                                   offset: Offset(2, 2),
@@ -190,16 +189,17 @@ class _Trainning extends State<Trainning> {
                                 )
                               ]),
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [tvResult, tvResult],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [tvResult, tvResult],
-                      )
-                    ],
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 250,
+                              height: 40,
+                              child: txtChat,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

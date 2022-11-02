@@ -246,6 +246,16 @@ class _Playing extends State<Playing> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        label: const Text(''),
+        shape: CircleBorder(side: BorderSide()),
+        icon: const Icon(Icons.arrow_back_ios_new),
+        backgroundColor: Colors.blue,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }

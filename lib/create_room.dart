@@ -1,5 +1,6 @@
 import 'package:brain_hack/playing.dart';
 import 'package:brain_hack/trainning.dart';
+import 'package:brain_hack/waiting_room.dart';
 import 'package:flutter/material.dart';
 
 class CreateRoom extends StatefulWidget {
@@ -59,7 +60,7 @@ class _CreateRoom extends State<CreateRoom> {
           Navigator.push(
               context,
               PageRouteBuilder(
-                pageBuilder: (_, __, ___) => Trainning(),
+                pageBuilder: (_, __, ___) => WaitingRoom(),
                 transitionDuration: const Duration(milliseconds: 500),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),

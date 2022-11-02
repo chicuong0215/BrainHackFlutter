@@ -1,6 +1,8 @@
+import 'package:brain_hack/create_train.dart';
 import 'package:brain_hack/dialog_challenge.dart';
 import 'package:brain_hack/menu_drawer.dart';
 import 'package:brain_hack/rooms.dart';
+import 'package:brain_hack/trainning.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatefulWidget {
@@ -159,7 +161,17 @@ class _Menu extends State<Menu> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) => CreateTrain(),
+                                  transitionDuration:
+                                      const Duration(milliseconds: 500),
+                                  transitionsBuilder: (_, a, __, c) =>
+                                      FadeTransition(opacity: a, child: c),
+                                ));
+                          },
                           child: const Text(
                             'PLAY',
                             style: TextStyle(

@@ -12,6 +12,7 @@ import 'package:brain_hack/playing.dart';
 import 'package:brain_hack/profile.dart';
 import 'package:brain_hack/room_item.dart';
 import 'package:brain_hack/rooms.dart';
+import 'package:brain_hack/waiting_room.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

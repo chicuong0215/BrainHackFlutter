@@ -1,3 +1,4 @@
+import 'package:brain_hack/login.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -16,74 +17,84 @@ class _DialogExit extends State<DialogExit> {
     super.initState();
   }
 
-  Widget tvTitle = Align(
-    alignment: Alignment.center,
-    child: Container(
-      child: const Text(
-        "Bạn Có Muốn ",
-        style: TextStyle(
-            fontSize: 30,
-            fontFamily: 'Fraunces',
-            color: Color.fromARGB(255, 255, 0, 0),
-            fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
-  Widget tvOut = Align(
-    alignment: Alignment.center,
-    child: Container(
-      child: const Text(
-        "Đăng Xuất ",
-        style: TextStyle(
-            fontSize: 30,
-            fontFamily: 'Fraunces',
-            color: Color.fromARGB(255, 255, 0, 0),
-            fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
-
-  Widget btnNo = Container(
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        minimumSize: const Size(150, 60),
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(
-              width: 2.5, color: Color.fromARGB(255, 255, 255, 255)),
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
-      onPressed: () {},
-      child: const Text(
-        'KHÔNG',
-        style: TextStyle(
-            fontSize: 18,
-            fontFamily: 'Fraunces',
-            color: Color.fromARGB(255, 255, 255, 255)),
-      ),
-    ),
-  );
-  Widget btnYes = Container(
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFFC5658),
-        minimumSize: const Size(150, 60),
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(width: 2.5, color: Color(0xFF090050)),
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
-      onPressed: () {},
-      child: const Text(
-        'CÓ',
-        style: TextStyle(
-            fontSize: 18, fontFamily: 'Fraunces', color: Color(0xFF090050)),
-      ),
-    ),
-  );
   @override
   Widget build(BuildContext context) {
+    Widget tvTitle = Align(
+      alignment: Alignment.center,
+      child: Container(
+        child: const Text(
+          "Bạn Có Muốn ",
+          style: TextStyle(
+              fontSize: 30,
+              fontFamily: 'Fraunces',
+              color: Color.fromARGB(255, 255, 0, 0),
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+    Widget tvOut = Align(
+      alignment: Alignment.center,
+      child: Container(
+        child: const Text(
+          "Đăng Xuất ",
+          style: TextStyle(
+              fontSize: 30,
+              fontFamily: 'Fraunces',
+              color: Color.fromARGB(255, 255, 0, 0),
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+
+    Widget btnNo = Container(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          minimumSize: const Size(150, 60),
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(
+                width: 2.5, color: Color.fromARGB(255, 255, 255, 255)),
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        onPressed: () {},
+        child: const Text(
+          'KHÔNG',
+          style: TextStyle(
+              fontSize: 18,
+              fontFamily: 'Fraunces',
+              color: Color.fromARGB(255, 255, 255, 255)),
+        ),
+      ),
+    );
+    Widget btnYes = Container(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFFFC5658),
+          minimumSize: const Size(150, 60),
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(width: 2.5, color: Color(0xFF090050)),
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => Login(),
+                transitionDuration: const Duration(milliseconds: 500),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              ));
+        },
+        child: const Text(
+          'CÓ',
+          style: TextStyle(
+              fontSize: 18, fontFamily: 'Fraunces', color: Color(0xFF090050)),
+        ),
+      ),
+    );
     return Dialog(
       insetPadding:
           const EdgeInsets.only(top: 250, bottom: 250, left: 20, right: 20),
