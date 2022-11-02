@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:brain_hack/about.dart';
 import 'package:brain_hack/bag.dart';
 import 'package:brain_hack/dialog_exit.dart';
+import 'package:brain_hack/list_friend.dart';
 import 'package:brain_hack/login.dart';
 import 'package:brain_hack/profile.dart';
 import 'package:brain_hack/shop.dart';
@@ -148,6 +149,7 @@ class Button extends StatelessWidget {
             screen = Bag();
             break;
           case 'friends':
+            screen = ListFriend();
             break;
           case 'shop':
             screen = Shop();

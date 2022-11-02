@@ -1,4 +1,5 @@
 import 'package:brain_hack/playing.dart';
+import 'package:brain_hack/trainning.dart';
 import 'package:flutter/material.dart';
 
 class CreateTrain extends StatefulWidget {
@@ -58,7 +59,7 @@ class _CreateTrain extends State<CreateTrain> {
           Navigator.push(
               context,
               PageRouteBuilder(
-                pageBuilder: (_, __, ___) => Playing(),
+                pageBuilder: (_, __, ___) => Trainning(),
                 transitionDuration: const Duration(milliseconds: 500),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),
