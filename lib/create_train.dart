@@ -1,15 +1,14 @@
 import 'package:brain_hack/playing.dart';
-import 'package:brain_hack/trainning.dart';
 import 'package:flutter/material.dart';
 
-class CreateRoom extends StatefulWidget {
+class CreateTrain extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _CreateRoom();
+    return _CreateTrain();
   }
 }
 
-class _CreateRoom extends State<CreateRoom> {
+class _CreateTrain extends State<CreateTrain> {
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -38,7 +37,7 @@ class _CreateRoom extends State<CreateRoom> {
       ],
     );
     Widget tvCreateRoom = const Text(
-      "TẠO\nPHÒNG",
+      "TẠO\nĐẤU LUYỆN",
       textAlign: TextAlign.center,
       style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -59,7 +58,7 @@ class _CreateRoom extends State<CreateRoom> {
           Navigator.push(
               context,
               PageRouteBuilder(
-                pageBuilder: (_, __, ___) => Trainning(),
+                pageBuilder: (_, __, ___) => Playing(),
                 transitionDuration: const Duration(milliseconds: 500),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),
@@ -96,30 +95,10 @@ class _CreateRoom extends State<CreateRoom> {
           children: [
             rowTitle,
             tvCreateRoom,
-            SizedBox(
-              child: Row(
-                children: [
-                  TextCustom(title: "SỐ ĐIỂM"),
-                  Expanded(
-                    child: TextFieldCustom(),
-                  )
-                ],
-              ),
-            ),
+            Padding(padding: EdgeInsets.all(50)),
             Row(
               children: [
-                TextCustom(title: "HẠNG"),
-                Expanded(
-                  child: TextFieldCustom(),
-                ),
-                TextCustom(title: "ĐẾN"),
-                Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
+                Padding(padding: EdgeInsets.only(top: 20)),
                 TextCustom(title: "CẤP ĐỘ"),
                 Expanded(
                   child: TextFieldCustom(),
@@ -128,14 +107,7 @@ class _CreateRoom extends State<CreateRoom> {
             ),
             Row(
               children: [
-                TextCustom(title: "SỐ NGƯỜI"),
-                Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
+                Padding(padding: EdgeInsets.only(top: 20)),
                 TextCustom(title: "THỜI GIAN"),
                 Expanded(
                   child: TextFieldCustom(),
@@ -144,6 +116,7 @@ class _CreateRoom extends State<CreateRoom> {
             ),
             Row(
               children: [
+                Padding(padding: EdgeInsets.only(top: 50)),
                 TextCustom(title: "SỐ CÂU HỎI"),
                 Expanded(
                   child: TextFieldCustom(),
@@ -152,12 +125,14 @@ class _CreateRoom extends State<CreateRoom> {
             ),
             Row(
               children: [
+                Padding(padding: EdgeInsets.only(bottom: 50)),
                 TextCustom(title: "LĨNH VỰC"),
                 Expanded(
                   child: TextFieldCustom(),
                 )
               ],
             ),
+            Padding(padding: EdgeInsets.only(bottom: 200)),
             btnCreate
           ],
         ),
@@ -188,7 +163,7 @@ class TextCustom extends StatelessWidget {
       textAlign: TextAlign.center,
       style: const TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 45,
+          fontSize: 40,
           color: Colors.white,
           shadows: [
             Shadow(
