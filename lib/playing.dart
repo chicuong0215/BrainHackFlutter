@@ -123,7 +123,7 @@ class _Playing extends State<Playing> {
             alignment: Alignment.center,
             children: [
               Image.asset(
-                'images/icon/circle_2.gif',
+                'images/icon/circle_3.gif',
                 width: 90,
                 height: 90,
               ),
