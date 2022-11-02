@@ -1,4 +1,5 @@
 import 'package:brain_hack/create_room.dart';
+import 'package:brain_hack/waiting_room.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -30,7 +31,16 @@ class _DialogChallenge extends State<DialogChallenge> {
             borderRadius: BorderRadius.circular(30),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => WaitingRoom(),
+                transitionDuration: const Duration(milliseconds: 500),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              ));
+        },
         child: const Text(
           'Ngẫu Nhiên',
           style: TextStyle(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Playing extends StatefulWidget {
+class Trainning extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _Playing();
+    return _Trainning();
   }
 }
 
-class _Playing extends State<Playing> {
+class _Trainning extends State<Trainning> {
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -35,12 +35,9 @@ class _Playing extends State<Playing> {
         )
       ],
     );
-    Widget tvId = const Text(
-      'ID Phòng: 000006',
-      style: TextStyle(fontSize: 18, color: Colors.red),
-    );
+
     Widget tvTitle = const Text(
-      "TRIPLE MATCH",
+      "LUYỆN TẬP",
       textAlign: TextAlign.center,
       style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -54,62 +51,29 @@ class _Playing extends State<Playing> {
             )
           ]),
     );
-    Widget person = Column(
-      // ignore: prefer_const_literals_to_create_immutables
-      children: [
-        // ignore: prefer_const_constructors
-        Icon(
-          Icons.person,
-          color: Colors.white,
-          size: 46,
-        ),
-        const Text(
-          'an',
-          style: TextStyle(color: Colors.white),
-        ),
-        // ignore: prefer_const_constructors
-        Text(
-          '0',
-          style: const TextStyle(
-              fontSize: 45,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  offset: Offset(2, 2),
-                  blurRadius: 1,
-                  color: Colors.purple,
-                )
-              ]),
-        )
-      ],
+    Widget tvCauHoi = const Text(
+      "Câu 1",
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 35,
+          color: Color.fromARGB(255, 255, 0, 0),
+          shadows: [
+            Shadow(
+              offset: Offset(3, 3),
+              blurRadius: 1,
+              color: Color.fromARGB(255, 255, 251, 0),
+            )
+          ]),
     );
     Widget colScore = Column(
       children: [
-        Text(
-          'ĐIỂM\nCÂU HỎI',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.yellow,
-              fontWeight: FontWeight.bold,
-              fontSize: 21,
-              shadows: [
-                Shadow(
-                  offset: Offset(2, 2),
-                  blurRadius: 1,
-                  color: Colors.blue,
-                )
-              ]),
-        ),
-        Text(
-          '1000',
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-              shadows: [
-                Shadow(offset: Offset(2, 2), color: Colors.red, blurRadius: 1)
-              ]),
+        TextButton(
+          child: Text(
+            "NEXT",
+            style: TextStyle(fontSize: 50),
+          ),
+          onPressed: () async {},
         )
       ],
     );
@@ -123,7 +87,7 @@ class _Playing extends State<Playing> {
             alignment: Alignment.center,
             children: [
               Image.asset(
-                'images/icon/circle_3.gif',
+                'images/icon/circle_2.gif',
                 width: 90,
                 height: 90,
               ),
@@ -198,12 +162,10 @@ class _Playing extends State<Playing> {
           Column(
             children: [
               rowTitle,
-              tvId,
               tvTitle,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [person, person, person],
-              ),
+              Padding(padding: EdgeInsets.only(top: 50)),
+              tvCauHoi,
+              Padding(padding: EdgeInsets.only(top: 40)),
               Stack(
                 alignment: Alignment.topCenter,
                 children: [
@@ -215,7 +177,7 @@ class _Playing extends State<Playing> {
                         width: 300,
                         height: 150,
                         child: const Text(
-                          'CÂU 1: TRƯỜNG CAO ĐẲNG KỸ THUẬT CAO THẮNG CÓ BAO NHIÊU BẠN NỮ',
+                          'TRƯỜNG CAO ĐẲNG KỸ THUẬT CAO THẮNG CÓ BAO NHIÊU BẠN NỮ',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.yellow,
