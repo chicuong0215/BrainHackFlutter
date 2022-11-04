@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:brain_hack/intro.dart';
 import 'package:brain_hack/menu.dart';
+import 'package:brain_hack/update_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Intro(),
+      home: UpdateInformation(),
     );
   }
 }
