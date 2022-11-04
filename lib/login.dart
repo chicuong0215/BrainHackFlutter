@@ -105,7 +105,7 @@ class LoginHome extends StatelessWidget {
             context,
             PageRouteBuilder(
               pageBuilder: (_, __, ___) => Menu(),
-              transitionDuration: const Duration(milliseconds: 500),
+              transitionDuration: const Duration(milliseconds: 100),
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ));
@@ -124,7 +124,7 @@ class LoginHome extends StatelessWidget {
             context,
             PageRouteBuilder(
               pageBuilder: (_, __, ___) => const ForgetPassword(),
-              transitionDuration: const Duration(milliseconds: 500),
+              transitionDuration: const Duration(milliseconds: 200),
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ));
