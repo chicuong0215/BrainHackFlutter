@@ -60,7 +60,7 @@ class _CreateTrain extends State<CreateTrain> {
               context,
               PageRouteBuilder(
                 pageBuilder: (_, __, ___) => Trainning(),
-                transitionDuration: const Duration(milliseconds: 500),
+                transitionDuration: const Duration(milliseconds: 200),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),
               ));
@@ -133,21 +133,11 @@ class _CreateTrain extends State<CreateTrain> {
                 )
               ],
             ),
-            Padding(padding: EdgeInsets.only(bottom: 200)),
+            Padding(padding: EdgeInsets.only(bottom: 100)),
             btnCreate
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        label: const Text(''),
-        shape: const CircleBorder(side: BorderSide()),
-        icon: const Icon(Icons.arrow_back_ios_new),
-        backgroundColor: const Color(0xFF3B4DA3),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }

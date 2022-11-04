@@ -15,6 +15,39 @@ class MenuDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget btnlogout = Container(
+      padding: const EdgeInsets.all(50),
+      decoration: const BoxDecoration(color: Colors.transparent),
+      // ignore: prefer_const_constructors
+      child: SizedBox(
+        width: 50,
+        height: 60,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromRGBO(255, 89, 0, 1),
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(width: 2.5, color: Color(0xFF090050)),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onPressed: () {
+            showDialog(
+              barrierColor: Colors.black26,
+              context: context,
+              builder: (context) {
+                return const DialogExit();
+              },
+            );
+          },
+          child: const Text(
+            'ĐĂNG XUẤT',
+            style: TextStyle(
+                fontSize: 25, fontFamily: 'Fraunces', color: Color(0xFF090050)),
+          ),
+        ),
+      ),
+    );
+
     return Drawer(
       backgroundColor: Colors.white.withOpacity(0.1),
       child: ListView(
@@ -93,23 +126,7 @@ class MenuDrawer extends StatelessWidget {
             ),
             onTap: () {},
           ),
-          TextButton(
-              onPressed: () {
-                showDialog(
-                  barrierColor: Colors.black26,
-                  context: context,
-                  builder: (context) {
-                    return const DialogExit();
-                  },
-                );
-              },
-              child: const Text(
-                'ĐĂNG XUẤT',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.orange),
-              ))
+          btnlogout,
         ],
       ),
     );
@@ -161,7 +178,7 @@ class Button extends StatelessWidget {
             context,
             PageRouteBuilder(
               pageBuilder: (_, __, ___) => screen,
-              transitionDuration: const Duration(milliseconds: 500),
+              transitionDuration: const Duration(milliseconds: 200),
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ));
