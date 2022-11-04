@@ -6,6 +6,7 @@ import 'package:brain_hack/dialog_exit.dart';
 import 'package:brain_hack/list_friend.dart';
 import 'package:brain_hack/login.dart';
 import 'package:brain_hack/profile.dart';
+import 'package:brain_hack/ranking.dart';
 import 'package:brain_hack/shop.dart';
 import 'package:flutter/material.dart';
 
@@ -15,31 +16,25 @@ class MenuDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.black.withOpacity(0.4),
+      backgroundColor: Colors.white.withOpacity(0.1),
       child: ListView(
-        padding: EdgeInsets.zero,
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 30, bottom: 30),
-            child: const Icon(
-              Icons.person,
-              size: 60,
-              color: Colors.orange,
+            padding: const EdgeInsets.all(15),
+            child: const CircleAvatar(
+              radius: 45,
+              child: Image(image: AssetImage('images/icon/avatar.png')),
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(15),
-            decoration: const BoxDecoration(color: Colors.orange),
-            child: const Align(
-              alignment: Alignment.center,
-              child: Text(
-                'MENU',
-                style: TextStyle(
-                    color: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 255, 173, 51),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30),
-              ),
+            width: 100,
+            padding: const EdgeInsets.only(bottom: 15),
+            decoration: const BoxDecoration(color: Colors.transparent),
+            // ignore: prefer_const_constructors
+            child: SizedBox(
+              width: 60,
+              height: 60,
+              child: const Image(image: AssetImage('images/icon/menu.gif')),
             ),
           ),
           ListTile(
@@ -131,7 +126,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue.withOpacity(0.3),
+        backgroundColor: Colors.transparent,
         minimumSize: const Size(200, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
@@ -144,6 +139,7 @@ class Button extends StatelessWidget {
             screen = Profile();
             break;
           case 'ranking':
+            screen = Ranking();
             break;
           case 'bag':
             screen = Bag();
@@ -170,12 +166,28 @@ class Button extends StatelessWidget {
                   FadeTransition(opacity: a, child: c),
             ));
       },
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 21,
-          color: Colors.orange,
-          fontFamily: 'Fraunces',
+      child: Container(
+        width: 300,
+        padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/icon/head.png'), fit: BoxFit.fill)),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 50),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: Color(0xFFFC5658),
+              fontSize: 27,
+              shadows: [
+                Shadow(
+                    offset: Offset(2, 2),
+                    color: Color.fromARGB(255, 0, 149, 199),
+                    blurRadius: 2)
+              ],
+              fontFamily: 'Fraunces',
+            ),
+          ),
         ),
       ),
     );
