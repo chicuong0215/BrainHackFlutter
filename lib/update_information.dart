@@ -1,3 +1,4 @@
+import 'package:brain_hack/dialog_picture.dart';
 import 'package:brain_hack/input_new_password.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,10 @@ class _UpdateInformationState extends State<UpdateInformation> {
           height: 52,
           child: IconButton(
             iconSize: 50,
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                  context: context, builder: (context) => DialogPicture());
+            },
             icon: const Icon(
               Icons.photo_camera,
               color: Color.fromARGB(255, 93, 182, 255),
