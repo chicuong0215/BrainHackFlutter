@@ -61,7 +61,7 @@ class _CreateRoom extends State<CreateRoom> {
               context,
               PageRouteBuilder(
                 pageBuilder: (_, __, ___) => WaitingRoom(),
-                transitionDuration: const Duration(milliseconds: 500),
+                transitionDuration: const Duration(milliseconds: 200),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),
               ));

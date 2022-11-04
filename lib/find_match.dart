@@ -1,30 +1,31 @@
 import 'dart:async';
 
 import 'package:brain_hack/login.dart';
+import 'package:brain_hack/waiting_room.dart';
 import 'package:flutter/material.dart';
 
-class Intro extends StatefulWidget {
+class Match extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _Intro();
+    return _Match();
   }
 }
 
-class _Intro extends State<Intro> {
+class _Match extends State<Match> {
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(milliseconds: 1000), () {
+    Timer(const Duration(milliseconds: 1500), () {
       Navigator.push(
           context,
           PageRouteBuilder(
-            pageBuilder: (_, __, ___) => Login(),
+            pageBuilder: (_, __, ___) => WaitingRoom(),
             transitionDuration: const Duration(milliseconds: 500),
             transitionsBuilder: (_, a, __, c) =>
                 FadeTransition(opacity: a, child: c),
           ));
     });
     Widget tvLoading = const Text(
-      'LOADING...',
+      'ĐANG GHÉP....',
       style: TextStyle(
           color: Colors.blue,
           fontSize: 30,

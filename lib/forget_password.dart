@@ -145,7 +145,7 @@ class ForgetPassword extends StatelessWidget {
               context,
               PageRouteBuilder(
                 pageBuilder: (_, __, ___) => InputNewPassword(),
-                transitionDuration: const Duration(milliseconds: 500),
+                transitionDuration: const Duration(milliseconds: 200),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),
               ));

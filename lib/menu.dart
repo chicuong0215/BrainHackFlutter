@@ -58,7 +58,7 @@ class _Menu extends State<Menu> {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (_, __, ___) => Rooms(),
-                        transitionDuration: const Duration(milliseconds: 500),
+                        transitionDuration: const Duration(milliseconds: 200),
                         transitionsBuilder: (_, a, __, c) =>
                             FadeTransition(opacity: a, child: c),
                       ));
@@ -167,7 +167,7 @@ class _Menu extends State<Menu> {
                                 PageRouteBuilder(
                                   pageBuilder: (_, __, ___) => CreateTrain(),
                                   transitionDuration:
-                                      const Duration(milliseconds: 500),
+                                      const Duration(milliseconds: 200),
                                   transitionsBuilder: (_, a, __, c) =>
                                       FadeTransition(opacity: a, child: c),
                                 ));

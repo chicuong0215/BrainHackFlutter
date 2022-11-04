@@ -15,32 +15,59 @@ class MenuDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget btnlogout = Container(
+      padding: const EdgeInsets.all(50),
+      decoration: const BoxDecoration(color: Colors.transparent),
+      // ignore: prefer_const_constructors
+      child: SizedBox(
+        width: 50,
+        height: 60,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromRGBO(255, 89, 0, 1),
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(width: 2.5, color: Color(0xFF090050)),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onPressed: () {
+            showDialog(
+              barrierColor: Colors.black26,
+              context: context,
+              builder: (context) {
+                return const DialogExit();
+              },
+            );
+          },
+          child: const Text(
+            'ĐĂNG XUẤT',
+            style: TextStyle(
+                fontSize: 25, fontFamily: 'Fraunces', color: Color(0xFF090050)),
+          ),
+        ),
+      ),
+    );
+
     return Drawer(
-      backgroundColor: Colors.black.withOpacity(0.4),
+      backgroundColor: Colors.white.withOpacity(0.1),
       child: ListView(
-        padding: EdgeInsets.zero,
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 30, bottom: 30),
-            child: const Icon(
-              Icons.person,
-              size: 60,
-              color: Colors.orange,
+            padding: const EdgeInsets.all(15),
+            child: const CircleAvatar(
+              radius: 45,
+              child: Image(image: AssetImage('images/icon/avatar.png')),
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(15),
-            decoration: const BoxDecoration(color: Colors.orange),
-            child: const Align(
-              alignment: Alignment.center,
-              child: Text(
-                'MENU',
-                style: TextStyle(
-                    color: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 255, 173, 51),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30),
-              ),
+            width: 100,
+            padding: const EdgeInsets.only(bottom: 15),
+            decoration: const BoxDecoration(color: Colors.transparent),
+            // ignore: prefer_const_constructors
+            child: SizedBox(
+              width: 60,
+              height: 60,
+              child: const Image(image: AssetImage('images/icon/menu.gif')),
             ),
           ),
           ListTile(
@@ -99,23 +126,7 @@ class MenuDrawer extends StatelessWidget {
             ),
             onTap: () {},
           ),
-          TextButton(
-              onPressed: () {
-                showDialog(
-                  barrierColor: Colors.black26,
-                  context: context,
-                  builder: (context) {
-                    return const DialogExit();
-                  },
-                );
-              },
-              child: const Text(
-                'ĐĂNG XUẤT',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.orange),
-              ))
+          btnlogout,
         ],
       ),
     );
@@ -132,7 +143,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue.withOpacity(0.3),
+        backgroundColor: Colors.transparent,
         minimumSize: const Size(200, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
@@ -167,17 +178,33 @@ class Button extends StatelessWidget {
             context,
             PageRouteBuilder(
               pageBuilder: (_, __, ___) => screen,
-              transitionDuration: const Duration(milliseconds: 500),
+              transitionDuration: const Duration(milliseconds: 200),
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ));
       },
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 21,
-          color: Colors.orange,
-          fontFamily: 'Fraunces',
+      child: Container(
+        width: 300,
+        padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/icon/head.png'), fit: BoxFit.fill)),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 50),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: Color(0xFFFC5658),
+              fontSize: 27,
+              shadows: [
+                Shadow(
+                    offset: Offset(2, 2),
+                    color: Color.fromARGB(255, 0, 149, 199),
+                    blurRadius: 2)
+              ],
+              fontFamily: 'Fraunces',
+            ),
+          ),
         ),
       ),
     );

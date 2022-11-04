@@ -60,7 +60,7 @@ class _DialogPictureState extends State<DialogPicture> {
                         ),
                         Container(
                           child: Text(
-                            'AVATA HIỆN TẠI',
+                            'AVATAR HIỆN TẠI',
                             style: GoogleFonts.bungee(
                               textStyle: const TextStyle(
                                 fontSize: 20,
@@ -195,7 +195,7 @@ class _DialogPictureState extends State<DialogPicture> {
                 color: Color(0xff00A79D),
               ),
               child: const Text(
-                'CẬP NHẬT AVATA',
+                'CẬP NHẬT AVATAR',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,

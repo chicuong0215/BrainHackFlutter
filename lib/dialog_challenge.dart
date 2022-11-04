@@ -1,4 +1,5 @@
 import 'package:brain_hack/create_room.dart';
+import 'package:brain_hack/find_match.dart';
 import 'package:brain_hack/waiting_room.dart';
 import 'package:flutter/material.dart';
 
@@ -35,8 +36,8 @@ class _DialogChallenge extends State<DialogChallenge> {
           Navigator.push(
               context,
               PageRouteBuilder(
-                pageBuilder: (_, __, ___) => WaitingRoom(),
-                transitionDuration: const Duration(milliseconds: 500),
+                pageBuilder: (_, __, ___) => Match(),
+                transitionDuration: const Duration(milliseconds: 200),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),
               ));
