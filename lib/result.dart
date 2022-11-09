@@ -1078,44 +1078,43 @@ class Result extends StatelessWidget {
     );
     return Scaffold(
       backgroundColor: const Color(0xFF3168D8),
-      body: Container(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Column(
-              children: [
-                title,
-                vResult,
-                trueSentence,
-                falseSentence,
-                score,
-                time,
-                personWin,
-              ],
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                'CHẠM VÀO MÀN HÌNH ĐỂ TIẾP TỤC',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Color(0xffC1FDFF),
-                  shadows: [
-                    Shadow(
-                        blurRadius: 10.0,
-                        color: Color(0xFFFFFD47),
-                        offset: Offset(2.0, 2.0)),
-                    Shadow(
-                        blurRadius: 10.0,
-                        color: Color(0xFFFFFD47),
-                        offset: Offset(-2.0, -2.0)),
-                  ],
-                ),
+      body: SingleChildScrollView(
+          child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Column(
+            children: [
+              title,
+              vResult,
+              trueSentence,
+              falseSentence,
+              score,
+              time,
+              personWin,
+            ],
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text(
+              'CHẠM VÀO MÀN HÌNH ĐỂ TIẾP TỤC',
+              style: TextStyle(
+                fontSize: 18,
+                color: Color(0xffC1FDFF),
+                shadows: [
+                  Shadow(
+                      blurRadius: 10.0,
+                      color: Color(0xFFFFFD47),
+                      offset: Offset(2.0, 2.0)),
+                  Shadow(
+                      blurRadius: 10.0,
+                      color: Color(0xFFFFFD47),
+                      offset: Offset(-2.0, -2.0)),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )),
     );
   }
 }
