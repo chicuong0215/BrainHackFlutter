@@ -13,7 +13,7 @@ class Intro extends StatefulWidget {
 class _Intro extends State<Intro> {
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(milliseconds: 1000), () {
+    Timer(const Duration(milliseconds: 2000), () {
       Navigator.push(
           context,
           PageRouteBuilder(
