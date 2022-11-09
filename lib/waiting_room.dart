@@ -146,67 +146,69 @@ class _WaitingRoom extends State<WaitingRoom> {
       obscureText: true,
     );
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Image.asset(
-              "images/bg.jpg",
-              fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Image.asset(
+                "images/bg.jpg",
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Column(
-            children: [
-              rowTitle,
-              tvId,
-              tvTitle,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [person, person, person],
-              ),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Image.asset('images/playing_bg.png'),
-                  SizedBox(
-                    height: 300,
-                    width: 300,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'CHAT',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.yellow,
-                              fontSize: 30,
-                              shadows: [
-                                Shadow(
-                                  offset: Offset(2, 2),
-                                  blurRadius: 1,
-                                  color: Colors.blue,
-                                )
-                              ]),
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 250,
-                              height: 40,
-                              child: txtChat,
-                            ),
-                          ],
-                        )
-                      ],
+            Column(
+              children: [
+                rowTitle,
+                tvId,
+                tvTitle,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [person, person, person],
+                ),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset('images/playing_bg.png'),
+                    SizedBox(
+                      height: 300,
+                      width: 300,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'CHAT',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.yellow,
+                                fontSize: 30,
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(2, 2),
+                                    blurRadius: 1,
+                                    color: Colors.blue,
+                                  )
+                                ]),
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 250,
+                                height: 40,
+                                child: txtChat,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              rowFooter,
-            ],
-          ),
-        ],
+                  ],
+                ),
+                rowFooter,
+              ],
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {

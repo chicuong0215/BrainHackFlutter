@@ -391,7 +391,7 @@ class _ProfileState extends State<Profile> {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (_, __, ___) => UpdateInformation(),
-                    transitionDuration: const Duration(milliseconds: 500),
+                    transitionDuration: const Duration(milliseconds: 200),
                     transitionsBuilder: (_, a, __, c) =>
                         FadeTransition(opacity: a, child: c),
                   ));

@@ -83,7 +83,7 @@ class _DialogExit extends State<DialogExit> {
               context,
               PageRouteBuilder(
                 pageBuilder: (_, __, ___) => Login(),
-                transitionDuration: const Duration(milliseconds: 500),
+                transitionDuration: const Duration(milliseconds: 200),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),
               ));
