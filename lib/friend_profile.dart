@@ -246,29 +246,31 @@ class _FriendProfileState extends State<FriendProfile> {
           ),
         ),
         Container(
-          child: Row(
-            children: [
-              Container(
-                child: Text(
-                  'EMAIL :',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Container(
+                  child: Text(
+                    'EMAIL :',
+                    style: GoogleFonts.bungee(
+                      textStyle:
+                          const TextStyle(fontSize: 25, color: Colors.orange),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                color: Colors.blue,
-                padding: EdgeInsets.only(left: 5),
-                child: Text(
-                  'NVA@GMAIL.COM',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
+                Container(
+                  padding: EdgeInsets.only(left: 5),
+                  child: Text(
+                    'NVA@GMAIL.COM',
+                    style: GoogleFonts.bungee(
+                      textStyle:
+                          const TextStyle(fontSize: 25, color: Colors.orange),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Container(
@@ -321,12 +323,18 @@ class _FriendProfileState extends State<FriendProfile> {
             ],
           ),
         ),
-        TextButton(
-          onPressed: () {},
-          child: Text(
-            'HỦY KẾT BẠN',
-            style: GoogleFonts.bungee(
-              textStyle: const TextStyle(fontSize: 25, color: Colors.red),
+        Container(
+          padding: EdgeInsets.only(left: 10, right: 10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Color.fromARGB(255, 221, 221, 221)),
+          child: TextButton(
+            onPressed: () {},
+            child: Text(
+              'HỦY KẾT BẠN',
+              style: GoogleFonts.bungee(
+                textStyle: const TextStyle(fontSize: 25, color: Colors.red),
+              ),
             ),
           ),
         ),

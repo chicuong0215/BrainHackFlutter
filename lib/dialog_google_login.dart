@@ -103,93 +103,97 @@ class _DialogGoogleLogin extends State<DialogGoogleLogin> {
     return Dialog(
       insetPadding:
           const EdgeInsets.only(top: 150, bottom: 150, left: 9, right: 9),
-      // ignore: sort_child_properties_last
-      child: Container(
-        decoration: BoxDecoration(color: Colors.blue.withOpacity(0.4)),
-        padding: const EdgeInsets.all(10),
+      child: SingleChildScrollView(
+        // ignore: sort_child_properties_last
         child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: const Color(0xFFFFC7A4)),
+          decoration: BoxDecoration(color: Colors.blue.withOpacity(0.4)),
           padding: const EdgeInsets.all(10),
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: Color(0xFFFFEADC)),
+                color: const Color(0xFFFFC7A4)),
             padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: tvTitle,
-                ),
-                const Padding(padding: EdgeInsets.only(top: 15)),
-                image,
-                const Padding(padding: EdgeInsets.only(top: 15)),
-                //username
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.only(left: 60, top: 15, bottom: 5),
-                  child: tvEmail,
-                ),
-                SizedBox(
-                  height: 45,
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(left: 9),
-                        child: const Icon(
-                          Icons.person,
-                          size: 40,
-                          color: Color(0xFF00A79D),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 0, right: 9),
-                          child: edtEmail,
-                        ),
-                      ),
-                    ],
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Color(0xFFFFEADC)),
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: tvTitle,
                   ),
-                ),
-                //email
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.only(left: 60, top: 15, bottom: 5),
-                  child: tvPassword,
-                ),
-                SizedBox(
-                  height: 45,
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(left: 9),
-                        child: const Icon(
-                          Icons.lock,
-                          size: 40,
-                          color: Color(0xFF00A79D),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 0, right: 9),
-                          child: edtPassword,
-                        ),
-                      ),
-                    ],
+                  const Padding(padding: EdgeInsets.only(top: 15)),
+                  image,
+                  const Padding(padding: EdgeInsets.only(top: 15)),
+                  //username
+                  Container(
+                    alignment: Alignment.topLeft,
+                    padding:
+                        const EdgeInsets.only(left: 60, top: 15, bottom: 5),
+                    child: tvEmail,
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [cbSavePassword, tvSavePassword],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  child: btnLogin,
-                )
-              ],
+                  SizedBox(
+                    height: 45,
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 9),
+                          child: const Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Color(0xFF00A79D),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 0, right: 9),
+                            child: edtEmail,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  //email
+                  Container(
+                    alignment: Alignment.topLeft,
+                    padding:
+                        const EdgeInsets.only(left: 60, top: 15, bottom: 5),
+                    child: tvPassword,
+                  ),
+                  SizedBox(
+                    height: 45,
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 9),
+                          child: const Icon(
+                            Icons.lock,
+                            size: 40,
+                            color: Color(0xFF00A79D),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 0, right: 9),
+                            child: edtPassword,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [cbSavePassword, tvSavePassword],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 15),
+                    child: btnLogin,
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -2,12 +2,12 @@ import 'package:brain_hack/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Setting extends StatefulWidget {
+class Settings extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _SettingSate();
+  State<StatefulWidget> createState() => _Settings();
 }
 
-class _SettingSate extends State<Setting> {
+class _Settings extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     Widget title = Container(
