@@ -3,18 +3,21 @@ import 'package:brain_hack/dialog_google_login.dart';
 import 'package:brain_hack/forget_password.dart';
 import 'package:brain_hack/menu.dart';
 import 'package:brain_hack/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
+  State<StatefulWidget> createState() {
     return LoginHome();
   }
 }
 
-class LoginHome extends StatelessWidget {
-  const LoginHome({super.key});
-
+class LoginHome extends State<Login> {
+  TextEditingController tEmail = TextEditingController();
+  TextEditingController tPass = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     Widget tvAppName = const Text(
@@ -59,6 +62,7 @@ class LoginHome extends StatelessWidget {
       ),
     );
     Widget txtUsername = TextField(
+      controller: tEmail,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -80,6 +84,7 @@ class LoginHome extends StatelessWidget {
       ),
     );
     Widget txtPassword = TextField(
+      controller: tPass,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -109,6 +114,19 @@ class LoginHome extends StatelessWidget {
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ));
+        final snackBar = SnackBar(content: Text("${tEmail.text}"));
+        //ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        // try {
+        //   UserCredential userCredential = await FirebaseAuth.instance
+        //       .signInWithEmailAndPassword(
+        //           email: "cuong@gmail.com", password: "123456");
+        // } on FirebaseAuthException catch (e) {
+        //   if (e.code == 'user-not-found') {
+        //     print('No user found for that email.');
+        //   } else if (e.code == 'wrong-password') {
+        //     print('Wrong password provided for that user.');
+        //   }
+        // }
       },
       child: const Text(
         'ĐĂNG NHẬP',

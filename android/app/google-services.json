@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "418225351003",
+    "project_id": "brain-hack-0215",
+    "storage_bucket": "brain-hack-0215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418225351003:android:c06d30c9f1578af1c0d27e",
+        "android_client_info": {
+          "package_name": "com.example.brain_hack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418225351003-h8geoe6ipgu7jlvrpo320dkhc704lo9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW1p6nUAkP1iZmwKHFNEU9tJ3o8V--zDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418225351003-h8geoe6ipgu7jlvrpo320dkhc704lo9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

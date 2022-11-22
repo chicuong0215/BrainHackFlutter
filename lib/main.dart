@@ -10,10 +10,13 @@ import 'package:brain_hack/settings.dart';
 import 'package:brain_hack/shop.dart';
 import 'package:brain_hack/update_information.dart';
 import 'package:brain_hack/waiting_room.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+Future<void> main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
