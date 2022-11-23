@@ -4,20 +4,21 @@ import 'package:brain_hack/forget_password.dart';
 import 'package:brain_hack/menu.dart';
 import 'package:brain_hack/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return LoginHome();
-  }
+  State<StatefulWidget> createState() => _LoginState();
 }
 
-class LoginHome extends State<Login> {
-  TextEditingController tEmail = TextEditingController();
-  TextEditingController tPass = TextEditingController();
-  FirebaseAuth auth = FirebaseAuth.instance;
+class _LoginState extends State<Login> {
+  bool _ShowPass = false;
+  // var _UPInvalid = true;
+  // var _txtUP = 'Tài Khoản Hoặc Mật Khẩu Không Đúng';
+  TextEditingController _EmailController = TextEditingController();
+  TextEditingController _PassController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     Widget tvAppName = const Text(
@@ -52,8 +53,8 @@ class LoginHome extends State<Login> {
             )
           ]),
     );
-    Widget tvUsername = const Text(
-      'USERNAME',
+    Widget tvEmail = const Text(
+      'EMAIL',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -61,8 +62,8 @@ class LoginHome extends State<Login> {
         color: Colors.orange,
       ),
     );
-    Widget txtUsername = TextField(
-      controller: tEmail,
+    Widget txtEmail = TextField(
+      controller: _EmailController,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -75,7 +76,7 @@ class LoginHome extends State<Login> {
       ),
     );
     Widget tvPassword = const Text(
-      'PASSWORD',
+      'MẬT KHẨU',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -84,18 +85,30 @@ class LoginHome extends State<Login> {
       ),
     );
     Widget txtPassword = TextField(
-      controller: tPass,
+      controller: _PassController,
       decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(
-            color: Colors.blueGrey,
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: const BorderSide(
+              color: Colors.blueGrey,
+            ),
           ),
-        ),
-      ),
-      obscureText: true,
+          suffixIcon: _ShowPass
+              ? IconButton(
+                  icon: Icon(Icons.panorama_fish_eye),
+                  onPressed: () {
+                    onChangeShowPass();
+                  },
+                )
+              : IconButton(
+                  icon: Icon(Icons.remove_red_eye),
+                  onPressed: () {
+                    onChangeShowPass();
+                  },
+                )),
+      obscureText: !_ShowPass,
     );
     Widget btnLogin = ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -105,28 +118,66 @@ class LoginHome extends State<Login> {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      onPressed: () {
-        Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (_, __, ___) => Menu(),
-              transitionDuration: const Duration(milliseconds: 100),
-              transitionsBuilder: (_, a, __, c) =>
-                  FadeTransition(opacity: a, child: c),
-            ));
-        final snackBar = SnackBar(content: Text("${tEmail.text}"));
-        //ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        // try {
-        //   UserCredential userCredential = await FirebaseAuth.instance
-        //       .signInWithEmailAndPassword(
-        //           email: "cuong@gmail.com", password: "123456");
-        // } on FirebaseAuthException catch (e) {
-        //   if (e.code == 'user-not-found') {
-        //     print('No user found for that email.');
-        //   } else if (e.code == 'wrong-password') {
-        //     print('Wrong password provided for that user.');
-        //   }
-        // }
+      onPressed: () async {
+        if (_EmailController.text.isEmpty || _PassController.text.isEmpty) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text(
+                  "Email Và Mật Khẩu",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                content: const Text(
+                  'Vui lòng nhập Email và Password',
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("OK"),
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          try {
+            final _user = _auth.signInWithEmailAndPassword(
+                email: _EmailController.text, password: _PassController.text);
+            _auth.authStateChanges().listen(
+              (event) {
+                if (event != null) {
+                  _EmailController.clear();
+                  _PassController.clear();
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (_, __, ___) => Menu(),
+                      transitionDuration: const Duration(milliseconds: 100),
+                      transitionsBuilder: (_, a, __, c) =>
+                          FadeTransition(opacity: a, child: c),
+                    ),
+                  );
+                } else {
+                  final snackBar = SnackBar(
+                    content: Text('EMAIL HOẶC MẬT KHẨU KHÔNG ĐÚNG'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+              },
+            );
+          } catch (e) {
+            final snackBar = SnackBar(
+              content: Text('LỖI KẾT NỐI'),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        }
       },
       child: const Text(
         'ĐĂNG NHẬP',
@@ -234,30 +285,30 @@ class LoginHome extends State<Login> {
                   // margin: const EdgeInsets.only(top: 15),
                   child: tvLogin,
                 ),
-                //text username
+                //text Email
                 Container(
                   alignment: Alignment.topLeft,
                   padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                  child: tvUsername,
+                  child: tvEmail,
                 ),
                 Container(
                   height: 45,
                   child: Row(
                     children: [
-                      //icon username
+                      //icon Email
                       Container(
                         margin: EdgeInsets.only(left: 30),
                         child: const Icon(
-                          Icons.person,
+                          Icons.email,
                           size: 40,
                           color: Colors.white,
                         ),
                       ),
-                      //text filed username
+                      //text filed Email
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10, right: 40),
-                          child: txtUsername,
+                          child: txtEmail,
                         ),
                       ),
                     ],
@@ -327,4 +378,20 @@ class LoginHome extends State<Login> {
       ),
     );
   }
+
+  void onChangeShowPass() {
+    setState(() {
+      _ShowPass = !_ShowPass;
+    });
+  }
+
+  // void onSiginClick() {
+  //   setState(() {
+  //     if (_UserController.text == null || _PassController.text == null) {
+  //       _UPInvalid == true;
+  //     } else {
+  //       _UPInvalid == false;
+  //     }
+  //   });
+  // }
 }

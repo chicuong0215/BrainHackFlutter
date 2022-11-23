@@ -1,4 +1,6 @@
 import 'package:brain_hack/update_information.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +10,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final _user = FirebaseAuth.instance.currentUser;
+  final _fireStore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
+    final f = _fireStore.collection('Account').get();
     Widget title = Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -231,7 +236,7 @@ class _ProfileState extends State<Profile> {
               Container(
                 padding: EdgeInsets.only(left: 15),
                 child: Text(
-                  'NGUYỄN VĂN A',
+                  '',
                   style: GoogleFonts.bungee(
                     textStyle:
                         const TextStyle(fontSize: 25, color: Colors.orange),
@@ -258,7 +263,7 @@ class _ProfileState extends State<Profile> {
                 Container(
                   padding: EdgeInsets.only(left: 5),
                   child: Text(
-                    'NVA@GMAIL.COM',
+                    '${_user!.email}',
                     style: GoogleFonts.bungee(
                       textStyle:
                           const TextStyle(fontSize: 25, color: Colors.orange),
