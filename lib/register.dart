@@ -303,7 +303,8 @@ class _RegisterState extends State<Register> {
                               },
                             );
                           } else {
-                            if (_RePassController == _PassController) {
+                            if (_RePassController.text ==
+                                _PassController.text) {
                               try {
                                 final _user =
                                     _auth.createUserWithEmailAndPassword(
@@ -349,14 +350,13 @@ class _RegisterState extends State<Register> {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
                               }
+                            } else {
+                              final snackBar = SnackBar(
+                                content: Text('Mật khẩu xác nhận không đúng'),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             }
-                            // else {
-                            //   final snackBar = SnackBar(
-                            //     content: Text('Mật khẩu xác nhận không đúng'),
-                            //   );
-                            //   ScaffoldMessenger.of(context)
-                            //       .showSnackBar(snackBar);
-                            // }
                           }
                         },
                         child: Text(
