@@ -3,17 +3,21 @@ import 'package:brain_hack/dialog_google_login.dart';
 import 'package:brain_hack/forget_password.dart';
 import 'package:brain_hack/menu.dart';
 import 'package:brain_hack/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return LoginHome();
-  }
+  State<StatefulWidget> createState() => _LoginState();
 }
 
-class LoginHome extends StatelessWidget {
-  const LoginHome({super.key});
+class _LoginState extends State<Login> {
+  bool _ShowPass = false;
+  // var _UPInvalid = true;
+  // var _txtUP = 'Tài Khoản Hoặc Mật Khẩu Không Đúng';
+  TextEditingController _EmailController = TextEditingController();
+  TextEditingController _PassController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +53,8 @@ class LoginHome extends StatelessWidget {
             )
           ]),
     );
-    Widget tvUsername = const Text(
-      'USERNAME',
+    Widget tvEmail = const Text(
+      'EMAIL',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -58,7 +62,8 @@ class LoginHome extends StatelessWidget {
         color: Colors.orange,
       ),
     );
-    Widget txtUsername = TextField(
+    Widget txtEmail = TextField(
+      controller: _EmailController,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -71,7 +76,7 @@ class LoginHome extends StatelessWidget {
       ),
     );
     Widget tvPassword = const Text(
-      'PASSWORD',
+      'MẬT KHẨU',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -80,17 +85,30 @@ class LoginHome extends StatelessWidget {
       ),
     );
     Widget txtPassword = TextField(
+      controller: _PassController,
       decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(
-            color: Colors.blueGrey,
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: const BorderSide(
+              color: Colors.blueGrey,
+            ),
           ),
-        ),
-      ),
-      obscureText: true,
+          suffixIcon: _ShowPass
+              ? IconButton(
+                  icon: Icon(Icons.panorama_fish_eye),
+                  onPressed: () {
+                    onChangeShowPass();
+                  },
+                )
+              : IconButton(
+                  icon: Icon(Icons.remove_red_eye),
+                  onPressed: () {
+                    onChangeShowPass();
+                  },
+                )),
+      obscureText: !_ShowPass,
     );
     Widget btnLogin = ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -100,15 +118,66 @@ class LoginHome extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      onPressed: () {
-        Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (_, __, ___) => Menu(),
-              transitionDuration: const Duration(milliseconds: 100),
-              transitionsBuilder: (_, a, __, c) =>
-                  FadeTransition(opacity: a, child: c),
-            ));
+      onPressed: () async {
+        if (_EmailController.text.isEmpty || _PassController.text.isEmpty) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text(
+                  "Email Và Mật Khẩu",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                content: const Text(
+                  'Vui lòng nhập Email và Password',
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("OK"),
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          try {
+            final _user = _auth.signInWithEmailAndPassword(
+                email: _EmailController.text, password: _PassController.text);
+            _auth.authStateChanges().listen(
+              (event) {
+                if (event != null) {
+                  _EmailController.clear();
+                  _PassController.clear();
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (_, __, ___) => Menu(),
+                      transitionDuration: const Duration(milliseconds: 100),
+                      transitionsBuilder: (_, a, __, c) =>
+                          FadeTransition(opacity: a, child: c),
+                    ),
+                  );
+                } else {
+                  final snackBar = SnackBar(
+                    content: Text('EMAIL HOẶC MẬT KHẨU KHÔNG ĐÚNG'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+              },
+            );
+          } catch (e) {
+            final snackBar = SnackBar(
+              content: Text('LỖI KẾT NỐI'),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        }
       },
       child: const Text(
         'ĐĂNG NHẬP',
@@ -216,30 +285,30 @@ class LoginHome extends StatelessWidget {
                   // margin: const EdgeInsets.only(top: 15),
                   child: tvLogin,
                 ),
-                //text username
+                //text Email
                 Container(
                   alignment: Alignment.topLeft,
                   padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                  child: tvUsername,
+                  child: tvEmail,
                 ),
                 Container(
                   height: 45,
                   child: Row(
                     children: [
-                      //icon username
+                      //icon Email
                       Container(
                         margin: EdgeInsets.only(left: 30),
                         child: const Icon(
-                          Icons.person,
+                          Icons.email,
                           size: 40,
                           color: Colors.white,
                         ),
                       ),
-                      //text filed username
+                      //text filed Email
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10, right: 40),
-                          child: txtUsername,
+                          child: txtEmail,
                         ),
                       ),
                     ],
@@ -309,4 +378,20 @@ class LoginHome extends StatelessWidget {
       ),
     );
   }
+
+  void onChangeShowPass() {
+    setState(() {
+      _ShowPass = !_ShowPass;
+    });
+  }
+
+  // void onSiginClick() {
+  //   setState(() {
+  //     if (_UserController.text == null || _PassController.text == null) {
+  //       _UPInvalid == true;
+  //     } else {
+  //       _UPInvalid == false;
+  //     }
+  //   });
+  // }
 }

@@ -125,21 +125,45 @@ class Ranking extends StatelessWidget {
     );
     return Scaffold(
       backgroundColor: const Color(0xFF090050),
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              child: title,
-            ),
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.all(20),
-                itemCount: 20,
-                itemBuilder: (context, index) => ranking,
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              Container(
+                child: title,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.all(20),
+                  itemCount: 20,
+                  itemBuilder: (context, index) => ranking,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              alignment: Alignment.center,
+              height: 40,
+              width: 250,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Text(
+                'HẠNG CỦA BẠN : 97  400',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Color(0xffC238D3),
+                  fontFamily: 'Fraunces',
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {

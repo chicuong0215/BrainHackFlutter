@@ -125,47 +125,71 @@ class FieldRank extends StatelessWidget {
     );
     return Scaffold(
       backgroundColor: const Color(0xFF090050),
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              child: title,
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(),
-                  Container(
-                    child: Text(
-                      'SCIENCE',
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontFamily: 'Fraunces',
-                        color: Color(0xFFC238D3),
-                        shadows: [
-                          Shadow(
-                            blurRadius: 1.0,
-                            color: Color(0xFFFf0099),
-                            offset: Offset(-1.0, -1.0),
-                          ),
-                        ],
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              Container(
+                child: title,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(),
+                    Container(
+                      child: Text(
+                        'SCIENCE',
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontFamily: 'Fraunces',
+                          color: Color(0xFFC238D3),
+                          shadows: [
+                            Shadow(
+                              blurRadius: 1.0,
+                              color: Color(0xFFFf0099),
+                              offset: Offset(-1.0, -1.0),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+                  itemCount: 20,
+                  itemBuilder: (context, index) => ranking,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              alignment: Alignment.center,
+              height: 40,
+              width: 250,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Text(
+                'HẠNG CỦA BẠN : 97  400',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Color(0xffC238D3),
+                  fontFamily: 'Fraunces',
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-                itemCount: 20,
-                itemBuilder: (context, index) => ranking,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {

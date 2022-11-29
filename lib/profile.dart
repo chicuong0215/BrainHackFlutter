@@ -1,4 +1,6 @@
 import 'package:brain_hack/update_information.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -8,32 +10,46 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final _user = FirebaseAuth.instance.currentUser;
+  final _fireStore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
-    Widget rowTitle = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          child: IconButton(
-            iconSize: 100,
-            onPressed: () {},
-            icon: const Image(
-              image: AssetImage('images/icon/logo_v2.png'),
+    final f = _fireStore.collection('Account').get();
+    Widget title = Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('images/icon/head.png'), fit: BoxFit.contain),
+      ),
+      child: Row(
+        children: [
+          Container(
+            child: IconButton(
+              iconSize: 60,
+              onPressed: () {},
+              icon: const Image(
+                image: AssetImage('images/icon/logo_v2.png'),
+              ),
             ),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 20),
-          child: const Text(
-            'HỒ SƠ',
-            style: TextStyle(
-              fontSize: 50,
-              fontFamily: 'Fraunces',
-              color: Colors.orange,
+          Container(
+            margin: EdgeInsets.only(left: 70),
+            child: const Text(
+              'HỒ SƠ',
+              style: TextStyle(
+                fontSize: 45,
+                fontFamily: 'Fraunces',
+                color: Color(0xFFFC5658),
+                shadows: [
+                  Shadow(
+                      blurRadius: 1.0,
+                      color: Color(0xFF33f8ff),
+                      offset: Offset(2.0, -1.0)),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
     Widget personalStats = Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -220,7 +236,7 @@ class _ProfileState extends State<Profile> {
               Container(
                 padding: EdgeInsets.only(left: 15),
                 child: Text(
-                  'NGUYỄN VĂN A',
+                  '',
                   style: GoogleFonts.bungee(
                     textStyle:
                         const TextStyle(fontSize: 25, color: Colors.orange),
@@ -231,28 +247,31 @@ class _ProfileState extends State<Profile> {
           ),
         ),
         Container(
-          child: Row(
-            children: [
-              Container(
-                child: Text(
-                  'EMAIL :',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Container(
+                  child: Text(
+                    'EMAIL :',
+                    style: GoogleFonts.bungee(
+                      textStyle:
+                          const TextStyle(fontSize: 25, color: Colors.orange),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
-                  'NVA@GMAIl',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
+                Container(
+                  padding: EdgeInsets.only(left: 5),
+                  child: Text(
+                    '${_user!.email}',
+                    style: GoogleFonts.bungee(
+                      textStyle:
+                          const TextStyle(fontSize: 25, color: Colors.orange),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Container(
@@ -428,7 +447,7 @@ class _ProfileState extends State<Profile> {
             children: [
               //title
               Container(
-                child: rowTitle,
+                child: title,
               ),
               Container(
                 margin: const EdgeInsets.only(
