@@ -157,6 +157,9 @@ class Button extends StatelessWidget {
           case 'profile':
             screen = Profile();
             break;
+          case 'history':
+            screen = History();
+            break;
           case 'ranking':
             screen = Ranking();
             break;
@@ -170,6 +173,7 @@ class Button extends StatelessWidget {
             screen = Shop();
             break;
           case 'settings':
+            screen = Settings();
             break;
           case 'about':
             screen = About();

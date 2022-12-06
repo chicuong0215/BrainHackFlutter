@@ -150,10 +150,6 @@ class _Rooms extends State<Rooms> {
               RoomItem(),
               RoomItem(),
               RoomItem(),
-              RoomItem(),
-              RoomItem(),
-              RoomItem(),
-              RoomItem(),
             ],
           ))
         ],
@@ -169,4 +165,28 @@ class _Rooms extends State<Rooms> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
+
+  // Stream<List<Room>> getAllRoom({id, level, score, type, stt}) {
+  //   List<CountryModel> country;
+  //   for (CountryModel c in countryName) {
+  //     var ref = _db
+  //         .collection('country')
+  //         .doc(c.countryName)
+  //         .collection('chat')
+  //         .where("likes", arrayContains: userId)
+  //         .snapshots();
+  //     return ref.map((snap) =>
+  //         snap.docs.map((doc) => RecentChat.fromJson(doc.data())).toList());
+  //   }
+  // }
+}
+
+class Room {
+  String id;
+  String level;
+  String score;
+  String type;
+  String stt;
+
+  Room(key, this.id, this.level, this.score, this.type, this.stt);
 }

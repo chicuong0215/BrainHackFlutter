@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:brain_hack/dialog_exit.dart';
 import 'package:brain_hack/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -312,47 +314,17 @@ class _RegisterState extends State<Register> {
                             // }
                             if (_RePassController.text ==
                                 _PassController.text) {
-                              try {
-                                final _user =
-                                    _auth.createUserWithEmailAndPassword(
-                                        email: _EmailController.text,
-                                        password: _PassController.text);
-                                _auth.authStateChanges().listen(
-                                  (event) {
-                                    // if (_EmailController != null) {
-                                    //   showDialog(
-                                    //     context: context,
-                                    //     builder: (context) => DialogExit(),
-                                    //   );
-                                    // }
-                                    if (event != null) {
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          pageBuilder: (_, __, ___) => Login(),
-                                          transitionDuration:
-                                              const Duration(milliseconds: 100),
-                                          transitionsBuilder: (_, a, __, c) =>
-                                              FadeTransition(
-                                                  opacity: a, child: c),
-                                        ),
-                                      );
-                                    } else {
-                                      final snackBar = SnackBar(
-                                        content: Text(
-                                            'EMAIL HOẶC MẬT KHẨU KHÔNG ĐÚNG'),
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                      _EmailController.clear();
-                                      _PassController.clear();
-                                      _RePassController.clear();
-                                    }
-                                  },
-                                );
-                              } catch (e) {
+                              if (!await checkIfEmailInUse(
+                                  _EmailController.text)) {
+                                register();
                                 final snackBar = SnackBar(
-                                  content: Text('LỖI KẾT NỐI'),
+                                  content: Text('Đăng ký thành công'),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else {
+                                final snackBar = SnackBar(
+                                  content: Text('Tai khoản đã tồn tại'),
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
@@ -389,5 +361,65 @@ class _RegisterState extends State<Register> {
           backgroundColor: const Color(0xFF3B4DA3)),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
+  }
+
+  void register() {
+    try {
+      final _user = _auth.createUserWithEmailAndPassword(
+          email: _EmailController.text, password: _PassController.text);
+      _auth.authStateChanges().listen(
+        (event) {
+          if (_EmailController != null) {
+            showDialog(
+              context: context,
+              builder: (context) => DialogExit(),
+            );
+          }
+          if (event != null) {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => Login(),
+                transitionDuration: const Duration(milliseconds: 100),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              ),
+            );
+          } else {
+            final snackBar = SnackBar(
+              content: Text('EMAIL HOẶC MẬT KHẨU KHÔNG ĐÚNG'),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        },
+      );
+    } catch (e) {
+      final snackBar = SnackBar(
+        content: Text('LỖI KẾT NỐI'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  Future<bool> checkIfEmailInUse(String emailAddress) async {
+    try {
+      // Fetch sign-in methods for the email address
+      final list =
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(emailAddress);
+
+      // In case list is not empty
+      if (list.isNotEmpty) {
+        // Return true because there is an existing
+        // user using the email address
+        return true;
+      } else {
+        // Return false because email adress is not in use
+        return false;
+      }
+    } catch (error) {
+      // Handle error
+      // ...
+      return true;
+    }
   }
 }
