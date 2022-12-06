@@ -11,6 +11,23 @@ class CreateRoom extends StatefulWidget {
 }
 
 class _CreateRoom extends State<CreateRoom> {
+  String dropdownvalue = 'Item 1';
+
+  // List of items in our dropdown menu
+  var items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
+  TextEditingController SoDiemController = TextEditingController();
+
+  TextEditingController CapDoController = TextEditingController();
+  TextEditingController SoNguoiController = TextEditingController();
+  TextEditingController ThoiGianController = TextEditingController();
+  TextEditingController SoCauHoiController = TextEditingController();
+  TextEditingController LinhVucController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -57,14 +74,51 @@ class _CreateRoom extends State<CreateRoom> {
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.transparent)),
         onPressed: () {
-          Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (_, __, ___) => WaitingRoom(),
-                transitionDuration: const Duration(milliseconds: 200),
-                transitionsBuilder: (_, a, __, c) =>
-                    FadeTransition(opacity: a, child: c),
-              ));
+          if (SoCauHoiController.text.isEmpty ||
+              SoDiemController.text.isEmpty ||
+              LinhVucController.text.isEmpty ||
+              ThoiGianController.text.isEmpty ||
+              SoNguoiController.text.isEmpty ||
+              CapDoController.text.isEmpty) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text(
+                    'Thông báo',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: Text(
+                    'Vui Lòng Nhập Đủ Thong Tin',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("OK"),
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            if ((SoNguoiController.text.length < 2) &&
+                (ThoiGianController.text.length < 30) &&
+                (CapDoController.text.length < 1) &&
+                (SoDiemController.text.length < 2)) {}
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => WaitingRoom(),
+                  transitionDuration: const Duration(milliseconds: 200),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ));
+          }
         },
         child: Stack(
           alignment: Alignment.center,
@@ -102,28 +156,42 @@ class _CreateRoom extends State<CreateRoom> {
                 children: [
                   TextCustom(title: "SỐ ĐIỂM"),
                   Expanded(
-                    child: TextFieldCustom(),
+                    child: TextField(
+                      obscureText: true,
+                      controller: SoDiemController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ),
             ),
             Row(
               children: [
-                TextCustom(title: "HẠNG"),
-                Expanded(
-                  child: TextFieldCustom(),
-                ),
-                TextCustom(title: "ĐẾN"),
-                Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
                 TextCustom(title: "CẤP ĐỘ"),
                 Expanded(
-                  child: TextFieldCustom(),
+                  child: TextField(
+                    obscureText: true,
+                    controller: CapDoController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -131,7 +199,20 @@ class _CreateRoom extends State<CreateRoom> {
               children: [
                 TextCustom(title: "SỐ NGƯỜI"),
                 Expanded(
-                  child: TextFieldCustom(),
+                  child: TextField(
+                    obscureText: true,
+                    controller: SoNguoiController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -139,24 +220,27 @@ class _CreateRoom extends State<CreateRoom> {
               children: [
                 TextCustom(title: "THỜI GIAN"),
                 Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                TextCustom(title: "SỐ CÂU HỎI"),
-                Expanded(
-                  child: TextFieldCustom(),
+                  child: TextField(
+                    obscureText: true,
+                    controller: ThoiGianController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
             Row(
               children: [
                 TextCustom(title: "LĨNH VỰC"),
-                Expanded(
-                  child: TextFieldCustom(),
-                )
+                Expanded(child: Container()),
               ],
             ),
             btnCreate
