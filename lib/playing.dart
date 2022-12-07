@@ -1,3 +1,4 @@
+import 'package:brain_hack/result.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +55,7 @@ class _Playing extends State<Playing> {
       ],
     );
     Widget tvTitle = const Text(
-      "TRIPLE MATCH",
+      "MATCHING",
       textAlign: TextAlign.center,
       style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -68,6 +69,12 @@ class _Playing extends State<Playing> {
             )
           ]),
     );
+    Widget btnDetail = TextButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (builder) => Result()));
+        },
+        child: Text('Xem chi tiết'));
 
     return Scaffold(
         body: SingleChildScrollView(
@@ -118,25 +125,25 @@ class _Playing extends State<Playing> {
                     ],
                   ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(
-                        onPressed: () {
-                          if (listQuestion != null && vt > 0) {
-                            vt--;
-                            setState(() {});
-                          }
-                        },
-                        child: const Text(
-                          "TRƯỚC",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30),
-                        )),
                     TextButton(
                         onPressed: () {
                           if (listQuestion != null &&
                               vt < listQuestion.length - 1) {
                             vt++;
                             setState(() {});
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text("Thông báo"),
+                                  content: const Text('Kết thúc!'),
+                                  actions: [btnDetail],
+                                );
+                              },
+                            );
                           }
                         },
                         child: const Text(
@@ -146,13 +153,17 @@ class _Playing extends State<Playing> {
                         )),
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [TimeLeft(value: 25), Score(value: 1)],
+                if (listQuestion != null)
+                  Container(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TimeLeft(value: 25),
+                        Score(value: listQuestion[vt]['score'])
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
           ],

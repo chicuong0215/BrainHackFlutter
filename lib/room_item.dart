@@ -1,20 +1,19 @@
+import 'package:brain_hack/utils.dart';
+import 'package:brain_hack/waiting_room.dart';
 import 'package:flutter/material.dart';
 
-class RoomItem extends StatefulWidget {
-  const RoomItem({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return _RoomItem();
-  }
-}
-
-class _RoomItem extends State<RoomItem> {
+class RoomItem extends StatelessWidget {
+  final String id;
+  final String type;
+  final bool stt;
+  const RoomItem(
+      {Key? key, required this.id, required this.type, required this.stt})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Widget tvType = const Text(
-      "KHOA HỌC",
-      style: TextStyle(
+    Widget tvType = Text(
+      type,
+      style: const TextStyle(
           color: Colors.blue,
           fontWeight: FontWeight.bold,
           fontSize: 15,
@@ -36,14 +35,14 @@ class _RoomItem extends State<RoomItem> {
       width: 100,
       height: 100,
     );
-    Widget tvId = const Text(
-      "ID:000000",
-      style: TextStyle(color: Colors.red),
+    Widget tvId = Text(
+      "ID: $id",
+      style: TextStyle(color: stt ? Colors.red : Colors.white),
     );
     Widget btnEnter = ElevatedButton(
         style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all(const Color(0xFF94DD26))),
+            backgroundColor: MaterialStateProperty.all(
+                Color(stt ? 0x99FFFFFF : 0xFF94DD26))),
         onPressed: () {},
         child: const Text(
           "Vào",
@@ -61,13 +60,25 @@ class _RoomItem extends State<RoomItem> {
             Stack(
               alignment: Alignment.center,
               children: [
-                imgGif,
+                stt ? imgGif : img,
                 img,
-                const Text(
-                  "Đang thi\nđấu...",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 12),
-                )
+                TextButton(
+                    onPressed: () {
+                      if (stt) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WaitingRoom(),
+                            ));
+                      } else {
+                        Utils.notification(context, 'Phòng đầy');
+                      }
+                    },
+                    child: Text(
+                      stt ? "Đang thi\nđấu..." : "Trống",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ))
               ],
             ),
             tvId,
