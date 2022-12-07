@@ -35,9 +35,12 @@ class _Trainning extends State<Trainning> {
         )
       ],
     );
-
+    Widget tvId = const Text(
+      'ID Phòng: 000006',
+      style: TextStyle(fontSize: 18, color: Colors.red),
+    );
     Widget tvTitle = const Text(
-      "LUYỆN TẬP",
+      "TRIPLE MATCH",
       textAlign: TextAlign.center,
       style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -51,29 +54,62 @@ class _Trainning extends State<Trainning> {
             )
           ]),
     );
-    Widget tvCauHoi = const Text(
-      "Câu 1",
-      textAlign: TextAlign.center,
-      style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Color.fromARGB(255, 255, 0, 0),
-          shadows: [
-            Shadow(
-              offset: Offset(3, 3),
-              blurRadius: 1,
-              color: Color.fromARGB(255, 255, 251, 0),
-            )
-          ]),
+    Widget person = Column(
+      // ignore: prefer_const_literals_to_create_immutables
+      children: [
+        // ignore: prefer_const_constructors
+        Icon(
+          Icons.person,
+          color: Colors.white,
+          size: 46,
+        ),
+        const Text(
+          'an',
+          style: TextStyle(color: Colors.white),
+        ),
+        // ignore: prefer_const_constructors
+        Text(
+          '0',
+          style: const TextStyle(
+              fontSize: 45,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  offset: Offset(2, 2),
+                  blurRadius: 1,
+                  color: Colors.purple,
+                )
+              ]),
+        )
+      ],
     );
     Widget colScore = Column(
       children: [
-        TextButton(
-          child: Text(
-            "NEXT",
-            style: TextStyle(fontSize: 50),
-          ),
-          onPressed: () async {},
+        Text(
+          'ĐIỂM\nCÂU HỎI',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.yellow,
+              fontWeight: FontWeight.bold,
+              fontSize: 21,
+              shadows: [
+                Shadow(
+                  offset: Offset(2, 2),
+                  blurRadius: 1,
+                  color: Colors.blue,
+                )
+              ]),
+        ),
+        Text(
+          '1000',
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+              shadows: [
+                Shadow(offset: Offset(2, 2), color: Colors.red, blurRadius: 1)
+              ]),
         )
       ],
     );
@@ -87,7 +123,7 @@ class _Trainning extends State<Trainning> {
             alignment: Alignment.center,
             children: [
               Image.asset(
-                'images/icon/circle_2.gif',
+                'images/icon/circle_3.gif',
                 width: 90,
                 height: 90,
               ),
@@ -162,10 +198,12 @@ class _Trainning extends State<Trainning> {
           Column(
             children: [
               rowTitle,
+              tvId,
               tvTitle,
-              Padding(padding: EdgeInsets.only(top: 50)),
-              tvCauHoi,
-              Padding(padding: EdgeInsets.only(top: 40)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [person, person, person],
+              ),
               Stack(
                 alignment: Alignment.topCenter,
                 children: [
@@ -177,7 +215,7 @@ class _Trainning extends State<Trainning> {
                         width: 300,
                         height: 150,
                         child: const Text(
-                          'TRƯỜNG CAO ĐẲNG KỸ THUẬT CAO THẮNG CÓ BAO NHIÊU BẠN NỮ',
+                          'CÂU 1: TRƯỜNG CAO ĐẲNG KỸ THUẬT CAO THẮNG CÓ BAO NHIÊU BẠN NỮ',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.yellow,
@@ -208,16 +246,6 @@ class _Trainning extends State<Trainning> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        label: const Text(''),
-        shape: CircleBorder(side: BorderSide()),
-        icon: const Icon(Icons.arrow_back_ios_new),
-        backgroundColor: Colors.blue,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }

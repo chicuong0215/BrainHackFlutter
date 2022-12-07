@@ -178,6 +178,9 @@ class Button extends StatelessWidget {
           case 'about':
             screen = About();
             break;
+          case 'history':
+            screen = History();
+            break;
         }
         Navigator.pop(context);
         Navigator.push(

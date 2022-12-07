@@ -305,6 +305,13 @@ class _RegisterState extends State<Register> {
                               },
                             );
                           } else {
+                            //   bool checkRegister() {
+                            //   if (_EmailController.text == txtEmail) {
+                            //     final snackBar =
+                            //         SnackBar(content: Text('Email da ton tai'));
+                            //   }
+                            //   return true;
+                            // }
                             if (_RePassController.text ==
                                 _PassController.text) {
                               if (!await checkIfEmailInUse(
