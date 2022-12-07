@@ -1,14 +1,16 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:quiver/async.dart';
 
-class Playing extends StatefulWidget {
-  const Playing({super.key});
+class Trainning extends StatefulWidget {
+  const Trainning({super.key});
 
   @override
-  State<StatefulWidget> createState() => _Playing();
+  State<StatefulWidget> createState() => _Trainning();
 }
 
-class _Playing extends State<Playing> {
+class _Trainning extends State<Trainning> {
   dynamic listQuestion;
   int vt = 0;
 
@@ -54,7 +56,7 @@ class _Playing extends State<Playing> {
       ],
     );
     Widget tvTitle = const Text(
-      "TRIPLE MATCH",
+      "TRAINNING",
       textAlign: TextAlign.center,
       style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -85,7 +87,6 @@ class _Playing extends State<Playing> {
             Column(
               children: [
                 rowTitle,
-                Room(id: 3000),
                 tvTitle,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,39 +120,31 @@ class _Playing extends State<Playing> {
                   ),
                 Row(
                   children: [
+                    Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TimeLeft(value: 25),
+                        ],
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(left: 140)),
                     TextButton(
-                        onPressed: () {
-                          if (listQuestion != null && vt > 0) {
-                            vt--;
-                            setState(() {});
-                          }
-                        },
-                        child: const Text(
-                          "TRƯỚC",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30),
-                        )),
-                    TextButton(
-                        onPressed: () {
-                          if (listQuestion != null &&
-                              vt < listQuestion.length - 1) {
-                            vt++;
-                            setState(() {});
-                          }
-                        },
-                        child: const Text(
-                          "TIẾP THEO",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30),
-                        )),
+                      onPressed: () {
+                        if (listQuestion != null &&
+                            vt < listQuestion.length - 1) {
+                          vt++;
+                          setState(() {});
+                        }
+                      },
+                      child: const Text(
+                        "NEXT>>",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 30),
+                      ),
+                    ),
                   ],
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [TimeLeft(value: 25), Score(value: 1)],
-                  ),
                 ),
               ],
             ),
@@ -276,7 +269,6 @@ class Person extends StatelessWidget {
           }
           return Column(
               children: snapshot.data!.docs.map((document) {
-            // ignore: prefer_const_literals_to_create_immutables
             return Row(children: [
               // ignore: prefer_const_constructors
               Icon(
@@ -288,21 +280,8 @@ class Person extends StatelessWidget {
                 document['Id'].toString(),
                 style: const TextStyle(color: Colors.white),
               ),
+
               // ignore: prefer_const_constructors
-              Text(
-                '0',
-                style: const TextStyle(
-                    fontSize: 45,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        offset: Offset(2, 2),
-                        blurRadius: 1,
-                        color: Colors.purple,
-                      )
-                    ]),
-              )
             ]);
           }).toList()
               // ignore: prefer_const_literals_to_create_immutables
@@ -319,22 +298,6 @@ class Score extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          'ĐIỂM\nCÂU HỎI',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.yellow,
-              fontWeight: FontWeight.bold,
-              fontSize: 21,
-              // ignore: prefer_const_literals_to_create_immutables
-              shadows: [
-                Shadow(
-                  offset: Offset(2, 2),
-                  blurRadius: 1,
-                  color: Colors.blue,
-                )
-              ]),
-        ),
         Text(
           value.toString(),
           style: const TextStyle(
@@ -347,19 +310,6 @@ class Score extends StatelessWidget {
               ]),
         )
       ],
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class Room extends StatelessWidget {
-  int id;
-  Room({Key? key, required this.id}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'ID Phòng: $id',
-      style: TextStyle(fontSize: 18, color: Colors.red),
     );
   }
 }
