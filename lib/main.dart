@@ -1,3 +1,4 @@
+import 'package:brain_hack/create_room.dart';
 import 'package:brain_hack/field_rank.dart';
 import 'package:brain_hack/friend_item.dart';
 import 'package:brain_hack/friend_profile.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ListFriend(),
+      home: Menu(),
     );
   }
 }
