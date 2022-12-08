@@ -277,48 +277,34 @@ class Person extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Account').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Column(
-              children: snapshot.data!.docs.map((document) {
-            // ignore: prefer_const_literals_to_create_immutables
-            return Row(children: [
-              // ignore: prefer_const_constructors
-              Icon(
-                Icons.person,
-                color: Colors.white,
-                size: 46,
-              ),
-              Text(
-                document['Id'].toString(),
-                style: const TextStyle(color: Colors.white),
-              ),
-              // ignore: prefer_const_constructors
-              Text(
-                '0',
-                style: const TextStyle(
-                    fontSize: 45,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        offset: Offset(2, 2),
-                        blurRadius: 1,
-                        color: Colors.purple,
-                      )
-                    ]),
+    return Row(children: [
+      // ignore: prefer_const_constructors
+      Icon(
+        Icons.person,
+        color: Colors.white,
+        size: 46,
+      ),
+      Text(
+        id,
+        style: const TextStyle(color: Colors.white),
+      ),
+      // ignore: prefer_const_constructors
+      Text(
+        '0',
+        style: const TextStyle(
+            fontSize: 45,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                offset: Offset(2, 2),
+                blurRadius: 1,
+                color: Colors.purple,
               )
-            ]);
-          }).toList()
-              // ignore: prefer_const_literals_to_create_immutables
-              );
-        });
+            ]),
+      )
+    ]);
+    ;
   }
 }
 
