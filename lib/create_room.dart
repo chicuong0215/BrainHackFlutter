@@ -1,6 +1,7 @@
 import 'package:brain_hack/playing.dart';
 import 'package:brain_hack/trainning.dart';
 import 'package:brain_hack/waiting_room.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CreateRoom extends StatefulWidget {
@@ -25,6 +26,22 @@ class _CreateRoom extends State<CreateRoom> {
   TextEditingController CapDoController = TextEditingController();
   TextEditingController ThoiGianController = TextEditingController();
   TextEditingController LinhVucController = TextEditingController();
+
+  CollectionReference room = FirebaseFirestore.instance.collection('Room');
+  //create room
+  Future<void> createRoom() {
+    return room
+        .add({
+          'id': '010',
+          'level': '2',
+          'score': '1000',
+          'stt': true,
+          'type': 'TOÁN HỌC'
+        })
+        .then((value) => print("Created Room"))
+        .catchError((error) => print("Failed to add room: $error"));
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -110,14 +127,15 @@ class _CreateRoom extends State<CreateRoom> {
                 capdo <= 3 &&
                 sodiem >= 0 &&
                 sodiem <= 1000) {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => WaitingRoom(),
-                    transitionDuration: const Duration(milliseconds: 200),
-                    transitionsBuilder: (_, a, __, c) =>
-                        FadeTransition(opacity: a, child: c),
-                  ));
+              // Navigator.push(
+              //     context,
+              //     PageRouteBuilder(
+              //       pageBuilder: (_, __, ___) => WaitingRoom(),
+              //       transitionDuration: const Duration(milliseconds: 200),
+              //       transitionsBuilder: (_, a, __, c) =>
+              //           FadeTransition(opacity: a, child: c),
+              //     ));
+              createRoom();
             }
           }
         },
