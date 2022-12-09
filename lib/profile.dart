@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:brain_hack/update_information.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +23,9 @@ class _ProfileState extends State<Profile> {
     return format.format(timestamp.toDate());
   }
 
-  bool gender = true;
+  final firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instanceFor(
+          bucket: 'gs://app-brain-hack.appspot.com');
 
   @override
   Widget build(BuildContext context) {
@@ -90,12 +96,6 @@ class _ProfileState extends State<Profile> {
                                   backgroundColor:
                                       Color.fromARGB(255, 179, 223, 255),
                                   radius: 85,
-                                  // child: Image(
-                                  //   image: NetworkImage(
-                                  //     '',
-                                  //   ),
-                                  //   fit: BoxFit.cover,
-                                  // ),
                                 ),
                               ),
                               Container(
@@ -117,140 +117,56 @@ class _ProfileState extends State<Profile> {
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              'CẤP ĐỘ :',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              '0',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                      child: Text(
+                                        'CẤP ĐỘ : 0',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
                                       ),
                                     ),
                                     Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              'ĐIỂM :',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              e['TotalNum'].toString(),
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                      child: Text(
+                                        'Điểm: ${e['TotalNum'].toString()}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
                                       ),
                                     ),
                                     Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              'SỐ TRẬN :',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              '${(e['LossNum'] + e['WinNum']).toString()}',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                      child: Text(
+                                        'SỐ TRẬN: ${(e['LossNum'] + e['WinNum']).toString()}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
                                       ),
                                     ),
                                     Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              'THẮNG :',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              e['WinNum'].toString(),
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                      child: Text(
+                                        'THẮNG: ${e['WinNum'].toString()}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
                                       ),
                                     ),
                                     Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              'THUA :',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              e['LossNum'].toString(),
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                      child: Text(
+                                        'THUA: ${e['LossNum'].toString()}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
                                       ),
                                     ),
                                     SingleChildScrollView(
@@ -259,18 +175,7 @@ class _ProfileState extends State<Profile> {
                                         children: [
                                           Container(
                                             child: Text(
-                                              'TÊN :',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              e['FullName'],
+                                              'TÊN: ${e['FullName']}',
                                               style: GoogleFonts.bungee(
                                                 textStyle: const TextStyle(
                                                     fontSize: 25,
@@ -288,18 +193,7 @@ class _ProfileState extends State<Profile> {
                                           children: [
                                             Container(
                                               child: Text(
-                                                'EMAIL :',
-                                                style: GoogleFonts.bungee(
-                                                  textStyle: const TextStyle(
-                                                      fontSize: 25,
-                                                      color: Colors.orange),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.only(left: 5),
-                                              child: Text(
-                                                '${_user!.email}',
+                                                'EMAIL: ${_user!.email}',
                                                 style: GoogleFonts.bungee(
                                                   textStyle: const TextStyle(
                                                       fontSize: 25,
@@ -312,131 +206,50 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     ),
                                     Container(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              'GIỚI TÍNH :',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              'Nam',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                      child: Text(
+                                        'GIỚI TÍNH: NAM',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
                                       ),
                                     ),
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              'NGÀY SINH :',
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              formatTimestamp(e['Birthday']),
-                                              style: GoogleFonts.bungee(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 25,
-                                                    color: Colors.orange),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                    Container(
+                                      child: Text(
+                                        'NGÀY SINH: ${formatTimestamp(e['Birthday'])}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
                                       ),
                                     ),
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  child: Text(
-                                                    'COIN :',
-                                                    style: GoogleFonts.bungee(
-                                                      textStyle:
-                                                          const TextStyle(
-                                                              fontSize: 25,
-                                                              color: Colors
-                                                                  .orange),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  padding:
-                                                      EdgeInsets.only(left: 15),
-                                                  child: Text(
-                                                    e['Coin'].toString(),
-                                                    style: GoogleFonts.bungee(
-                                                      textStyle:
-                                                          const TextStyle(
-                                                              fontSize: 25,
-                                                              color: Colors
-                                                                  .orange),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            'COIN: ${e['Coin'].toString()}',
+                                            style: GoogleFonts.bungee(
+                                              textStyle: const TextStyle(
+                                                  fontSize: 25,
+                                                  color: Colors.orange),
                                             ),
                                           ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 60),
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  child: Text(
-                                                    'CGD :',
-                                                    style: GoogleFonts.bungee(
-                                                      textStyle:
-                                                          const TextStyle(
-                                                              fontSize: 25,
-                                                              color: Colors
-                                                                  .orange),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  padding:
-                                                      EdgeInsets.only(left: 15),
-                                                  child: Text(
-                                                    e['CGD'].toString(),
-                                                    style: GoogleFonts.bungee(
-                                                      textStyle:
-                                                          const TextStyle(
-                                                              fontSize: 25,
-                                                              color: Colors
-                                                                  .orange),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            'CGD: ${e['CGD'].toString()}',
+                                            style: GoogleFonts.bungee(
+                                              textStyle: const TextStyle(
+                                                  fontSize: 25,
+                                                  color: Colors.orange),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
