@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:brain_hack/dialog_exit.dart';
 import 'package:brain_hack/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +15,23 @@ class _RegisterState extends State<Register> {
   TextEditingController _PassController = TextEditingController();
   TextEditingController _RePassController = TextEditingController();
   final _auth = FirebaseAuth.instance;
+  CollectionReference DangKy = FirebaseFirestore.instance.collection('Account');
+  //create room
+  Future<void> dangKy(
+    String avt,
+    String birthday,
+    String email,
+    String fullname,
+    String pass,
+  ) {
+    return DangKy.add({
+      'Avatar': avt,
+      'Birthday': birthday,
+      'E-mail': email,
+      'FullName': fullname,
+      'Pass': pass
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -305,17 +322,13 @@ class _RegisterState extends State<Register> {
                               },
                             );
                           } else {
-                            //   bool checkRegister() {
-                            //   if (_EmailController.text == txtEmail) {
-                            //     final snackBar =
-                            //         SnackBar(content: Text('Email da ton tai'));
-                            //   }
-                            //   return true;
-                            // }
                             if (_RePassController.text ==
                                 _PassController.text) {
                               if (!await checkIfEmailInUse(
-                                  _EmailController.text)) {
+                                      _EmailController.text) &&
+                                  _PassController.text.length >= 6) {
+                                dangKy(' ', ' ', _EmailController.text, ' ',
+                                    _PassController.text);
                                 register();
                                 final snackBar = SnackBar(
                                   content: Text('Đăng ký thành công'),
@@ -323,11 +336,20 @@ class _RegisterState extends State<Register> {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
                               } else {
-                                final snackBar = SnackBar(
-                                  content: Text('Tai khoản đã tồn tại'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
+                                if (_PassController.text.length < 6) {
+                                  final snackBar = SnackBar(
+                                    content: Text(
+                                        'Mật khẩu chưa đủ ký tự hoặc email định dang sai'),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } else {
+                                  final snackBar = SnackBar(
+                                    content: Text('Tài khoản đã tồn tại'),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
                               }
                             } else {
                               final snackBar = SnackBar(

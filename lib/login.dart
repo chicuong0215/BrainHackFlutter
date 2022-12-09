@@ -87,27 +87,28 @@ class _LoginState extends State<Login> {
     Widget txtPassword = TextField(
       controller: _PassController,
       decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: const BorderSide(
-              color: Colors.blueGrey,
-            ),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: Colors.blueGrey,
           ),
-          suffixIcon: _ShowPass
-              ? IconButton(
-                  icon: Icon(Icons.panorama_fish_eye),
-                  onPressed: () {
-                    onChangeShowPass();
-                  },
-                )
-              : IconButton(
-                  icon: Icon(Icons.remove_red_eye),
-                  onPressed: () {
-                    onChangeShowPass();
-                  },
-                )),
+        ),
+        suffixIcon: _ShowPass
+            ? IconButton(
+                icon: Icon(Icons.panorama_fish_eye),
+                onPressed: () {
+                  onChangeShowPass();
+                },
+              )
+            : IconButton(
+                icon: Icon(Icons.remove_red_eye),
+                onPressed: () {
+                  onChangeShowPass();
+                },
+              ),
+      ),
       obscureText: !_ShowPass,
     );
     Widget btnLogin = ElevatedButton(
