@@ -10,14 +10,11 @@ class ForgetPassword extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
   TextEditingController _CodeEmail = TextEditingController();
 
-  Future resetPassword({required String email}) async {
-    try {
-      await _auth.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (e) {
-      print(e.code);
-      print(e.message);
-// show the snackbar here
-    }
+  Future<void> _resetPassword(String email) async {
+    await _auth
+        .sendPasswordResetEmail(email: email)
+        .then((value) => print('true'))
+        .catchError((e) => print('false'));
   }
 
   @override
@@ -95,7 +92,7 @@ class ForgetPassword extends StatelessWidget {
           if (_CodeEmail.text.isEmpty) {
             Utils.notification(context, 'Chưa nhập email. Vui lòng nhập email');
           } else {
-            resetPassword(email: 'giangdmxah@gmail.com');
+            _resetPassword('0306201317@caothang.edu.vn');
             // final authCredential = EmailAuthProvider.credentialWithLink(
             //     email: 'giangdmxah@gmail.com',
             //     emailLink: _CodeEmail.toString());
@@ -105,14 +102,14 @@ class ForgetPassword extends StatelessWidget {
             // } catch (error) {
             //   print("Error reauthenticating credential.");
             // }
-            Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (_, __, ___) => InputNewPassword(),
-                  transitionDuration: const Duration(milliseconds: 500),
-                  transitionsBuilder: (_, a, __, c) =>
-                      FadeTransition(opacity: a, child: c),
-                ));
+            // Navigator.push(
+            //     context,
+            //     PageRouteBuilder(
+            //       pageBuilder: (_, __, ___) => InputNewPassword(),
+            //       transitionDuration: const Duration(milliseconds: 500),
+            //       transitionsBuilder: (_, a, __, c) =>
+            //           FadeTransition(opacity: a, child: c),
+            //     ));
           }
         },
         child: const Text(
