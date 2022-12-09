@@ -155,7 +155,9 @@ class _Settings extends State<Settings> {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: const Text(
               'THOÁT',
               style: TextStyle(

@@ -3,10 +3,12 @@ import 'dart:ui';
 import 'package:brain_hack/about.dart';
 import 'package:brain_hack/bag.dart';
 import 'package:brain_hack/dialog_exit.dart';
+import 'package:brain_hack/history.dart';
 import 'package:brain_hack/list_friend.dart';
 import 'package:brain_hack/login.dart';
 import 'package:brain_hack/profile.dart';
 import 'package:brain_hack/ranking.dart';
+import 'package:brain_hack/settings.dart';
 import 'package:brain_hack/shop.dart';
 import 'package:flutter/material.dart';
 
@@ -155,6 +157,9 @@ class Button extends StatelessWidget {
           case 'profile':
             screen = Profile();
             break;
+          case 'history':
+            screen = History();
+            break;
           case 'ranking':
             screen = Ranking();
             break;
@@ -168,9 +173,13 @@ class Button extends StatelessWidget {
             screen = Shop();
             break;
           case 'settings':
+            screen = Settings();
             break;
           case 'about':
             screen = About();
+            break;
+          case 'history':
+            screen = History();
             break;
         }
         Navigator.pop(context);

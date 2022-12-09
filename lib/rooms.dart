@@ -1,4 +1,5 @@
 import 'package:brain_hack/room_item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Rooms extends StatefulWidget {
@@ -7,6 +8,23 @@ class Rooms extends StatefulWidget {
 }
 
 class _Rooms extends State<Rooms> {
+  dynamic listRoom;
+  int vt = 0;
+
+  Future<void> loadQuestion() async {
+    var a = FirebaseFirestore.instance.collection('Room');
+
+    QuerySnapshot querySnapshot = await a.get();
+    setState(() {});
+    listRoom = querySnapshot.docs.map((doc) => doc.data()).toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadQuestion();
+  }
+
   @override
   Widget build(BuildContext context) {
     //
@@ -144,16 +162,14 @@ class _Rooms extends State<Rooms> {
               child: GridView.count(
             crossAxisCount: 3,
             childAspectRatio: (2 / 3),
-            children: const <Widget>[
-              RoomItem(),
-              RoomItem(),
-              RoomItem(),
-              RoomItem(),
-              RoomItem(),
-              RoomItem(),
-              RoomItem(),
-              RoomItem(),
-              RoomItem(),
+            children: <Widget>[
+              if (listRoom != null)
+                for (int i = 0; i < listRoom.length; i++)
+                  RoomItem(
+                    id: listRoom[i]['id'],
+                    type: listRoom[i]['type'],
+                    stt: listRoom[i]['stt'],
+                  )
             ],
           ))
         ],

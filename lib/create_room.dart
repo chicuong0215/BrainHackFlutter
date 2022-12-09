@@ -1,6 +1,7 @@
 import 'package:brain_hack/playing.dart';
 import 'package:brain_hack/trainning.dart';
 import 'package:brain_hack/waiting_room.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CreateRoom extends StatefulWidget {
@@ -11,6 +12,36 @@ class CreateRoom extends StatefulWidget {
 }
 
 class _CreateRoom extends State<CreateRoom> {
+  String dropdownvalue = 'Item 1';
+
+  // List of items in our dropdown menu
+  var items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
+  TextEditingController SoDiemController = TextEditingController();
+  TextEditingController CapDoController = TextEditingController();
+  TextEditingController ThoiGianController = TextEditingController();
+  TextEditingController LinhVucController = TextEditingController();
+
+  CollectionReference room = FirebaseFirestore.instance.collection('Room');
+  //create room
+  Future<void> createRoom() {
+    return room
+        .add({
+          'id': '010',
+          'level': '2',
+          'score': '1000',
+          'stt': true,
+          'type': 'TOÁN HỌC'
+        })
+        .then((value) => print("Created Room"))
+        .catchError((error) => print("Failed to add room: $error"));
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -57,14 +88,56 @@ class _CreateRoom extends State<CreateRoom> {
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.transparent)),
         onPressed: () {
-          Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (_, __, ___) => WaitingRoom(),
-                transitionDuration: const Duration(milliseconds: 200),
-                transitionsBuilder: (_, a, __, c) =>
-                    FadeTransition(opacity: a, child: c),
-              ));
+          if (SoDiemController.text.isEmpty ||
+              ThoiGianController.text.isEmpty ||
+              CapDoController.text.isEmpty) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text(
+                    'Thông báo',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: Text(
+                    'Vui Lòng Nhập Đủ Thong Tin',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("OK"),
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            int thoigian = (int.parse(ThoiGianController.text));
+            int capdo = (int.parse(CapDoController.text));
+            int sodiem = (int.parse(SoDiemController.text));
+
+            if (thoigian >= 1 &&
+                thoigian <= 30 &&
+                capdo >= 1 &&
+                capdo <= 3 &&
+                sodiem >= 0 &&
+                sodiem <= 1000) {
+              // Navigator.push(
+              //     context,
+              //     PageRouteBuilder(
+              //       pageBuilder: (_, __, ___) => WaitingRoom(),
+              //       transitionDuration: const Duration(milliseconds: 200),
+              //       transitionsBuilder: (_, a, __, c) =>
+              //           FadeTransition(opacity: a, child: c),
+              //     ));
+              createRoom();
+            }
+          }
         },
         child: Stack(
           alignment: Alignment.center,
@@ -102,36 +175,40 @@ class _CreateRoom extends State<CreateRoom> {
                 children: [
                   TextCustom(title: "SỐ ĐIỂM"),
                   Expanded(
-                    child: TextFieldCustom(),
+                    child: TextField(
+                      controller: SoDiemController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ),
             ),
             Row(
               children: [
-                TextCustom(title: "HẠNG"),
-                Expanded(
-                  child: TextFieldCustom(),
-                ),
-                TextCustom(title: "ĐẾN"),
-                Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
                 TextCustom(title: "CẤP ĐỘ"),
                 Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                TextCustom(title: "SỐ NGƯỜI"),
-                Expanded(
-                  child: TextFieldCustom(),
+                  child: TextField(
+                    controller: CapDoController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -139,15 +216,19 @@ class _CreateRoom extends State<CreateRoom> {
               children: [
                 TextCustom(title: "THỜI GIAN"),
                 Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                TextCustom(title: "SỐ CÂU HỎI"),
-                Expanded(
-                  child: TextFieldCustom(),
+                  child: TextField(
+                    controller: ThoiGianController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -155,8 +236,9 @@ class _CreateRoom extends State<CreateRoom> {
               children: [
                 TextCustom(title: "LĨNH VỰC"),
                 Expanded(
-                  child: TextFieldCustom(),
-                )
+                    child: Container(
+                  child: LinhVuc(),
+                )),
               ],
             ),
             btnCreate
@@ -177,6 +259,7 @@ class _CreateRoom extends State<CreateRoom> {
   }
 }
 
+// ignore: must_be_immutable
 class TextCustom extends StatelessWidget {
   String title = '';
 
@@ -203,6 +286,8 @@ class TextCustom extends StatelessWidget {
 }
 
 class TextFieldCustom extends StatelessWidget {
+  const TextFieldCustom({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -218,6 +303,44 @@ class TextFieldCustom extends StatelessWidget {
               borderRadius: BorderRadius.circular(25),
             ),
           )),
+    );
+  }
+}
+
+class LinhVuc extends StatefulWidget {
+  const LinhVuc({super.key});
+
+  @override
+  State<LinhVuc> createState() => _LinhVuc();
+}
+
+class _LinhVuc extends State<LinhVuc> {
+  List<String> list = <String>['KHOA HỌC', 'TOÁN HỌC', 'CÔNG NGHỆ', 'VẬT LÝ'];
+  String dropdownValue = "KHOA HỌC";
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }
