@@ -27,7 +27,7 @@ class _RegisterState extends State<Register> {
     return DangKy.add({
       'Avatar': avt,
       'Birthday': birthday,
-      'E-mail': email,
+      'Email': email,
       'FullName': fullname,
       'Pass': pass
     });

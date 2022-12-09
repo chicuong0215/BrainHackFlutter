@@ -1,3 +1,4 @@
+import 'package:brain_hack/forget_password.dart';
 import 'package:brain_hack/list_friend.dart';
 import 'package:brain_hack/login.dart';
 import 'package:brain_hack/playing.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CreateRoom(),
+      home: ForgetPassword(),
     );
   }
 }
