@@ -193,7 +193,7 @@ class _LoginState extends State<Login> {
         Navigator.push(
             context,
             PageRouteBuilder(
-              pageBuilder: (_, __, ___) => const ForgetPassword(),
+              pageBuilder: (_, __, ___) => ForgetPassword(),
               transitionDuration: const Duration(milliseconds: 200),
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
@@ -316,6 +316,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 //text password
+
                 Container(
                   alignment: Alignment.topLeft,
                   padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),

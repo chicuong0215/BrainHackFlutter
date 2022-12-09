@@ -20,16 +20,32 @@ class _RegisterState extends State<Register> {
   Future<void> dangKy(
     String avt,
     String birthday,
+    int cgd,
+    int coin,
     String email,
     String fullname,
+    String id,
+    int lossnum,
+    bool sex,
+    String sociallink,
+    bool stt,
+    int totalnum,
     String pass,
+    int winnum,
   ) {
     return DangKy.add({
       'Avatar': avt,
       'Birthday': birthday,
-      'Email': email,
+      'E-mail': email,
       'FullName': fullname,
-      'Pass': pass
+      'ID': id,
+      'LossNum': lossnum,
+      'Sex': sex,
+      'SocialLink': sociallink,
+      'Stt': stt,
+      'TotalNum': totalnum,
+      'Pass': pass,
+      'WinNum': winnum,
     });
   }
 
@@ -327,9 +343,10 @@ class _RegisterState extends State<Register> {
                               if (!await checkIfEmailInUse(
                                       _EmailController.text) &&
                                   _PassController.text.length >= 6) {
-                                dangKy(' ', ' ', _EmailController.text, ' ',
-                                    _PassController.text);
+                                dangKy(' ', ' ', 0, 0, _EmailController.text,
+                                    ' ', ' ', 1, true, ' ', false, 10, ' ', 12);
                                 register();
+
                                 final snackBar = SnackBar(
                                   content: Text('Đăng ký thành công'),
                                 );

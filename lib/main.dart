@@ -16,7 +16,7 @@ import 'package:brain_hack/menu.dart';
 import 'package:brain_hack/playing.dart';
 import 'package:brain_hack/register.dart';
 import 'package:brain_hack/trainning.dart';
-
+import 'package:flutter_sms/flutter_sms.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -69,7 +69,7 @@ class InputNewPassword extends StatelessWidget {
     );
 
     Widget tvOldPassword = const Text(
-      'MẬT KHẨU CŨ',
+      'MÃ XÁC NHẬN',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
