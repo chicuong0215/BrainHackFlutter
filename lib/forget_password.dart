@@ -1,9 +1,25 @@
+import 'dart:html';
+
 import 'package:brain_hack/input_new_password.dart';
+import 'package:brain_hack/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class ForgetPassword extends StatelessWidget {
-  const ForgetPassword({super.key});
+  final Email email = Email(
+    body: 'Email body',
+    subject: 'Email subject',
+    recipients: ['example@example.com'],
+    cc: ['cc@example.com'],
+    bcc: ['bcc@example.com'],
+    attachmentPaths: ['/path/to/attachment.zip'],
+    isHTML: false,
+  );
 
+  final _auth = FirebaseAuth.instance;
+  TextEditingController _Email = TextEditingController();
+  TextEditingController _CodeEmail = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Widget tvAppName = const Text('BRAIN HACK',
@@ -55,6 +71,7 @@ class ForgetPassword extends StatelessWidget {
     );
 
     Widget edtEmail = TextField(
+      controller: _Email,
       keyboardType: TextInputType.emailAddress,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
@@ -70,12 +87,15 @@ class ForgetPassword extends StatelessWidget {
     );
 
     Widget edtCode = TextField(
+      controller: _CodeEmail,
       keyboardType: TextInputType.number,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         filled: true,
         suffixIcon: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            FlutterEmailSender.send(email);
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.orange,
             shape: RoundedRectangleBorder(
@@ -97,16 +117,6 @@ class ForgetPassword extends StatelessWidget {
             color: Colors.blueGrey,
           ),
         ),
-      ),
-    );
-
-    Widget tvUsername = const Text(
-      'TÊN ĐĂNG NHẬP',
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-        fontFamily: 'Alata',
-        color: Colors.orange,
       ),
     );
 
@@ -141,14 +151,39 @@ class ForgetPassword extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (_, __, ___) => InputNewPassword(),
-                transitionDuration: const Duration(milliseconds: 200),
-                transitionsBuilder: (_, a, __, c) =>
-                    FadeTransition(opacity: a, child: c),
-              ));
+          if (_CodeEmail.text.isEmpty || _CodeEmail.text.isEmpty) {
+            Utils.notification(context, 'Vui Lòng Nhập Đầy Đủ Thông Tin');
+          } else {
+            try {
+              final _user = _auth.signInWithEmailAndPassword(
+                  email: _Email.text, password: _CodeEmail.text);
+              _auth.authStateChanges().listen(
+                (event) {
+                  if (event != null) {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (_, __, ___) => InputNewPassword(),
+                        transitionDuration: const Duration(milliseconds: 100),
+                        transitionsBuilder: (_, a, __, c) =>
+                            FadeTransition(opacity: a, child: c),
+                      ),
+                    );
+                  } else {
+                    final snackBar = SnackBar(
+                      content: Text('EMAIL HOẶC MẬT XÁC THỰC EMAIL KHÔNG ĐÚNG'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
+              );
+            } catch (e) {
+              final snackBar = SnackBar(
+                content: Text('LỖI KẾT NỐI'),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          }
         },
         child: const Text(
           'TIẾP THEO',
@@ -185,32 +220,7 @@ class ForgetPassword extends StatelessWidget {
                 child: tvForgetPasswordTitle,
               ),
               //username
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                child: tvUsername,
-              ),
-              SizedBox(
-                height: 45,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.person,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 30),
-                        child: edtUsername,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
               //email
               Container(
                 alignment: Alignment.topLeft,
