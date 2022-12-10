@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:quiver/async.dart';
 
 class Trainning extends StatefulWidget {
   const Trainning({super.key});

@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:mailer/mailer.dart';
-
 class ForgetPassword extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
   TextEditingController _CodeEmail = TextEditingController();
