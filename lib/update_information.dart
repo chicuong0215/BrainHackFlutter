@@ -1,5 +1,10 @@
 import 'package:brain_hack/dialog_picture.dart';
 import 'package:brain_hack/input_new_password.dart';
+import 'package:brain_hack/profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +14,18 @@ class UpdateInformation extends StatefulWidget {
 }
 
 class _UpdateInformationState extends State<UpdateInformation> {
+  TextEditingController _Name = TextEditingController();
+  TextEditingController _Calendar = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final _updateProfile =
+      FirebaseFirestore.instance.collection('Account').doc('1');
   String? gender;
+
   @override
   Widget build(BuildContext context) {
     Widget txtEditName = TextField(
+      controller: _Name,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -136,7 +149,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 45,
+                    height: 50,
                     child: Row(
                       children: [
                         Container(
@@ -151,7 +164,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                         Expanded(
                           child: Padding(
                             child: txtEditName,
-                            padding: EdgeInsets.only(left: 60),
+                            padding: EdgeInsets.only(left: 5),
                           ),
                         ),
                       ],
@@ -165,7 +178,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                             'GIỚI TÍNH :',
                             style: GoogleFonts.bungee(
                               textStyle: const TextStyle(
-                                  fontSize: 21, color: Colors.orange),
+                                  fontSize: 20, color: Colors.orange),
                             ),
                           ),
                         ),
@@ -197,24 +210,33 @@ class _UpdateInformationState extends State<UpdateInformation> {
                     ),
                   ),
                   Container(
+                    height: 50,
                     child: Row(
                       children: [
                         Container(
+                          padding: EdgeInsets.only(right: 5),
                           child: Text(
                             'NGÀY SINH :',
                             style: GoogleFonts.bungee(
                               textStyle: const TextStyle(
-                                  fontSize: 21, color: Colors.orange),
+                                  fontSize: 20, color: Colors.orange),
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 50),
-                          child: IconButton(
-                            color: Colors.green,
-                            iconSize: 50,
-                            onPressed: () {},
-                            icon: Icon(Icons.calendar_month_sharp),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(30)),
+                            child: DateTimePicker(
+                              controller: _Calendar,
+                              textAlign: TextAlign.center,
+                              type: DateTimePickerType.date,
+                              dateMask: 'dd/MM/yyyy',
+                              initialValue: null,
+                              firstDate: DateTime(1950),
+                              lastDate: DateTime(2030),
+                            ),
                           ),
                         ),
                       ],
@@ -286,7 +308,13 @@ class _UpdateInformationState extends State<UpdateInformation> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Profile(),
+                                  ));
+                            },
                             child: const Text(
                               'LƯU',
                               style:
