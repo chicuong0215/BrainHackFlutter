@@ -1,4 +1,6 @@
 import 'package:brain_hack/login.dart';
+import 'package:brain_hack/profile.dart';
+import 'package:brain_hack/update_information.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: UpdateInformation(),
     );
   }
 }

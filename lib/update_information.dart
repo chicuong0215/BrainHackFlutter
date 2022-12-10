@@ -21,49 +21,40 @@ class _UpdateInformationState extends State<UpdateInformation> {
         ),
       ),
     );
-    Widget txtEditMail = TextField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
-    );
-    Widget Title = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+
+    Widget Title = Column(
       children: [
+        //title
         Container(
-          child: IconButton(
-            iconSize: 100,
-            onPressed: () {},
-            icon: const Image(
-              image: AssetImage('images/icon/logo_v2.png'),
-            ),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/icon/head.png'), fit: BoxFit.contain),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 10),
-          child: Column(
+          child: Row(
             children: [
               Container(
-                height: 35,
-                child: const Text(
-                  'CẬP NHẬT',
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontFamily: 'Fraunces',
-                    color: Colors.orange,
+                child: IconButton(
+                  iconSize: 60,
+                  onPressed: () {},
+                  icon: const Image(
+                    image: AssetImage('images/icon/logo_v2.png'),
                   ),
                 ),
               ),
               Container(
+                margin: EdgeInsets.only(left: 70),
                 child: const Text(
-                  'THÔNG TIN',
+                  '  CẬP NHẬT\nTHÔNG TIN',
                   style: TextStyle(
-                    fontSize: 35,
+                    fontSize: 25,
                     fontFamily: 'Fraunces',
-                    color: Colors.orange,
+                    color: Color(0xFFFC5658),
+                    shadows: [
+                      Shadow(
+                          blurRadius: 1.0,
+                          color: Color(0xFF33f8ff),
+                          offset: Offset(2.0, -1.0)),
+                    ],
                   ),
                 ),
               ),
@@ -135,7 +126,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
               child: Title,
             ),
             Container(
-              margin: EdgeInsets.only(top: 25),
+              margin: EdgeInsets.only(top: 25, bottom: 20),
               child: EditAvatar,
             ),
             Container(
@@ -161,28 +152,6 @@ class _UpdateInformationState extends State<UpdateInformation> {
                           child: Padding(
                             child: txtEditName,
                             padding: EdgeInsets.only(left: 60),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 45,
-                    child: Row(
-                      children: [
-                        Container(
-                          child: Text(
-                            'EMAIL :',
-                            style: GoogleFonts.bungee(
-                              textStyle: const TextStyle(
-                                  fontSize: 21, color: Colors.orange),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            child: txtEditMail,
-                            padding: EdgeInsets.only(left: 30),
                           ),
                         ),
                       ],
