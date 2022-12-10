@@ -10,15 +10,21 @@ class ForgetPassword extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
   TextEditingController _CodeEmail = TextEditingController();
 
-  Future<void> _resetPassword(String email) async {
-    await _auth
-        .sendPasswordResetEmail(email: email)
-        .then((value) => print('true'))
-        .catchError((e) => print('false'));
-  }
-
   @override
   Widget build(BuildContext context) {
+    Future<void> _resetPassword(String email) async {
+      await _auth.sendPasswordResetEmail(email: email).then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Đã gửi mã xát nhận vào email của bạn!'),
+        ));
+        Navigator.pop(context);
+      }).catchError((e) => {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Có lỗi xãy ra!'),
+            ))
+          });
+    }
+
     Widget tvAppName = const Text('BRAIN HACK',
         style: TextStyle(
           fontSize: 45,

@@ -1,7 +1,11 @@
+import 'package:brain_hack/login.dart';
+import 'package:brain_hack/utils.dart';
 import 'package:flutter/material.dart';
 
 class InputNewPassword extends StatelessWidget {
-  const InputNewPassword({super.key});
+  InputNewPassword({super.key});
+  TextEditingController _olPassword = TextEditingController();
+  TextEditingController _newPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +43,7 @@ class InputNewPassword extends StatelessWidget {
     );
 
     Widget edtOldPassword = TextField(
+      controller: _olPassword,
       obscureText: true,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
@@ -54,6 +59,7 @@ class InputNewPassword extends StatelessWidget {
     );
 
     Widget edtNewPassword = TextField(
+      controller: _newPassword,
       obscureText: true,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
@@ -69,7 +75,7 @@ class InputNewPassword extends StatelessWidget {
     );
 
     Widget tvOldPassword = const Text(
-      'MÃ XÁC NHẬN',
+      'MẬT KHẨU CŨ',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -96,7 +102,22 @@ class InputNewPassword extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        if (_newPassword.text.isNotEmpty || _olPassword.text.isEmpty) {
+          Utils.notification(context, 'Vui Lòng Nhập Đầy Đủ Thông Tin');
+        } else {
+          if (_olPassword.text == '') {
+            final snackBar = SnackBar(
+              content: Text('Đổi mật khẩu thành công'),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else {
+            final snackBar = SnackBar(
+              content: Text('Mật khẩu không đúng'),
+            );
+          }
+        }
+      },
       child: const Text(
         'THAY ĐỔI MẬT KHẨU',
         style: TextStyle(fontSize: 18, fontFamily: 'Alata'),

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:brain_hack/dialog_exit.dart';
 import 'package:brain_hack/login.dart';
@@ -18,34 +17,20 @@ class _RegisterState extends State<Register> {
   CollectionReference DangKy = FirebaseFirestore.instance.collection('Account');
   //create room
   Future<void> dangKy(
-    String avt,
-    String birthday,
-    int cgd,
-    int coin,
     String email,
-    String fullname,
-    String id,
-    int lossnum,
-    bool sex,
-    String sociallink,
-    bool stt,
-    int totalnum,
-    String pass,
-    int winnum,
   ) {
     return DangKy.add({
-      'Avatar': avt,
-      'Birthday': birthday,
-      'E-mail': email,
-      'FullName': fullname,
-      'ID': id,
-      'LossNum': lossnum,
-      'Sex': sex,
-      'SocialLink': sociallink,
-      'Stt': stt,
-      'TotalNum': totalnum,
-      'Pass': pass,
-      'WinNum': winnum,
+      'Email': email,
+      'Avatar': '',
+      'Birthday': '',
+      'FullName': '',
+      'Sex': true,
+      'LossNum': 0,
+      'WinNum': 0,
+      'TotalNum': 0,
+      'SocialLink': '',
+      'Coin': 20,
+      'Stt': true,
     });
   }
 
@@ -343,8 +328,7 @@ class _RegisterState extends State<Register> {
                               if (!await checkIfEmailInUse(
                                       _EmailController.text) &&
                                   _PassController.text.length >= 6) {
-                                dangKy(' ', ' ', 0, 0, _EmailController.text,
-                                    ' ', ' ', 1, true, ' ', false, 10, ' ', 12);
+                                dangKy(_EmailController.text);
                                 register();
 
                                 final snackBar = SnackBar(

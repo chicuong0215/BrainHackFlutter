@@ -286,7 +286,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                                   context,
                                   PageRouteBuilder(
                                     pageBuilder: (_, __, ___) =>
-                                        const InputNewPassword(),
+                                        InputNewPassword(),
                                     transitionDuration:
                                         const Duration(milliseconds: 500),
                                     transitionsBuilder: (_, a, __, c) =>

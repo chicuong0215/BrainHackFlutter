@@ -15,8 +15,9 @@ class _LoginState extends State<Login> {
   bool _ShowPass = false;
   // var _UPInvalid = true;
   // var _txtUP = 'Tài Khoản Hoặc Mật Khẩu Không Đúng';
-  TextEditingController _EmailController = TextEditingController();
-  TextEditingController _PassController = TextEditingController();
+  TextEditingController _EmailController =
+      TextEditingController(text: '0306201317@caothang.edu.vn');
+  TextEditingController _PassController = TextEditingController(text: '123456');
   final _auth = FirebaseAuth.instance;
 
   @override
