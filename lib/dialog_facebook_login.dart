@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class DialogFacebookLogin extends StatefulWidget {
   const DialogFacebookLogin({super.key});
-
   @override
   State<StatefulWidget> createState() {
     return _DialogFacebookLogin();

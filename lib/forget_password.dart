@@ -1,11 +1,28 @@
 import 'package:brain_hack/input_new_password.dart';
+import 'package:brain_hack/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPassword extends StatelessWidget {
-  const ForgetPassword({super.key});
+  final _auth = FirebaseAuth.instance;
+  TextEditingController _CodeEmail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _resetPassword(String email) async {
+      await _auth.sendPasswordResetEmail(email: email).then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Đã gửi mã xát nhận vào email của bạn!'),
+        ));
+        Navigator.pop(context);
+      }).catchError((e) => {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Có lỗi xãy ra!'),
+            ))
+          });
+    }
+
     Widget tvAppName = const Text('BRAIN HACK',
         style: TextStyle(
           fontSize: 45,
@@ -39,22 +56,8 @@ class ForgetPassword extends StatelessWidget {
           ]),
     );
 
-    Widget edtUsername = TextField(
-      keyboardType: TextInputType.text,
-      textAlignVertical: TextAlignVertical.center,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(
-            color: Colors.blueGrey,
-          ),
-        ),
-      ),
-    );
-
-    Widget edtEmail = TextField(
+    Widget edtCode = TextField(
+      controller: _CodeEmail,
       keyboardType: TextInputType.emailAddress,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
@@ -69,59 +72,8 @@ class ForgetPassword extends StatelessWidget {
       ),
     );
 
-    Widget edtCode = TextField(
-      keyboardType: TextInputType.number,
-      textAlignVertical: TextAlignVertical.center,
-      decoration: InputDecoration(
-        filled: true,
-        suffixIcon: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-          child: Container(
-            margin: const EdgeInsets.only(left: 10, right: 10),
-            child: const Text('LẤY MÃ',
-                style: TextStyle(
-                  fontFamily: 'Alata',
-                )),
-          ),
-        ),
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(
-            color: Colors.blueGrey,
-          ),
-        ),
-      ),
-    );
-
-    Widget tvUsername = const Text(
-      'TÊN ĐĂNG NHẬP',
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-        fontFamily: 'Alata',
-        color: Colors.orange,
-      ),
-    );
-
-    Widget tvEmail = const Text(
-      'EMAIL',
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-        fontFamily: 'Alata',
-        color: Colors.orange,
-      ),
-    );
-
     Widget tvCode = const Text(
-      'MÃ XÁT NHẬN',
+      'NHẬP EMAIL ĐỂ XÁC THỰC',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -141,14 +93,28 @@ class ForgetPassword extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (_, __, ___) => InputNewPassword(),
-                transitionDuration: const Duration(milliseconds: 200),
-                transitionsBuilder: (_, a, __, c) =>
-                    FadeTransition(opacity: a, child: c),
-              ));
+          if (_CodeEmail.text.isEmpty) {
+            Utils.notification(context, 'Chưa nhập email. Vui lòng nhập email');
+          } else {
+            _resetPassword('0306201317@caothang.edu.vn');
+            // final authCredential = EmailAuthProvider.credentialWithLink(
+            //     email: 'giangdmxah@gmail.com',
+            //     emailLink: _CodeEmail.toString());
+            // try {
+            //   FirebaseAuth.instance.currentUser
+            //       ?.reauthenticateWithCredential(authCredential);
+            // } catch (error) {
+            //   print("Error reauthenticating credential.");
+            // }
+            // Navigator.push(
+            //     context,
+            //     PageRouteBuilder(
+            //       pageBuilder: (_, __, ___) => InputNewPassword(),
+            //       transitionDuration: const Duration(milliseconds: 500),
+            //       transitionsBuilder: (_, a, __, c) =>
+            //           FadeTransition(opacity: a, child: c),
+            //     ));
+          }
         },
         child: const Text(
           'TIẾP THEO',
@@ -185,59 +151,9 @@ class ForgetPassword extends StatelessWidget {
                 child: tvForgetPasswordTitle,
               ),
               //username
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                child: tvUsername,
-              ),
-              SizedBox(
-                height: 45,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.person,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 30),
-                        child: edtUsername,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
               //email
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
-                child: tvEmail,
-              ),
-              SizedBox(
-                height: 45,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 30),
-                      child: const Icon(
-                        Icons.email,
-                        size: 40,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 30),
-                        child: edtEmail,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
               //code
               Container(
                 alignment: Alignment.topLeft,

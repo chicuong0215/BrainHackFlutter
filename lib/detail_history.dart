@@ -190,86 +190,7 @@ class _DetailHistory extends State<DetailHistory> {
         ],
       ),
     );
-    Widget history3 = Container(
-      margin: EdgeInsets.only(top: 10),
-      width: 410,
-      height: 70,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        gradient: const LinearGradient(colors: [
-          Color.fromARGB(255, 0, 18, 91),
-          Color.fromARGB(255, 0, 0, 0),
-          Color.fromARGB(255, 0, 18, 91)
-        ]),
-        //border: Border.all(width: 2, color: Colors.red),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 20),
-            child: const Text(
-              '3',
-              style: TextStyle(
-                fontSize: 35,
-                fontFamily: 'Fraunces',
-                color: Color.fromARGB(198, 255, 191, 0),
-                shadows: [
-                  Shadow(
-                    blurRadius: 5.0,
-                    color: Color(0xFFFf0099),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                child: const CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                  radius: 30,
-                  child: Image(
-                    image: AssetImage('images/icon/logo_v2.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            child: const Text(
-              'Phạm Tiến Dũng',
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'Fraunces',
-                color: Color(0xFFFf0099),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 20),
-            child: const Text(
-              '3500',
-              style: TextStyle(
-                fontSize: 15,
-                fontFamily: 'Fraunces',
-                color: Color(0xFFFC5658),
-                shadows: [
-                  Shadow(
-                    blurRadius: 5.0,
-                    color: Color(0xFFFf0099),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 0),
-          ),
-        ],
-      ),
-    );
+
     Widget Title = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -362,7 +283,6 @@ class _DetailHistory extends State<DetailHistory> {
                 ),
                 history,
                 history2,
-                history3,
               ],
             )
           ],

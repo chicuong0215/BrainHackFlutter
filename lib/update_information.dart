@@ -2,9 +2,7 @@ import 'package:brain_hack/dialog_picture.dart';
 import 'package:brain_hack/input_new_password.dart';
 import 'package:brain_hack/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -228,15 +226,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(30)),
-                            child: DateTimePicker(
-                              controller: _Calendar,
-                              textAlign: TextAlign.center,
-                              type: DateTimePickerType.date,
-                              dateMask: 'dd/MM/yyyy',
-                              initialValue: null,
-                              firstDate: DateTime(1950),
-                              lastDate: DateTime(2030),
-                            ),
+                            child: Text(''),
                           ),
                         ),
                       ],
@@ -277,7 +267,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                                   context,
                                   PageRouteBuilder(
                                     pageBuilder: (_, __, ___) =>
-                                        const InputNewPassword(),
+                                        InputNewPassword(),
                                     transitionDuration:
                                         const Duration(milliseconds: 500),
                                     transitionsBuilder: (_, a, __, c) =>

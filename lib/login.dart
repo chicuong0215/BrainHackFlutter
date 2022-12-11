@@ -15,8 +15,9 @@ class _LoginState extends State<Login> {
   bool _ShowPass = false;
   // var _UPInvalid = true;
   // var _txtUP = 'Tài Khoản Hoặc Mật Khẩu Không Đúng';
-  TextEditingController _EmailController = TextEditingController();
-  TextEditingController _PassController = TextEditingController();
+  TextEditingController _EmailController =
+      TextEditingController(text: 'hello@gmail.com');
+  TextEditingController _PassController = TextEditingController(text: '123456');
   final _auth = FirebaseAuth.instance;
 
   @override
@@ -87,27 +88,28 @@ class _LoginState extends State<Login> {
     Widget txtPassword = TextField(
       controller: _PassController,
       decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
-            borderSide: const BorderSide(
-              color: Colors.blueGrey,
-            ),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: Colors.blueGrey,
           ),
-          suffixIcon: _ShowPass
-              ? IconButton(
-                  icon: Icon(Icons.panorama_fish_eye),
-                  onPressed: () {
-                    onChangeShowPass();
-                  },
-                )
-              : IconButton(
-                  icon: Icon(Icons.remove_red_eye),
-                  onPressed: () {
-                    onChangeShowPass();
-                  },
-                )),
+        ),
+        suffixIcon: _ShowPass
+            ? IconButton(
+                icon: Icon(Icons.panorama_fish_eye),
+                onPressed: () {
+                  onChangeShowPass();
+                },
+              )
+            : IconButton(
+                icon: Icon(Icons.remove_red_eye),
+                onPressed: () {
+                  onChangeShowPass();
+                },
+              ),
+      ),
       obscureText: !_ShowPass,
     );
     Widget btnLogin = ElevatedButton(
@@ -189,7 +191,7 @@ class _LoginState extends State<Login> {
         Navigator.push(
             context,
             PageRouteBuilder(
-              pageBuilder: (_, __, ___) => const ForgetPassword(),
+              pageBuilder: (_, __, ___) => ForgetPassword(),
               transitionDuration: const Duration(milliseconds: 200),
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
@@ -312,6 +314,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 //text password
+
                 Container(
                   alignment: Alignment.topLeft,
                   padding: const EdgeInsets.only(left: 90, top: 15, bottom: 5),
