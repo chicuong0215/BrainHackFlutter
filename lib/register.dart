@@ -19,7 +19,10 @@ class _RegisterState extends State<Register> {
   Future<void> dangKy(
     String email,
   ) {
-    return DangKy.add({
+    DocumentReference dk = FirebaseFirestore.instance
+        .collection('Account')
+        .doc(_EmailController.text);
+    return dk.set({
       'Email': email,
       'Avatar': '',
       'Birthday': '',
@@ -209,23 +212,6 @@ class _RegisterState extends State<Register> {
                         ],
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.topLeft,
-                      padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),
-                    ),
-                    Container(
-                      height: 45,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10, right: 40),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
                     Container(
                       alignment: Alignment.topLeft,
                       padding: EdgeInsets.only(left: 90, top: 10, bottom: 5),

@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
   // var _UPInvalid = true;
   // var _txtUP = 'Tài Khoản Hoặc Mật Khẩu Không Đúng';
   TextEditingController _EmailController =
-      TextEditingController(text: '0306201317@caothang.edu.vn');
+      TextEditingController(text: 'hello@gmail.com');
   TextEditingController _PassController = TextEditingController(text: '123456');
   final _auth = FirebaseAuth.instance;
 
@@ -149,8 +149,10 @@ class _LoginState extends State<Login> {
           );
         } else {
           try {
-            final _user = _auth.signInWithEmailAndPassword(
-                email: _EmailController.text, password: _PassController.text);
+            final _user = (await _auth.signInWithEmailAndPassword(
+                    email: _EmailController.text,
+                    password: _PassController.text))
+                .user;
             _auth.authStateChanges().listen(
               (event) {
                 if (event != null) {
@@ -165,17 +167,12 @@ class _LoginState extends State<Login> {
                           FadeTransition(opacity: a, child: c),
                     ),
                   );
-                } else {
-                  final snackBar = SnackBar(
-                    content: Text('EMAIL HOẶC MẬT KHẨU KHÔNG ĐÚNG'),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               },
             );
           } catch (e) {
             final snackBar = SnackBar(
-              content: Text('LỖI KẾT NỐI'),
+              content: Text('EMAIL HOẶC MẬT KHẨU KHÔNG ĐÚNG'),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
