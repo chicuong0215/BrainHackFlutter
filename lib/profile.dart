@@ -98,16 +98,16 @@ class _ProfileState extends State<Profile> {
                                   radius: 85,
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(top: 10),
-                                child: Text(
-                                  'ID: ${e['Id']}',
-                                  style: GoogleFonts.bungee(
-                                    textStyle: const TextStyle(
-                                        fontSize: 15, color: Colors.orange),
-                                  ),
-                                ),
-                              ),
+                              // Container(
+                              //   margin: EdgeInsets.only(top: 10),
+                              //   child: Text(
+                              //     'ID: ${e['Id']}',
+                              //     style: GoogleFonts.bungee(
+                              //       textStyle: const TextStyle(
+                              //           fontSize: 15, color: Colors.orange),
+                              //     ),
+                              //   ),
+                              // ),
 
                               //information
                               Container(
@@ -205,19 +205,30 @@ class _ProfileState extends State<Profile> {
                                         ),
                                       ),
                                     ),
+                                    (e['Sex'].toString() == 'true')
+                                        ? Container(
+                                            child: Text(
+                                              'GIỚI TÍNH: NAM',
+                                              style: GoogleFonts.bungee(
+                                                textStyle: const TextStyle(
+                                                    fontSize: 25,
+                                                    color: Colors.orange),
+                                              ),
+                                            ),
+                                          )
+                                        : Container(
+                                            child: Text(
+                                              'GIỚI TÍNH: NỮ',
+                                              style: GoogleFonts.bungee(
+                                                textStyle: const TextStyle(
+                                                    fontSize: 25,
+                                                    color: Colors.orange),
+                                              ),
+                                            ),
+                                          ),
                                     Container(
                                       child: Text(
-                                        'GIỚI TÍNH: NAM',
-                                        style: GoogleFonts.bungee(
-                                          textStyle: const TextStyle(
-                                              fontSize: 25,
-                                              color: Colors.orange),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        'NGÀY SINH: ${formatTimestamp(e['Birthday'])}',
+                                        'NGÀY SINH: ${(formatTimestamp(e['Birthday'])).toString()}',
                                         style: GoogleFonts.bungee(
                                           textStyle: const TextStyle(
                                               fontSize: 25,
