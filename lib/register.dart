@@ -25,7 +25,7 @@ class _RegisterState extends State<Register> {
     return dk.set({
       'Email': email,
       'Avatar': '',
-      'Birthday': '',
+      'Birthday': DateTime(2000, 1, 1),
       'FullName': '',
       'Sex': true,
       'LossNum': 0,

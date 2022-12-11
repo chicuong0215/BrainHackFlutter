@@ -93,14 +93,14 @@ class _WaitingRoom extends State<WaitingRoom> {
             style: TextStyle(fontSize: 30),
           ),
           onPressed: () {
-            Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (_, __, ___) => Playing(),
-                  transitionDuration: const Duration(milliseconds: 500),
-                  transitionsBuilder: (_, a, __, c) =>
-                      FadeTransition(opacity: a, child: c),
-                ));
+            // Navigator.push(
+            //     context,
+            //     PageRouteBuilder(
+            //       pageBuilder: (_, __, ___) => Playing(),
+            //       transitionDuration: const Duration(milliseconds: 500),
+            //       transitionsBuilder: (_, a, __, c) =>
+            //           FadeTransition(opacity: a, child: c),
+            //     ));
           },
         )
       ],

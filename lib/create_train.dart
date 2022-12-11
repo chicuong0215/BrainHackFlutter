@@ -10,6 +10,9 @@ class CreateTrain extends StatefulWidget {
 }
 
 class _CreateTrain extends State<CreateTrain> {
+  TextEditingController CapDoController = TextEditingController();
+  TextEditingController ThoiGianController = TextEditingController();
+  TextEditingController LinhVucController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -59,7 +62,7 @@ class _CreateTrain extends State<CreateTrain> {
           Navigator.push(
               context,
               PageRouteBuilder(
-                pageBuilder: (_, __, ___) => Trainning(),
+                pageBuilder: (_, __, ___) => Training(linhVuc: 'Science'),
                 transitionDuration: const Duration(milliseconds: 200),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),
@@ -99,41 +102,73 @@ class _CreateTrain extends State<CreateTrain> {
             Padding(padding: EdgeInsets.all(50)),
             Row(
               children: [
-                Padding(padding: EdgeInsets.only(top: 20)),
                 TextCustom(title: "CẤP ĐỘ"),
                 Expanded(
-                  child: TextFieldCustom(),
+                  child: TextField(
+                    controller: CapDoController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
             Row(
               children: [
-                Padding(padding: EdgeInsets.only(top: 20)),
+                TextCustom(title: "CẤP ĐỘ"),
+                Expanded(
+                  child: TextField(
+                    controller: CapDoController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
                 TextCustom(title: "THỜI GIAN"),
                 Expanded(
-                  child: TextFieldCustom(),
+                  child: TextField(
+                    controller: ThoiGianController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
             Row(
               children: [
-                Padding(padding: EdgeInsets.only(top: 50)),
-                TextCustom(title: "SỐ CÂU HỎI"),
-                Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.only(bottom: 50)),
                 TextCustom(title: "LĨNH VỰC"),
                 Expanded(
-                  child: TextFieldCustom(),
-                )
+                    child: Container(
+                  child: LinhVuc(),
+                )),
               ],
             ),
-            Padding(padding: EdgeInsets.only(bottom: 100)),
             btnCreate
           ],
         ),
@@ -183,6 +218,44 @@ class TextFieldCustom extends StatelessWidget {
               borderRadius: BorderRadius.circular(25),
             ),
           )),
+    );
+  }
+}
+
+class LinhVuc extends StatefulWidget {
+  const LinhVuc({super.key});
+
+  @override
+  State<LinhVuc> createState() => _LinhVuc();
+}
+
+class _LinhVuc extends State<LinhVuc> {
+  List<String> list = <String>['KHOA HỌC', 'TOÁN HỌC', 'CÔNG NGHỆ', 'VẬT LÝ'];
+  String dropdownValue = "KHOA HỌC";
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }

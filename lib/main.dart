@@ -1,4 +1,5 @@
 import 'package:brain_hack/login.dart';
+import 'package:brain_hack/playing.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

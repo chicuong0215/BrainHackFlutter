@@ -1,24 +1,29 @@
-import 'dart:async';
+import 'package:brain_hack/result.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Trainning extends StatefulWidget {
-  const Trainning({super.key});
+class Training extends StatefulWidget {
+  String linhVuc;
+  Training({Key? key, required this.linhVuc}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _Trainning();
+  State<StatefulWidget> createState() => _Training(linhVuc: linhVuc);
 }
 
-class _Trainning extends State<Trainning> {
+class _Training extends State<Training> {
   dynamic listQuestion;
   int vt = 0;
+  int numTrue = 0;
+  int numFalse = 0;
+  String linhVuc;
+  _Training({Key? key, required this.linhVuc});
 
   Future<void> loadQuestion() async {
-    var a = FirebaseFirestore.instance.collection('Question');
-
-    QuerySnapshot querySnapshot = await a.get();
     setState(() {});
+    var a = FirebaseFirestore.instance.collection(linhVuc);
+    QuerySnapshot querySnapshot = await a.get();
     listQuestion = querySnapshot.docs.map((doc) => doc.data()).toList();
+    setState(() {});
   }
 
   @override
@@ -55,7 +60,7 @@ class _Trainning extends State<Trainning> {
       ],
     );
     Widget tvTitle = const Text(
-      "TRAINNING",
+      "TRAINING",
       textAlign: TextAlign.center,
       style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -69,6 +74,20 @@ class _Trainning extends State<Trainning> {
             )
           ]),
     );
+    Widget btnDetail = TextButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (builder) => Result(
+                        linhVuc: linhVuc,
+                        numTrue: numTrue,
+                        numFalse: numFalse,
+                        s: 1000,
+                        time: 20,
+                      )));
+        },
+        child: Text('Xem chi tiết'));
 
     return Scaffold(
         body: SingleChildScrollView(
@@ -87,10 +106,6 @@ class _Trainning extends State<Trainning> {
               children: [
                 rowTitle,
                 tvTitle,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Person(id: "an"), Person(id: "dung")],
-                ),
                 if (listQuestion != null)
                   Stack(
                     alignment: Alignment.topCenter,
@@ -102,49 +117,140 @@ class _Trainning extends State<Trainning> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              QuestionContent(text: listQuestion[vt]['a']),
-                              QuestionContent(text: listQuestion[vt]['b'])
+                              TextButton(
+                                  onPressed: () {
+                                    if (listQuestion[vt]['a'] ==
+                                        listQuestion[vt]['result']) {
+                                      numTrue++;
+                                    } else {
+                                      numFalse++;
+                                    }
+                                    if (listQuestion != null &&
+                                        vt < listQuestion.length - 1) {
+                                      vt++;
+                                      setState(() {});
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text("Thông báo"),
+                                            content: const Text('Kết thúc!'),
+                                            actions: [btnDetail],
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                  child: QuestionContent(
+                                      text: listQuestion[vt]['a'])),
+                              TextButton(
+                                  onPressed: () {
+                                    if (listQuestion[vt]['b'] ==
+                                        listQuestion[vt]['result']) {
+                                      numTrue++;
+                                    } else {
+                                      numFalse++;
+                                    }
+                                    if (listQuestion != null &&
+                                        vt < listQuestion.length - 1) {
+                                      vt++;
+                                      setState(() {});
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text("Thông báo"),
+                                            content: const Text('Kết thúc!'),
+                                            actions: [btnDetail],
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                  child: QuestionContent(
+                                      text: listQuestion[vt]['b'])),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              QuestionContent(text: listQuestion[vt]['c']),
-                              QuestionContent(text: listQuestion[vt]['d'])
+                              TextButton(
+                                  onPressed: () {
+                                    if (listQuestion[vt]['c'] ==
+                                        listQuestion[vt]['result']) {
+                                      numTrue++;
+                                    } else {
+                                      numFalse++;
+                                    }
+                                    if (listQuestion != null &&
+                                        vt < listQuestion.length - 1) {
+                                      vt++;
+                                      setState(() {});
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text("Thông báo"),
+                                            content: const Text('Kết thúc!'),
+                                            actions: [btnDetail],
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                  child: QuestionContent(
+                                      text: listQuestion[vt]['c'])),
+                              TextButton(
+                                  onPressed: () {
+                                    if (listQuestion[vt]['d'] ==
+                                        listQuestion[vt]['result']) {
+                                      numTrue++;
+                                    } else {
+                                      numFalse++;
+                                    }
+                                    if (listQuestion != null &&
+                                        vt < listQuestion.length - 1) {
+                                      vt++;
+                                      setState(() {});
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text("Thông báo"),
+                                            content: const Text('Kết thúc!'),
+                                            actions: [btnDetail],
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                  child: QuestionContent(
+                                      text: listQuestion[vt]['d'])),
                             ],
                           )
                         ],
                       ),
                     ],
                   ),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TimeLeft(value: 25),
-                        ],
-                      ),
+                if (listQuestion != null)
+                  Container(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TimeLeft(value: 25),
+                        Score(value: numTrue, text: 'SỐ CÂU ĐÚNG'),
+                        Score(
+                          value: numFalse,
+                          text: 'SỐ CÂU SAI',
+                        )
+                      ],
                     ),
-                    Padding(padding: EdgeInsets.only(left: 140)),
-                    TextButton(
-                      onPressed: () {
-                        if (listQuestion != null &&
-                            vt < listQuestion.length - 1) {
-                          vt++;
-                          setState(() {});
-                        }
-                      },
-                      child: const Text(
-                        "NEXT>>",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 30),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
               ],
             ),
           ],
@@ -216,9 +322,18 @@ class QuestionContent extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class TimeLeft extends StatelessWidget {
+class TimeLeft extends StatefulWidget {
   int value;
   TimeLeft({Key? key, required this.value}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return _TimeLeft(value: value);
+  }
+}
+
+class _TimeLeft extends State<TimeLeft> {
+  int value;
+  _TimeLeft({Key? key, required this.value});
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -252,51 +367,30 @@ class TimeLeft extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class Person extends StatelessWidget {
-  String id;
-  Person({Key? key, required this.id}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Account').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Column(
-              children: snapshot.data!.docs.map((document) {
-            return Row(children: [
-              // ignore: prefer_const_constructors
-              Icon(
-                Icons.person,
-                color: Colors.white,
-                size: 46,
-              ),
-              Text(
-                document['Id'].toString(),
-                style: const TextStyle(color: Colors.white),
-              ),
-
-              // ignore: prefer_const_constructors
-            ]);
-          }).toList()
-              // ignore: prefer_const_literals_to_create_immutables
-              );
-        });
-  }
-}
-
-// ignore: must_be_immutable
 class Score extends StatelessWidget {
   int value;
-  Score({Key? key, required this.value}) : super(key: key);
+  String text;
+  Score({Key? key, required this.value, required this.text}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.yellow,
+              fontWeight: FontWeight.bold,
+              fontSize: 21,
+              // ignore: prefer_const_literals_to_create_immutables
+              shadows: [
+                Shadow(
+                  offset: Offset(2, 2),
+                  blurRadius: 1,
+                  color: Colors.blue,
+                )
+              ]),
+        ),
         Text(
           value.toString(),
           style: const TextStyle(

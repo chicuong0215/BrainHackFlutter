@@ -135,7 +135,15 @@ class _CreateRoom extends State<CreateRoom> {
               //       transitionsBuilder: (_, a, __, c) =>
               //           FadeTransition(opacity: a, child: c),
               //     ));
-              createRoom();
+              //createRoom();
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => Playing(linhVuc: 'Math'),
+                    transitionDuration: const Duration(milliseconds: 200),
+                    transitionsBuilder: (_, a, __, c) =>
+                        FadeTransition(opacity: a, child: c),
+                  ));
             }
           }
         },
