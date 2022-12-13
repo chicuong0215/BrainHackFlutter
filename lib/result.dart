@@ -1,6 +1,6 @@
-import 'dart:ui';
-
 import 'package:brain_hack/menu.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,8 +17,24 @@ class Result extends StatelessWidget {
       required this.s,
       required this.time,
       required this.linhVuc});
+  final _auth = FirebaseAuth.instance;
+  Future<void> themLichSu() {
+    CollectionReference history =
+        FirebaseFirestore.instance.collection('History');
+    return history.add({
+      'Email': _auth.currentUser?.email,
+      'NumTrue': numTrue,
+      'NumFalse': numFalse,
+      'TimeLine': time,
+      'Score': s,
+      'Type': linhVuc,
+      'Time': DateTime.now()
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    themLichSu();
     Widget title = Container(
       decoration: const BoxDecoration(
         color: Color(0xFF090050),
@@ -240,7 +256,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '14',
+                        '---',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -360,7 +376,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '6',
+                        '---',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -507,7 +523,7 @@ class Result extends StatelessWidget {
         ],
       ),
     );
-    Widget time = Container(
+    Widget txttime = Container(
       alignment: Alignment.center,
       color: Color(0xff040020),
       margin: EdgeInsets.only(top: 5),
@@ -543,7 +559,6 @@ class Result extends StatelessWidget {
           ),
           Container(
             //color: Colors.red,
-
             margin: EdgeInsets.only(top: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -556,14 +571,14 @@ class Result extends StatelessWidget {
                         child: Image(image: AssetImage('images/icon/logo.png')),
                       ),
                       const Text(
-                        'TD',
+                        'Bạn',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.orange,
                         ),
                       ),
                       Text(
-                        '3P1S',
+                        '${time}',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 18,
@@ -636,7 +651,7 @@ class Result extends StatelessWidget {
                   child: Image(image: AssetImage('images/icon/logo.png')),
                 ),
                 Text(
-                  'CHICUONG',
+                  '',
                   style: TextStyle(
                     color: Colors.orange,
                     fontSize: 15,
@@ -701,7 +716,7 @@ class Result extends StatelessWidget {
               trueSentence,
               falseSentence,
               score,
-              time,
+              txttime,
               personWin,
             ],
           ),

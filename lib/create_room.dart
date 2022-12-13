@@ -1,6 +1,4 @@
 import 'package:brain_hack/playing.dart';
-import 'package:brain_hack/trainning.dart';
-import 'package:brain_hack/waiting_room.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -12,31 +10,21 @@ class CreateRoom extends StatefulWidget {
 }
 
 class _CreateRoom extends State<CreateRoom> {
-  String dropdownvalue = 'Item 1';
+  LinhVuc linhVuc = LinhVuc();
 
-  // List of items in our dropdown menu
-  var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
   TextEditingController SoDiemController = TextEditingController();
   TextEditingController CapDoController = TextEditingController();
-  TextEditingController ThoiGianController = TextEditingController();
   TextEditingController LinhVucController = TextEditingController();
 
   CollectionReference room = FirebaseFirestore.instance.collection('Room');
-  //create room
+
   Future<void> createRoom() {
     return room
         .add({
-          'id': '010',
-          'level': '2',
-          'score': '1000',
+          'level': int.parse(CapDoController.text.toString()),
+          'score': int.parse(SoDiemController.text.toString()),
           'stt': true,
-          'type': 'TOÁN HỌC'
+          'type': LinhVucController.text
         })
         .then((value) => print("Created Room"))
         .catchError((error) => print("Failed to add room: $error"));
@@ -88,9 +76,7 @@ class _CreateRoom extends State<CreateRoom> {
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.transparent)),
         onPressed: () {
-          if (SoDiemController.text.isEmpty ||
-              ThoiGianController.text.isEmpty ||
-              CapDoController.text.isEmpty) {
+          if (SoDiemController.text.isEmpty || CapDoController.text.isEmpty) {
             showDialog(
               context: context,
               builder: (context) {
@@ -117,16 +103,10 @@ class _CreateRoom extends State<CreateRoom> {
               },
             );
           } else {
-            int thoigian = (int.parse(ThoiGianController.text));
             int capdo = (int.parse(CapDoController.text));
             int sodiem = (int.parse(SoDiemController.text));
 
-            if (thoigian >= 1 &&
-                thoigian <= 30 &&
-                capdo >= 1 &&
-                capdo <= 3 &&
-                sodiem >= 0 &&
-                sodiem <= 1000) {
+            if (capdo >= 1 && capdo <= 3 && sodiem >= 100 && sodiem <= 1000) {
               // Navigator.push(
               //     context,
               //     PageRouteBuilder(
@@ -139,7 +119,11 @@ class _CreateRoom extends State<CreateRoom> {
               Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => Playing(linhVuc: 'Math'),
+                    pageBuilder: (_, __, ___) => Playing(
+                        linhVuc: linhVuc.getLinhVuc(),
+                        time: 30,
+                        level: capdo,
+                        score: sodiem),
                     transitionDuration: const Duration(milliseconds: 200),
                     transitionsBuilder: (_, a, __, c) =>
                         FadeTransition(opacity: a, child: c),
@@ -178,14 +162,18 @@ class _CreateRoom extends State<CreateRoom> {
           children: [
             rowTitle,
             tvCreateRoom,
-            SizedBox(
+            Padding(padding: EdgeInsets.only(top: 40)),
+            Container(
+              padding: EdgeInsets.all(10),
               child: Row(
                 children: [
                   TextCustom(title: "SỐ ĐIỂM"),
                   Expanded(
                     child: TextField(
+                      keyboardType: TextInputType.number,
                       controller: SoDiemController,
                       decoration: InputDecoration(
+                        hintText: '100 -> 1000',
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -200,55 +188,46 @@ class _CreateRoom extends State<CreateRoom> {
                 ],
               ),
             ),
-            Row(
-              children: [
-                TextCustom(title: "CẤP ĐỘ"),
-                Expanded(
-                  child: TextField(
-                    controller: CapDoController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(
-                          color: Colors.blueGrey,
+            Padding(padding: EdgeInsets.only(top: 40)),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  TextCustom(title: "CẤP ĐỘ"),
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: CapDoController,
+                      decoration: InputDecoration(
+                        hintText: '1 -> 3',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.blueGrey,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-            Row(
-              children: [
-                TextCustom(title: "THỜI GIAN"),
-                Expanded(
-                  child: TextField(
-                    controller: ThoiGianController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(
-                          color: Colors.blueGrey,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
+            Padding(padding: EdgeInsets.only(top: 40)),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  TextCustom(title: "LĨNH VỰC"),
+                  Expanded(
+                      child: Container(
+                    child: linhVuc,
+                  )),
+                ],
+              ),
             ),
-            Row(
-              children: [
-                TextCustom(title: "LĨNH VỰC"),
-                Expanded(
-                    child: Container(
-                  child: LinhVuc(),
-                )),
-              ],
-            ),
+            Padding(padding: EdgeInsets.only(top: 40)),
             btnCreate
           ],
         ),
@@ -316,15 +295,19 @@ class TextFieldCustom extends StatelessWidget {
 }
 
 class LinhVuc extends StatefulWidget {
+  static String lv = 'Math';
   const LinhVuc({super.key});
 
   @override
   State<LinhVuc> createState() => _LinhVuc();
+  String getLinhVuc() {
+    return lv;
+  }
 }
 
 class _LinhVuc extends State<LinhVuc> {
-  List<String> list = <String>['KHOA HỌC', 'TOÁN HỌC', 'CÔNG NGHỆ', 'VẬT LÝ'];
-  String dropdownValue = "KHOA HỌC";
+  List<String> list = <String>['Math', 'World cup', 'Geography', 'Universe'];
+  String dropdownValue = "Math";
 
   @override
   Widget build(BuildContext context) {
@@ -341,6 +324,7 @@ class _LinhVuc extends State<LinhVuc> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
+          LinhVuc.lv = value;
         });
       },
       items: list.map<DropdownMenuItem<String>>((String value) {

@@ -6,10 +6,21 @@ import 'package:flutter/material.dart';
 
 class Playing extends StatefulWidget {
   String linhVuc;
-  Playing({Key? key, required this.linhVuc}) : super(key: key);
+  int level;
+  int time;
+  int score;
+  static int totalScore = 0;
+  Playing(
+      {Key? key,
+      required this.linhVuc,
+      required this.level,
+      required this.time,
+      required this.score})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _Playing(linhVuc: linhVuc);
+  State<StatefulWidget> createState() =>
+      _Playing(linhVuc: linhVuc, score: score, totalScore: totalScore);
 }
 
 class _Playing extends State<Playing> {
@@ -18,7 +29,13 @@ class _Playing extends State<Playing> {
   int numTrue = 0;
   int numFalse = 0;
   String linhVuc;
-  _Playing({Key? key, required this.linhVuc});
+  int score;
+  int totalScore;
+  _Playing(
+      {Key? key,
+      required this.linhVuc,
+      required this.score,
+      required this.totalScore});
 
   Future<void> loadQuestion() async {
     setState(() {});
@@ -93,7 +110,7 @@ class _Playing extends State<Playing> {
                         linhVuc: linhVuc,
                         numTrue: numTrue,
                         numFalse: numFalse,
-                        s: 1000,
+                        s: totalScore,
                         time: 20,
                       )));
         },
@@ -132,6 +149,7 @@ class _Playing extends State<Playing> {
                                     if (listQuestion[vt]['a'] ==
                                         listQuestion[vt]['result']) {
                                       numTrue++;
+                                      totalScore += score ~/ 10;
                                     } else {
                                       numFalse++;
                                     }
@@ -159,6 +177,7 @@ class _Playing extends State<Playing> {
                                     if (listQuestion[vt]['b'] ==
                                         listQuestion[vt]['result']) {
                                       numTrue++;
+                                      totalScore += score ~/ 10;
                                     } else {
                                       numFalse++;
                                     }
@@ -191,6 +210,7 @@ class _Playing extends State<Playing> {
                                     if (listQuestion[vt]['c'] ==
                                         listQuestion[vt]['result']) {
                                       numTrue++;
+                                      totalScore += score ~/ 10;
                                     } else {
                                       numFalse++;
                                     }
@@ -218,6 +238,7 @@ class _Playing extends State<Playing> {
                                     if (listQuestion[vt]['d'] ==
                                         listQuestion[vt]['result']) {
                                       numTrue++;
+                                      totalScore += score ~/ 10;
                                     } else {
                                       numFalse++;
                                     }
@@ -252,7 +273,7 @@ class _Playing extends State<Playing> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TimeLeft(value: 25),
+                        TimeLeft(value: 30),
                         Score(value: numTrue, text: 'SỐ CÂU ĐÚNG'),
                         Score(
                           value: numFalse,

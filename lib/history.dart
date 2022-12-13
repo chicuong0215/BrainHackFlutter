@@ -141,8 +141,6 @@ class History extends StatelessWidget {
               padding: EdgeInsets.only(left: 0),
             ),
             img,
-            img,
-            img,
             Container(
               child: IconButton(
                   color: Colors.white,
@@ -151,7 +149,12 @@ class History extends StatelessWidget {
                       barrierColor: Colors.black26,
                       context: context,
                       builder: (context) {
-                        return DetailHistory();
+                        return DetailHistory(
+                          score: 100,
+                          name: '',
+                          numTrue: 5,
+                          numFalse: 5,
+                        );
                       },
                     );
                   },

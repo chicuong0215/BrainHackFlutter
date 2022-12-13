@@ -1,3 +1,5 @@
+import 'package:brain_hack/create_train.dart';
+import 'package:brain_hack/history.dart';
 import 'package:brain_hack/login.dart';
 import 'package:brain_hack/playing.dart';
 

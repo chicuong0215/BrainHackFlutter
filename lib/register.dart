@@ -33,6 +33,7 @@ class _RegisterState extends State<Register> {
       'TotalNum': 0,
       'SocialLink': '',
       'Coin': 20,
+      'Score': 1000,
       'Stt': true,
     });
   }

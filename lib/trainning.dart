@@ -1,13 +1,23 @@
 import 'package:brain_hack/result.dart';
+import 'package:brain_hack/result_training.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class Training extends StatefulWidget {
   String linhVuc;
-  Training({Key? key, required this.linhVuc}) : super(key: key);
+  int time;
+  int level;
+  Training(
+      {Key? key,
+      required this.linhVuc,
+      required this.time,
+      required this.level})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _Training(linhVuc: linhVuc);
+  State<StatefulWidget> createState() =>
+      _Training(linhVuc: linhVuc, time: time, level: level);
 }
 
 class _Training extends State<Training> {
@@ -16,7 +26,16 @@ class _Training extends State<Training> {
   int numTrue = 0;
   int numFalse = 0;
   String linhVuc;
-  _Training({Key? key, required this.linhVuc});
+  int time;
+  int level;
+
+  static int _start = 10;
+
+  _Training(
+      {Key? key,
+      required this.linhVuc,
+      required this.time,
+      required this.level});
 
   Future<void> loadQuestion() async {
     setState(() {});
@@ -24,6 +43,25 @@ class _Training extends State<Training> {
     QuerySnapshot querySnapshot = await a.get();
     listQuestion = querySnapshot.docs.map((doc) => doc.data()).toList();
     setState(() {});
+  }
+
+  void startTimer() async {
+    const oneSec = Duration(seconds: 1);
+    Timer _timer = Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _start--;
+            print(_start);
+          });
+        }
+      },
+    );
   }
 
   @override
@@ -34,6 +72,7 @@ class _Training extends State<Training> {
 
   @override
   Widget build(BuildContext context) {
+    startTimer();
     Widget rowTitle = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -79,7 +118,7 @@ class _Training extends State<Training> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (builder) => Result(
+                  builder: (builder) => ResultTraining(
                         linhVuc: linhVuc,
                         numTrue: numTrue,
                         numFalse: numFalse,
@@ -106,6 +145,14 @@ class _Training extends State<Training> {
               children: [
                 rowTitle,
                 tvTitle,
+                Text(
+                  'Lĩnh Vực: ${linhVuc}',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  'Cấp Độ: ${level}',
+                  style: TextStyle(color: Colors.white),
+                ),
                 if (listQuestion != null)
                   Stack(
                     alignment: Alignment.topCenter,
@@ -242,7 +289,7 @@ class _Training extends State<Training> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TimeLeft(value: 25),
+                        TimeLeft(value: time),
                         Score(value: numTrue, text: 'SỐ CÂU ĐÚNG'),
                         Score(
                           value: numFalse,
