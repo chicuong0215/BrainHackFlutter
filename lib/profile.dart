@@ -14,6 +14,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final _user = FirebaseAuth.instance.currentUser;
   final Map<String, dynamic> e = new Map();
+  int level = 1;
 
   String formatTimestamp(Timestamp timestamp) {
     var format = new DateFormat('dd/MM/y');
@@ -113,7 +114,6 @@ class _ProfileState extends State<Profile> {
                       child: Column(
                         children: [
                           //stats
-
                           Container(
                             child: CircleAvatar(
                               radius: 85,
@@ -143,7 +143,7 @@ class _ProfileState extends State<Profile> {
                               children: [
                                 Container(
                                   child: Text(
-                                    'CẤP ĐỘ : 0',
+                                    'CẤP ĐỘ : ${checkLevel(data['TotalNum'])}',
                                     style: GoogleFonts.bungee(
                                       textStyle: const TextStyle(
                                           fontSize: 25, color: Colors.orange),
@@ -233,7 +233,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 Container(
                                   child: Text(
-                                    'NGÀY SINH: ${formatTimestamp(data['Birthday'])}',
+                                    'NGÀY SINH: ${(data['Birthday'])}',
                                     style: GoogleFonts.bungee(
                                       textStyle: const TextStyle(
                                           fontSize: 25, color: Colors.orange),
@@ -320,7 +320,7 @@ class _ProfileState extends State<Profile> {
 
         return const Center(
           child: Text(
-            'Đang lấy dữ liệu',
+            '',
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -329,5 +329,28 @@ class _ProfileState extends State<Profile> {
         );
       },
     );
+  }
+
+  dynamic checkLevel(dynamic a) {
+    if (a < 1000) {
+      level = 1;
+      return level;
+    }
+    if (a >= 1000 && a < 3000) {
+      level = 2;
+      return level;
+    }
+    if (a >= 3000 && a < 7000) {
+      level = 3;
+      return level;
+    }
+    if (a >= 7000 && a < 10000) {
+      level = 4;
+      return level;
+    }
+    if (a >= 10000 && a < 15000) {
+      level = 5;
+      return level;
+    }
   }
 }
