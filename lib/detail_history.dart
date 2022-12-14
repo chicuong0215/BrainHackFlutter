@@ -65,7 +65,7 @@ class DetailHistory extends StatelessWidget {
           ),
           Container(
             child: const Text(
-              'Tai khoan',
+              'Tài khoản',
               style: TextStyle(
                 fontSize: 22,
                 fontFamily: 'Fraunces',
@@ -78,7 +78,7 @@ class DetailHistory extends StatelessWidget {
             child: Text(
               '${score}',
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 30,
                 fontFamily: 'Fraunces',
                 color: Color(0xFFFC5658),
                 shadows: [

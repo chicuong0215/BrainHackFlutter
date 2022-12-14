@@ -1,28 +1,14 @@
+import 'package:brain_hack/detail_history.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Ranking extends StatefulWidget {
-  int index = 0;
-  LinhVuc linhVuc = LinhVuc();
-  @override
-  State<StatefulWidget> createState() {
-    return _Ranking(index, linhVuc);
-  }
-}
-
-class _Ranking extends State<Ranking> {
-  int index = 0;
-  LinhVuc linhVuc = LinhVuc();
-
-  _Ranking(this.index, this.linhVuc);
-  void updateState() {
-    setState(() {});
-  }
-
+class Ranking extends StatelessWidget {
+  final _user = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     Widget title = Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
             image: AssetImage('images/icon/head.png'), fit: BoxFit.contain),
       ),
@@ -38,9 +24,11 @@ class _Ranking extends State<Ranking> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 15),
+            margin: EdgeInsets.only(
+              left: 50,
+            ),
             child: const Text(
-              'XẾP HẠNG',
+              'LỊCH SỬ',
               style: TextStyle(
                 fontSize: 45,
                 fontFamily: 'Fraunces',
@@ -57,14 +45,25 @@ class _Ranking extends State<Ranking> {
         ],
       ),
     );
-
+    Widget img = Container(
+      width: 40,
+      height: 40,
+      child: CircleAvatar(
+        backgroundColor: Color.fromARGB(255, 255, 183, 76),
+        radius: 30,
+        child: Image(
+          image: AssetImage('images/icon/logo_v2.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
     return Scaffold(
       backgroundColor: const Color(0xFF090050),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('Account')
+              .orderBy('Score', descending: true)
               .limit(10)
-              .orderBy(linhVuc.getLinhVuc(), descending: true)
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -76,43 +75,24 @@ class _Ranking extends State<Ranking> {
             return Column(
               children: [
                 title,
-                linhVuc,
+                LinhVuc(),
                 Column(
-                    children: snapshot.data!.docs.map((document) {
-                  index++;
-                  return Column(
-                    children: [
-                      Container(),
-                      RankingItem(
-                          index: 1,
-                          avatar: '',
-                          name: document['FullName'],
-                          score: document[linhVuc.getLinhVuc()]),
-                    ],
-                  );
-                }).toList()),
-                Container(
-                    margin:
-                        const EdgeInsets.only(top: 20, left: 20, bottom: 20),
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 40,
-                      width: 250,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Text(
-                        'HẠNG CỦA BẠN : --- ---',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xffC238D3),
-                          fontFamily: 'Fraunces',
+                  children: snapshot.data!.docs.map((document) {
+                    return Container(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            RankingItem(
+                                index: 1,
+                                avatar: '',
+                                name: document['FullName'],
+                                score: document['Score'])
+                          ],
                         ),
-                        textAlign: TextAlign.center,
                       ),
-                    ))
+                    );
+                  }).toList(),
+                )
               ],
             );
           }),
@@ -121,7 +101,7 @@ class _Ranking extends State<Ranking> {
             Navigator.pop(context);
           },
           label: const Text(''),
-          shape: const CircleBorder(side: BorderSide()),
+          shape: CircleBorder(side: BorderSide()),
           icon: const Icon(Icons.arrow_back_ios_new),
           backgroundColor: const Color(0xFF3B4DA3)),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,

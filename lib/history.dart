@@ -48,7 +48,7 @@ class History extends StatelessWidget {
     Widget img = Container(
       width: 40,
       height: 40,
-      child: CircleAvatar(
+      child: const CircleAvatar(
         backgroundColor: Color.fromARGB(255, 255, 183, 76),
         radius: 30,
         child: Image(
@@ -71,32 +71,34 @@ class History extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-            return Column(
-              children: [
-                title,
-                Column(
-                  children: snapshot.data!.docs.map((document) {
-                    return Container(
-                      child: Container(
-                        child: Column(
-                          children: [
-                            LichSu(
-                              numTrue: document['NumTrue'],
-                              numFalse: document['NumFalse'],
-                              timeLine: document['TimeLine'],
-                              time: document['Time'],
-                              type: document['Type'],
-                              score: document['Score'],
-                              linhVuc: document['Type'],
-                              capDo: document['Level'],
-                            ),
-                          ],
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  title,
+                  Column(
+                    children: snapshot.data!.docs.map((document) {
+                      return Container(
+                        child: Container(
+                          child: Column(
+                            children: [
+                              LichSu(
+                                numTrue: document['NumTrue'],
+                                numFalse: document['NumFalse'],
+                                timeLine: document['TimeLine'],
+                                time: document['Time'],
+                                type: document['Type'],
+                                score: document['Score'],
+                                linhVuc: document['Type'],
+                                capDo: document['Level'],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }).toList(),
-                )
-              ],
+                      );
+                    }).toList(),
+                  )
+                ],
+              ),
             );
           }),
       floatingActionButton: FloatingActionButton.extended(
@@ -283,10 +285,10 @@ class LichSu extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return DetailHistory(
-                          score: 100,
+                          score: score,
                           name: '',
-                          numTrue: 5,
-                          numFalse: 5,
+                          numTrue: numTrue,
+                          numFalse: numFalse,
                         );
                       },
                     );
