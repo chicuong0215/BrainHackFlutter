@@ -1,18 +1,17 @@
-import 'package:brain_hack/result.dart';
 import 'package:brain_hack/result_training.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/countdown_controller.dart';
+import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'dart:async';
+
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 class Training extends StatefulWidget {
   String linhVuc;
-  int time;
+  late int time = 0;
   int level;
-  Training(
-      {Key? key,
-      required this.linhVuc,
-      required this.time,
-      required this.level})
+  Training({Key? key, required this.linhVuc, required this.level})
       : super(key: key);
 
   @override
@@ -29,7 +28,15 @@ class _Training extends State<Training> {
   int time;
   int level;
 
-  static int _start = 10;
+  bool isShow = true;
+
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
+  late CountdownTimerController controller;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   _Training(
       {Key? key,
@@ -45,34 +52,48 @@ class _Training extends State<Training> {
     setState(() {});
   }
 
-  void startTimer() async {
-    const oneSec = Duration(seconds: 1);
-    Timer _timer = Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            _start--;
-            print(_start);
-          });
-        }
-      },
-    );
-  }
-
   @override
   void initState() {
     super.initState();
     loadQuestion();
+    controller = CountdownTimerController(
+        endTime: endTime,
+        onEnd: () {
+          if (isShow) {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return WillPopScope(
+                    child: AlertDialog(
+                      title: const Text("Thông báo"),
+                      content: const Text('Kết thúc!'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => ResultTraining(
+                                            linhVuc: linhVuc,
+                                            numTrue: numTrue,
+                                            numFalse: numFalse,
+                                            s: 1000,
+                                            time: 30,
+                                          )));
+                            },
+                            child: Text('Xem chi tiết'))
+                      ],
+                    ),
+                    onWillPop: () async => false);
+              },
+            );
+          }
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    startTimer();
     Widget rowTitle = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -129,181 +150,258 @@ class _Training extends State<Training> {
         child: Text('Xem chi tiết'));
 
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Container(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Image.asset(
-                "images/bg.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-            Column(
-              children: [
-                rowTitle,
-                tvTitle,
-                Text(
-                  'Lĩnh Vực: ${linhVuc}',
-                  style: TextStyle(color: Colors.white),
-                ),
-                Text(
-                  'Cấp Độ: ${level}',
-                  style: TextStyle(color: Colors.white),
-                ),
-                if (listQuestion != null)
-                  Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-                      Image.asset('images/playing_bg.png'),
-                      Column(
-                        children: [
-                          QuestionTitle(text: listQuestion[vt]['title']),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+        body: WillPopScope(
+            child: SingleChildScrollView(
+              child: Container(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: Image.asset(
+                        "images/bg.jpg",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        rowTitle,
+                        tvTitle,
+                        Text(
+                          'Lĩnh Vực: ${linhVuc}',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        Text(
+                          'Cấp Độ: ${level}',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        if (listQuestion != null)
+                          Stack(
+                            alignment: Alignment.topCenter,
                             children: [
-                              TextButton(
-                                  onPressed: () {
-                                    if (listQuestion[vt]['a'] ==
-                                        listQuestion[vt]['result']) {
-                                      numTrue++;
-                                    } else {
-                                      numFalse++;
-                                    }
-                                    if (listQuestion != null &&
-                                        vt < listQuestion.length - 1) {
-                                      vt++;
-                                      setState(() {});
-                                    } else {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: const Text("Thông báo"),
-                                            content: const Text('Kết thúc!'),
-                                            actions: [btnDetail],
-                                          );
-                                        },
-                                      );
-                                    }
-                                  },
-                                  child: QuestionContent(
-                                      text: listQuestion[vt]['a'])),
-                              TextButton(
-                                  onPressed: () {
-                                    if (listQuestion[vt]['b'] ==
-                                        listQuestion[vt]['result']) {
-                                      numTrue++;
-                                    } else {
-                                      numFalse++;
-                                    }
-                                    if (listQuestion != null &&
-                                        vt < listQuestion.length - 1) {
-                                      vt++;
-                                      setState(() {});
-                                    } else {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: const Text("Thông báo"),
-                                            content: const Text('Kết thúc!'),
-                                            actions: [btnDetail],
-                                          );
-                                        },
-                                      );
-                                    }
-                                  },
-                                  child: QuestionContent(
-                                      text: listQuestion[vt]['b'])),
+                              Image.asset('images/playing_bg.png'),
+                              Column(
+                                children: [
+                                  QuestionTitle(
+                                      text: listQuestion[vt]['title']),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                          onPressed: () {
+                                            if (listQuestion[vt]['a'] ==
+                                                listQuestion[vt]['result']) {
+                                              numTrue++;
+                                            } else {
+                                              numFalse++;
+                                            }
+                                            if (listQuestion != null &&
+                                                vt < listQuestion.length - 1) {
+                                              vt++;
+                                              setState(() {});
+                                            } else {
+                                              isShow = false;
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WillPopScope(
+                                                      child: AlertDialog(
+                                                        title: const Text(
+                                                            "Thông báo"),
+                                                        content: const Text(
+                                                            'Kết thúc!'),
+                                                        actions: [btnDetail],
+                                                      ),
+                                                      onWillPop: () async =>
+                                                          false);
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: QuestionContent(
+                                              text: listQuestion[vt]['a'])),
+                                      TextButton(
+                                          onPressed: () {
+                                            if (listQuestion[vt]['b'] ==
+                                                listQuestion[vt]['result']) {
+                                              numTrue++;
+                                            } else {
+                                              numFalse++;
+                                            }
+                                            if (listQuestion != null &&
+                                                vt < listQuestion.length - 1) {
+                                              vt++;
+                                              setState(() {});
+                                            } else {
+                                              isShow = false;
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WillPopScope(
+                                                      child: AlertDialog(
+                                                        title: const Text(
+                                                            "Thông báo"),
+                                                        content: const Text(
+                                                            'Kết thúc!'),
+                                                        actions: [btnDetail],
+                                                      ),
+                                                      onWillPop: () async =>
+                                                          false);
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: QuestionContent(
+                                              text: listQuestion[vt]['b'])),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                          onPressed: () {
+                                            if (listQuestion[vt]['c'] ==
+                                                listQuestion[vt]['result']) {
+                                              numTrue++;
+                                            } else {
+                                              numFalse++;
+                                            }
+                                            if (listQuestion != null &&
+                                                vt < listQuestion.length - 1) {
+                                              vt++;
+                                              setState(() {});
+                                            } else {
+                                              isShow = false;
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WillPopScope(
+                                                      child: AlertDialog(
+                                                        title: const Text(
+                                                            "Thông báo"),
+                                                        content: const Text(
+                                                            'Kết thúc!'),
+                                                        actions: [btnDetail],
+                                                      ),
+                                                      onWillPop: () async =>
+                                                          false);
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: QuestionContent(
+                                              text: listQuestion[vt]['c'])),
+                                      TextButton(
+                                          onPressed: () {
+                                            if (listQuestion[vt]['d'] ==
+                                                listQuestion[vt]['result']) {
+                                              numTrue++;
+                                            } else {
+                                              numFalse++;
+                                            }
+                                            if (listQuestion != null &&
+                                                vt < listQuestion.length - 1) {
+                                              vt++;
+                                              setState(() {});
+                                            } else {
+                                              isShow = false;
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WillPopScope(
+                                                      child: AlertDialog(
+                                                        title: const Text(
+                                                            "Thông báo"),
+                                                        content: const Text(
+                                                            'Kết thúc!'),
+                                                        actions: [btnDetail],
+                                                      ),
+                                                      onWillPop: () async =>
+                                                          false);
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: QuestionContent(
+                                              text: listQuestion[vt]['d'])),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextButton(
-                                  onPressed: () {
-                                    if (listQuestion[vt]['c'] ==
-                                        listQuestion[vt]['result']) {
-                                      numTrue++;
-                                    } else {
-                                      numFalse++;
+                        if (listQuestion != null)
+                          Container(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CountdownTimer(
+                                  controller: controller,
+                                  endTime: endTime,
+                                  widgetBuilder: (context, time) {
+                                    if (time == null) {
+                                      return TimeLeft(value: 'Hết Giờ');
                                     }
-                                    if (listQuestion != null &&
-                                        vt < listQuestion.length - 1) {
-                                      vt++;
-                                      setState(() {});
-                                    } else {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: const Text("Thông báo"),
-                                            content: const Text('Kết thúc!'),
-                                            actions: [btnDetail],
-                                          );
-                                        },
-                                      );
-                                    }
+                                    return Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'images/icon/circle_3.gif',
+                                          width: 90,
+                                          height: 90,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              time.sec.toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 30,
+                                                  shadows: [
+                                                    Shadow(
+                                                        offset: Offset(2, 2),
+                                                        blurRadius: 1,
+                                                        color: Colors.blue)
+                                                  ]),
+                                            ),
+                                            const Text(
+                                              'S',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 30,
+                                                  shadows: [
+                                                    Shadow(
+                                                        offset: Offset(2, 2),
+                                                        blurRadius: 1,
+                                                        color: Colors.red)
+                                                  ]),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    );
                                   },
-                                  child: QuestionContent(
-                                      text: listQuestion[vt]['c'])),
-                              TextButton(
-                                  onPressed: () {
-                                    if (listQuestion[vt]['d'] ==
-                                        listQuestion[vt]['result']) {
-                                      numTrue++;
-                                    } else {
-                                      numFalse++;
-                                    }
-                                    if (listQuestion != null &&
-                                        vt < listQuestion.length - 1) {
-                                      vt++;
-                                      setState(() {});
-                                    } else {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: const Text("Thông báo"),
-                                            content: const Text('Kết thúc!'),
-                                            actions: [btnDetail],
-                                          );
-                                        },
-                                      );
-                                    }
-                                  },
-                                  child: QuestionContent(
-                                      text: listQuestion[vt]['d'])),
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                if (listQuestion != null)
-                  Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TimeLeft(value: time),
-                        Score(value: numTrue, text: 'SỐ CÂU ĐÚNG'),
-                        Score(
-                          value: numFalse,
-                          text: 'SỐ CÂU SAI',
-                        )
+                                ),
+                                Score(value: numTrue, text: 'SỐ CÂU ĐÚNG'),
+                                Score(
+                                  value: numFalse,
+                                  text: 'SỐ CÂU SAI',
+                                )
+                              ],
+                            ),
+                          ),
                       ],
                     ),
-                  ),
-              ],
+                  ],
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
-    ));
+            onWillPop: () async => false));
   }
 }
 
@@ -370,7 +468,7 @@ class QuestionContent extends StatelessWidget {
 
 // ignore: must_be_immutable
 class TimeLeft extends StatefulWidget {
-  int value;
+  String value;
   TimeLeft({Key? key, required this.value}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
@@ -379,7 +477,7 @@ class TimeLeft extends StatefulWidget {
 }
 
 class _TimeLeft extends State<TimeLeft> {
-  int value;
+  String value;
   _TimeLeft({Key? key, required this.value});
   @override
   Widget build(BuildContext context) {

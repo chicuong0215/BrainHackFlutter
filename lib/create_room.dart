@@ -11,20 +11,18 @@ class CreateRoom extends StatefulWidget {
 
 class _CreateRoom extends State<CreateRoom> {
   LinhVuc linhVuc = LinhVuc();
-
-  TextEditingController SoDiemController = TextEditingController();
-  TextEditingController CapDoController = TextEditingController();
-  TextEditingController LinhVucController = TextEditingController();
+  CapDo capDo = CapDo();
+  SoDiem soDiem = SoDiem();
 
   CollectionReference room = FirebaseFirestore.instance.collection('Room');
 
   Future<void> createRoom() {
     return room
         .add({
-          'level': int.parse(CapDoController.text.toString()),
-          'score': int.parse(SoDiemController.text.toString()),
+          'level': int.parse(capDo.getCapDo()),
+          'score': int.parse(soDiem.getSoDiem()),
           'stt': true,
-          'type': LinhVucController.text
+          'type': linhVuc.getLinhVuc()
         })
         .then((value) => print("Created Room"))
         .catchError((error) => print("Failed to add room: $error"));
@@ -76,60 +74,27 @@ class _CreateRoom extends State<CreateRoom> {
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.transparent)),
         onPressed: () {
-          if (SoDiemController.text.isEmpty || CapDoController.text.isEmpty) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text(
-                    'Thông báo',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  content: Text(
-                    'Vui Lòng Nhập Đủ Thong Tin',
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text("OK"),
-                    ),
-                  ],
-                );
-              },
-            );
-          } else {
-            int capdo = (int.parse(CapDoController.text));
-            int sodiem = (int.parse(SoDiemController.text));
-
-            if (capdo >= 1 && capdo <= 3 && sodiem >= 100 && sodiem <= 1000) {
-              // Navigator.push(
-              //     context,
-              //     PageRouteBuilder(
-              //       pageBuilder: (_, __, ___) => WaitingRoom(),
-              //       transitionDuration: const Duration(milliseconds: 200),
-              //       transitionsBuilder: (_, a, __, c) =>
-              //           FadeTransition(opacity: a, child: c),
-              //     ));
-              //createRoom();
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => Playing(
-                        linhVuc: linhVuc.getLinhVuc(),
-                        time: 30,
-                        level: capdo,
-                        score: sodiem),
-                    transitionDuration: const Duration(milliseconds: 200),
-                    transitionsBuilder: (_, a, __, c) =>
-                        FadeTransition(opacity: a, child: c),
-                  ));
-            }
-          }
+          // Navigator.push(
+          //     context,
+          //     PageRouteBuilder(
+          //       pageBuilder: (_, __, ___) => WaitingRoom(),
+          //       transitionDuration: const Duration(milliseconds: 200),
+          //       transitionsBuilder: (_, a, __, c) =>
+          //           FadeTransition(opacity: a, child: c),
+          //     ));
+          //createRoom();
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => Playing(
+                    linhVuc: linhVuc.getLinhVuc(),
+                    time: 30,
+                    level: int.parse(capDo.getCapDo()),
+                    score: int.parse(soDiem.getSoDiem())),
+                transitionDuration: const Duration(milliseconds: 200),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              ));
         },
         child: Stack(
           alignment: Alignment.center,
@@ -162,59 +127,36 @@ class _CreateRoom extends State<CreateRoom> {
           children: [
             rowTitle,
             tvCreateRoom,
-            Padding(padding: EdgeInsets.only(top: 40)),
+            Padding(padding: EdgeInsets.only(top: 20)),
             Container(
               padding: EdgeInsets.all(10),
               child: Row(
                 children: [
                   TextCustom(title: "SỐ ĐIỂM"),
                   Expanded(
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      controller: SoDiemController,
-                      decoration: InputDecoration(
-                        hintText: '100 -> 1000',
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
-                            color: Colors.blueGrey,
-                          ),
-                        ),
-                      ),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: soDiem,
                     ),
                   )
                 ],
               ),
             ),
-            Padding(padding: EdgeInsets.only(top: 40)),
+            Padding(padding: EdgeInsets.only(top: 20)),
             Container(
               padding: EdgeInsets.all(10),
               child: Row(
                 children: [
                   TextCustom(title: "CẤP ĐỘ"),
                   Expanded(
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      controller: CapDoController,
-                      decoration: InputDecoration(
-                        hintText: '1 -> 3',
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
-                            color: Colors.blueGrey,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                      child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: capDo,
+                  ))
                 ],
               ),
             ),
-            Padding(padding: EdgeInsets.only(top: 40)),
+            Padding(padding: EdgeInsets.only(top: 20)),
             Container(
               padding: EdgeInsets.all(10),
               child: Row(
@@ -222,12 +164,13 @@ class _CreateRoom extends State<CreateRoom> {
                   TextCustom(title: "LĨNH VỰC"),
                   Expanded(
                       child: Container(
+                    padding: EdgeInsets.all(10),
                     child: linhVuc,
                   )),
                 ],
               ),
             ),
-            Padding(padding: EdgeInsets.only(top: 40)),
+            Padding(padding: EdgeInsets.only(top: 20)),
             btnCreate
           ],
         ),
@@ -259,7 +202,7 @@ class TextCustom extends StatelessWidget {
       textAlign: TextAlign.center,
       style: const TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 45,
+          fontSize: 40,
           color: Colors.white,
           shadows: [
             Shadow(
@@ -315,7 +258,7 @@ class _LinhVuc extends State<LinhVuc> {
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
+      style: const TextStyle(color: Colors.deepPurple, fontSize: 30),
       underline: Container(
         height: 2,
         color: Colors.deepPurpleAccent,
@@ -333,6 +276,110 @@ class _LinhVuc extends State<LinhVuc> {
           child: Text(value),
         );
       }).toList(),
+    );
+  }
+}
+
+class CapDo extends StatefulWidget {
+  static String lv = '1';
+  const CapDo({super.key});
+
+  @override
+  State<CapDo> createState() => _CapDo();
+  String getCapDo() {
+    return lv;
+  }
+}
+
+class _CapDo extends State<CapDo> {
+  List<String> list = <String>['1', '2', '3'];
+  String dropdownValue = "1";
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        style: const TextStyle(color: Colors.deepPurple),
+        underline: Container(
+          height: 2,
+          color: Colors.white,
+        ),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            dropdownValue = value!;
+            CapDo.lv = value;
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                value,
+                style: TextStyle(fontSize: 26),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class SoDiem extends StatefulWidget {
+  static String lv = '100';
+  const SoDiem({super.key});
+
+  @override
+  State<SoDiem> createState() => _SoDiem();
+  String getSoDiem() {
+    return lv;
+  }
+}
+
+class _SoDiem extends State<SoDiem> {
+  List<String> list = <String>['100', '200', '300'];
+  String dropdownValue = "100";
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        style: const TextStyle(color: Colors.deepPurple),
+        underline: Container(
+          height: 2,
+          color: Colors.white,
+        ),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            dropdownValue = value!;
+            SoDiem.lv = value;
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                value,
+                style: TextStyle(fontSize: 26),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }

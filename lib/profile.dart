@@ -146,17 +146,7 @@ class _ProfileState extends State<Profile> {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'CẤP ĐỘ : ${checkLevel(data['TotalNum'])}',
-                                        style: GoogleFonts.bungee(
-                                          textStyle: const TextStyle(
-                                              fontSize: 25,
-                                              color: Colors.orange),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        'Điểm: ${data['TotalNum']}',
+                                        'Điểm: ${data['Score']}',
                                         style: GoogleFonts.bungee(
                                           textStyle: const TextStyle(
                                               fontSize: 25,

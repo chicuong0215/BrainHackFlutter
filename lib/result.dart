@@ -10,24 +10,40 @@ class Result extends StatelessWidget {
   int s;
   int time;
   String linhVuc;
+  int capDo;
   Result(
       {Key? key,
       required this.numFalse,
       required this.numTrue,
       required this.s,
       required this.time,
-      required this.linhVuc});
+      required this.linhVuc,
+      required this.capDo});
+
   final _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final CollectionReference _user =
+      FirebaseFirestore.instance.collection('Account');
+
+  Future<void> capNhatDiem() async {
+    DocumentReference col = _user.doc(_auth.currentUser?.email);
+    col.get().then((value) => {
+          _user.doc(_auth.currentUser?.email).update(
+              {"Score": s + value['Score'], linhVuc: s + value['Score']})
+        });
+  }
+
   Future<void> themLichSu() {
     CollectionReference history =
         FirebaseFirestore.instance.collection('History');
     return history.add({
       'Email': _auth.currentUser?.email,
       'NumTrue': numTrue,
-      'NumFalse': numFalse,
+      'NumFalse': 20 - numTrue,
       'TimeLine': time,
       'Score': s,
       'Type': linhVuc,
+      'Level': capDo,
       'Time': DateTime.now()
     });
   }
@@ -35,6 +51,7 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     themLichSu();
+    capNhatDiem();
     Widget title = Container(
       decoration: const BoxDecoration(
         color: Color(0xFF090050),
@@ -115,7 +132,7 @@ class Result extends StatelessWidget {
                   '1VS1',
                   style: GoogleFonts.bungee(
                     textStyle: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 50,
                       color: Color(0xffFF00BF),
                       shadows: [
                         Shadow(
@@ -129,7 +146,7 @@ class Result extends StatelessWidget {
                 Text(
                   '${linhVuc}',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 30,
                     color: Color(0xFF80AEFF),
                     shadows: [
                       Shadow(
@@ -339,7 +356,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${numFalse}',
+                        '${20 - numTrue}',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -496,7 +513,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '200',
+                        '---',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -611,7 +628,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '3P20S',
+                        '---',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 18,
@@ -645,30 +662,12 @@ class Result extends StatelessWidget {
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                CircleAvatar(
-                  radius: 30,
-                  child: Image(image: AssetImage('images/icon/logo.png')),
-                ),
-                Text(
-                  '',
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: 15,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'WINNER',
+                  'TỔNG ĐIỂM',
                   style: GoogleFonts.bungee(
                     textStyle: const TextStyle(
-                      fontSize: 40,
+                      fontSize: 30,
                       color: Color(0xFF94DD26),
                       shadows: [
                         Shadow(
@@ -680,12 +679,12 @@ class Result extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 80),
+                  margin: EdgeInsets.only(left: 150),
                   child: Text(
                     'MAX: 300',
                     style: GoogleFonts.bungee(
                       textStyle: const TextStyle(
-                        fontSize: 15,
+                        fontSize: 30,
                         color: Color(0xFF3B4DA3),
                         shadows: [
                           Shadow(

@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:brain_hack/menu.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -83,7 +80,7 @@ class ResultTraining extends StatelessWidget {
                   'CHỦ ĐỀ',
                   style: GoogleFonts.bungee(
                     textStyle: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 45,
                       color: Color(0xffFF00BF),
                       shadows: [
                         Shadow(
@@ -97,7 +94,7 @@ class ResultTraining extends StatelessWidget {
                 Text(
                   '${linhVuc}',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 45,
                     color: Color(0xFF80AEFF),
                     shadows: [
                       Shadow(
@@ -162,7 +159,7 @@ class ResultTraining extends StatelessWidget {
                         '${numTrue}',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 45,
                             color: Color(0xFF7843E6),
                             shadows: [
                               Shadow(
@@ -232,10 +229,10 @@ class ResultTraining extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        '${numFalse}',
+                        '${20 - numTrue}',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 45,
                             color: Color(0xFF7843E6),
                             shadows: [
                               Shadow(
@@ -307,7 +304,7 @@ class ResultTraining extends StatelessWidget {
                         '${time}',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 45,
                             color: Color(0xFFFFDF2B),
                             shadows: [
                               Shadow(

@@ -1,5 +1,4 @@
 import 'package:brain_hack/trainning.dart';
-import 'package:brain_hack/utils.dart';
 import 'package:flutter/material.dart';
 
 class CreateTrain extends StatefulWidget {
@@ -10,10 +9,8 @@ class CreateTrain extends StatefulWidget {
 }
 
 class _CreateTrain extends State<CreateTrain> {
-  TextEditingController CapDoController = TextEditingController();
-  TextEditingController LinhVucController = TextEditingController();
-
   LinhVuc linhVuc = new LinhVuc();
+  CapDo capDo = new CapDo();
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -60,27 +57,16 @@ class _CreateTrain extends State<CreateTrain> {
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.transparent)),
         onPressed: () {
-          if (CapDoController.text.isEmpty) {
-            Utils.notification(context, 'Nhập đầy đủ thông tin!');
-          } else {
-            if (int.parse(CapDoController.text.toString()) > 0 &&
-                int.parse(CapDoController.text.toString()) < 4) {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => Training(
-                      linhVuc: linhVuc.getLinhVuc(),
-                      level: int.parse(CapDoController.text.toString()),
-                      time: 30,
-                    ),
-                    transitionDuration: const Duration(milliseconds: 200),
-                    transitionsBuilder: (_, a, __, c) =>
-                        FadeTransition(opacity: a, child: c),
-                  ));
-            } else {
-              Utils.notification(context, 'Lỗi');
-            }
-          }
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => Training(
+                    linhVuc: linhVuc.getLinhVuc(),
+                    level: int.parse(capDo.getCapDo())),
+                transitionDuration: const Duration(milliseconds: 200),
+                transitionsBuilder: (_, a, __, c) =>
+                    FadeTransition(opacity: a, child: c),
+              ));
         },
         child: Stack(
           alignment: Alignment.center,
@@ -120,22 +106,8 @@ class _CreateTrain extends State<CreateTrain> {
                 TextCustom(title: "CẤP ĐỘ"),
                 Padding(padding: EdgeInsets.only(right: 30)),
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      controller: CapDoController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
-                            color: Colors.blueGrey,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: Container(
+                    child: capDo,
                   ),
                 )
               ],
@@ -241,6 +213,58 @@ class _LinhVuc extends State<LinhVuc> {
           setState(() {
             dropdownValue = value!;
             LinhVuc.lv = value;
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                value,
+                style: TextStyle(fontSize: 26),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class CapDo extends StatefulWidget {
+  static String lv = '1';
+  const CapDo({super.key});
+
+  @override
+  State<CapDo> createState() => _CapDo();
+  String getCapDo() {
+    return lv;
+  }
+}
+
+class _CapDo extends State<CapDo> {
+  List<String> list = <String>['1', '2', '3'];
+  String dropdownValue = "1";
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        style: const TextStyle(color: Colors.deepPurple),
+        underline: Container(
+          height: 2,
+          color: Colors.white,
+        ),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            dropdownValue = value!;
+            CapDo.lv = value;
           });
         },
         items: list.map<DropdownMenuItem<String>>((String value) {
