@@ -15,6 +15,10 @@
 //                           ),
 
 
+
+
+
+
 // Widget build(BuildContext context) {
 //     return Scaffold(
 //       body: Center(
@@ -63,6 +67,8 @@
 
 
 
+
+
 // showDatePicker(
 //     context: context,
 //     initialDate: DateTime.now(),
@@ -88,3 +94,48 @@
 //          _controller.text = selectedDate.toString();
 //        }
 //    });
+
+
+
+
+// child: TextField(
+//     controller: _Calendar,
+//     //keyboardType: TextInputType.datetime,
+//     decoration: InputDecoration(
+//       filled: true,
+//       fillColor: Colors.white,
+//       border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(30)),
+//       suffixIcon: IconButton(
+//         icon: Icon(Icons.calendar_month),
+//         onPressed: () {
+//           showDatePicker(
+//               context: context,
+//               initialDate: DateTime.now(),
+//               firstDate: DateTime(
+//                   DateTime.now().year - 80),
+//               lastDate: DateTime(
+//                   DateTime.now().year + 10),
+//               builder: (context, picker) {
+//                 return Theme(
+//                   data: ThemeData.dark().copyWith(
+//                     colorScheme: ColorScheme.dark(
+//                       primary: Colors.deepPurple,
+//                       onPrimary: Colors.white,
+//                       surface: Colors.purple,
+//                       onSurface: Colors.black,
+//                     ),
+//                     dialogBackgroundColor:
+//                         Colors.blueGrey,
+//                   ),
+//                   child: picker!,
+//                 );
+//               }).then((selectedDate) {
+//             if (selectedDate != null) {
+//               Timestamp newMethod2 =
+//                   newMethod(selectedDate)
+//                       as Timestamp;
+//               _Calendar.text =
+//                   formatTimestamp(newMethod2);
+//             }
+//           });

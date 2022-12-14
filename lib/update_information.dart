@@ -17,19 +17,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
   TextEditingController _Name = TextEditingController();
   TextEditingController _Calendar = TextEditingController();
   bool _rdb = true;
-  String formatTimestamp(Timestamp timestamp) {
-    var format = new DateFormat('dd/MM/yyyy');
-    return format.format(timestamp.toDate());
-  }
-
-  DateTime deFormatTimestamp(String time) {
-    String day = time[0] + time[1];
-    String month = time[3] + time[4];
-    String year = time[6] + time[7] + time[8];
-
-    print(day);
-    return new DateTime(int.parse(day), int.parse(month), int.parse(year));
-  }
+  String _Avatar = "images/icon/avatar.png";
 
   final _auth = FirebaseAuth.instance.currentUser;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -40,6 +28,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
     final docRef = _user.doc(_auth!.email);
     await docRef.get().then((DocumentSnapshot doc) {
       final data = doc.data() as Map<String, dynamic>;
+
       _Name.text = data['FullName'];
       _Calendar.text = data['Birthday'];
       _rdb = data['Sex'];
@@ -118,14 +107,14 @@ class _UpdateInformationState extends State<UpdateInformation> {
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         backgroundColor: Color.fromARGB(255, 93, 182, 255),
                         radius: 100,
                         child: CircleAvatar(
                           backgroundColor: Color.fromARGB(255, 222, 241, 255),
                           radius: 95,
                           child: Image(
-                            image: AssetImage('images/icon/logo_v2.png'),
+                            image: AssetImage('${_Avatar}'),
                           ),
                         ),
                       ),

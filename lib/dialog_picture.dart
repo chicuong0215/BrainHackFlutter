@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,6 +9,26 @@ class DialogPicture extends StatefulWidget {
 }
 
 class _DialogPictureState extends State<DialogPicture> {
+  final _auth = FirebaseAuth.instance.currentUser;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final CollectionReference _user =
+      FirebaseFirestore.instance.collection('Account');
+
+  void getData() async {
+    final docRef = _user.doc(_auth!.email);
+    await docRef.get().then((DocumentSnapshot doc) {
+      final data = doc.data() as Map<String, dynamic>;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      getData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
