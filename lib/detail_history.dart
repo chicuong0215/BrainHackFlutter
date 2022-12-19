@@ -5,12 +5,17 @@ class DetailHistory extends StatelessWidget {
   int numTrue;
   int numFalse;
   String name;
+  String type;
+  int timeLine;
   String? gender;
+
   DetailHistory(
       {Key? key,
       required this.score,
       required this.numTrue,
       required this.numFalse,
+      required this.type,
+      required this.timeLine,
       required this.name})
       : super(key: key);
   @override
@@ -63,32 +68,67 @@ class DetailHistory extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            child: const Text(
-              'Tài khoản',
-              style: TextStyle(
-                fontSize: 22,
-                fontFamily: 'Fraunces',
-                color: Color.fromARGB(255, 255, 0, 0),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              '${score}',
-              style: TextStyle(
-                fontSize: 30,
-                fontFamily: 'Fraunces',
-                color: Color(0xFFFC5658),
-                shadows: [
-                  Shadow(
-                    blurRadius: 5.0,
-                    color: Color(0xFFFf0099),
+          Column(
+            children: [
+              Container(
+                child: Text(
+                  'Số câu đúng: ${numTrue}',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontFamily: 'Fraunces',
+                    color: Colors.blue,
                   ),
-                ],
+                ),
               ),
-            ),
+              Container(
+                child: Text(
+                  'Số câu sai: ${numFalse}',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontFamily: 'Fraunces',
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 20),
+                child: Text(
+                  'Thời gian: ${timeLine}',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Fraunces',
+                    color: Colors.blue,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 5.0,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 20),
+                child: Text(
+                  'Lĩnh vực: \n${type}',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Fraunces',
+                    color: Colors.blue,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 5.0,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           Padding(
             padding: EdgeInsets.only(left: 0),
@@ -178,8 +218,8 @@ class DetailHistory extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: const Text(
-                    '5000 Điểm',
+                  child: Text(
+                    '${score} Điểm',
                     style: TextStyle(
                       fontSize: 35,
                       fontFamily: 'Fraunces',

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class Ranking extends StatelessWidget {
   final _user = FirebaseAuth.instance;
+  int index = 1;
   @override
   Widget build(BuildContext context) {
     Widget title = Container(
@@ -75,7 +76,7 @@ class Ranking extends StatelessWidget {
             return Column(
               children: [
                 title,
-                LinhVuc(),
+                //LinhVuc(),
                 Column(
                   children: snapshot.data!.docs.map((document) {
                     return Container(
@@ -83,7 +84,7 @@ class Ranking extends StatelessWidget {
                         child: Column(
                           children: [
                             RankingItem(
-                                index: 1,
+                                index: index++,
                                 avatar: '',
                                 name: document['FullName'],
                                 score: document['Score'])

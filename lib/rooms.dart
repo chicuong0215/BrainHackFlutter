@@ -167,8 +167,8 @@ class _Rooms extends State<Rooms> {
                 for (int i = 0; i < listRoom.length; i++)
                   RoomItem(
                     id: listRoom[i]['id'],
-                    type: listRoom[i]['type'],
-                    stt: listRoom[i]['stt'],
+                    type: 't',
+                    stt: true,
                   )
             ],
           ))

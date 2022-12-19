@@ -1,7 +1,6 @@
 import 'package:brain_hack/result_training.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/countdown_controller.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'dart:async';
 
@@ -78,7 +77,6 @@ class _Training extends State<Training> {
                                             linhVuc: linhVuc,
                                             numTrue: numTrue,
                                             numFalse: numFalse,
-                                            s: 1000,
                                             time: 30,
                                           )));
                             },
@@ -143,7 +141,6 @@ class _Training extends State<Training> {
                         linhVuc: linhVuc,
                         numTrue: numTrue,
                         numFalse: numFalse,
-                        s: 1000,
                         time: 20,
                       )));
         },

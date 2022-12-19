@@ -87,8 +87,7 @@ class _CreateRoom extends State<CreateRoom> {
               context,
               PageRouteBuilder(
                 pageBuilder: (_, __, ___) => Playing(
-                    linhVuc: linhVuc.getLinhVuc(),
-                    time: 30,
+                    type: linhVuc.getLinhVuc(),
                     level: int.parse(capDo.getCapDo()),
                     score: int.parse(soDiem.getSoDiem())),
                 transitionDuration: const Duration(milliseconds: 200),

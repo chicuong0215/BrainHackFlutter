@@ -1,391 +1,336 @@
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class FriendProfile extends StatefulWidget {
+  String email;
+  FriendProfile({Key? key, required this.email});
+
   @override
-  State<StatefulWidget> createState() => _FriendProfileState();
+  State<StatefulWidget> createState() => _ProfileState();
 }
 
-class _FriendProfileState extends State<FriendProfile> {
+class _ProfileState extends State<FriendProfile> {
+  final _user = FirebaseAuth.instance.currentUser;
+  final Map<String, dynamic> e = new Map();
+  int level = 1;
+
+  String formatTimestamp(Timestamp timestamp) {
+    var format = new DateFormat('dd/MM/y');
+    return format.format(timestamp.toDate());
+  }
+
+  final firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instanceFor(
+          bucket: 'gs://app-brain-hack.appspot.com');
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget rowTitle = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          child: IconButton(
-            iconSize: 100,
-            onPressed: () {},
-            icon: const Image(
-              image: AssetImage('images/icon/logo_v2.png'),
+    CollectionReference uesr = FirebaseFirestore.instance.collection('Account');
+    // loadAccount();
+    return FutureBuilder<DocumentSnapshot>(
+      future: uesr.doc(_user!.email).get(),
+      builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Lỗi kết nối");
+        }
+
+        if (snapshot.hasData && !snapshot.data!.exists) {
+          return Text("Tài khoản không tồn tại");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
+          return Scaffold(
+            body: Center(
+              child: Container(
+                  //padding: EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("images/bg.jpg"), fit: BoxFit.cover),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        //title
+                        Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('images/icon/head.png'),
+                                fit: BoxFit.contain),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                child: IconButton(
+                                  iconSize: 60,
+                                  onPressed: () {},
+                                  icon: const Image(
+                                    image:
+                                        AssetImage('images/icon/logo_v2.png'),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 30),
+                                child: const Text(
+                                  'HỒ SƠ BẠN BÈ',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontFamily: 'Fraunces',
+                                    color: Color(0xFFFC5658),
+                                    shadows: [
+                                      Shadow(
+                                          blurRadius: 1.0,
+                                          color: Color(0xFF33f8ff),
+                                          offset: Offset(2.0, -1.0)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                              top: 20, left: 20, right: 20, bottom: 10),
+                          child: Column(
+                            children: [
+                              //stats
+                              Container(
+                                child: CircleAvatar(
+                                  radius: 85,
+                                  backgroundImage:
+                                      NetworkImage("${data['Avatar']}"),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Text(
+                                  'ID: ${_user!.email}',
+                                  style: GoogleFonts.bungee(
+                                    textStyle: const TextStyle(
+                                        fontSize: 15, color: Colors.orange),
+                                  ),
+                                ),
+                              ),
+
+                              //information
+                              Container(
+                                //color: Colors.amber,
+                                margin: EdgeInsets.only(top: 10, left: 10),
+                                height: 400,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        'Điểm: ${data['Score']}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        'SỐ TRẬN:  ${(data['LossNum'] + data['WinNum'])}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        'THẮNG: ${(data['WinNum'])}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        'THUA: ${(data['LossNum'])}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
+                                      ),
+                                    ),
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              'TÊN: ${data['FullName']}',
+                                              style: GoogleFonts.bungee(
+                                                textStyle: const TextStyle(
+                                                    fontSize: 25,
+                                                    color: Colors.orange),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              child: Text(
+                                                'EMAIL: ${(data['Email'])}',
+                                                style: GoogleFonts.bungee(
+                                                  textStyle: const TextStyle(
+                                                      fontSize: 25,
+                                                      color: Colors.orange),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        'GIỚI TÍNH: ${(data['Sex'] == true) ? 'Nam' : 'Nữ'}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        'NGÀY SINH: ${(data['Birthday'])}',
+                                        style: GoogleFonts.bungee(
+                                          textStyle: const TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.orange),
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            'COIN: ${(data['Coin'])}',
+                                            style: GoogleFonts.bungee(
+                                              textStyle: const TextStyle(
+                                                  fontSize: 25,
+                                                  color: Colors.orange),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        //footer
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              child: IconButton(
+                                iconSize: 75,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const CircleAvatar(
+                                  child: Icon(Icons.arrow_back_ios_new),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              height: 40,
+                              width: 230,
+                              decoration: BoxDecoration(
+                                  color: Colors.orange[700],
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'HỦY KẾT BẠN',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                  // child:
+                  ),
+            ),
+          );
+        }
+
+        return const Center(
+          child: Text(
+            '',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 30),
-          child: Column(
-            children: [
-              Container(
-                height: 35,
-                child: const Text(
-                  'HỒ SƠ',
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontFamily: 'Fraunces',
-                    color: Colors.orange,
-                  ),
-                ),
-              ),
-              Container(
-                child: const Text(
-                  'BẠN BÈ',
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontFamily: 'Fraunces',
-                    color: Colors.orange,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+        );
+      },
     );
-    Widget personalStats = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: 15),
-          child: Column(
-            children: [
-              Container(
-                child: const CircleAvatar(
-                  radius: 85,
-                  child: Image(
-                    image: AssetImage('images/icon/logo.png'),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 5),
-                child: Text(
-                  'ID: 1HWEDGYU2E',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 15, color: Colors.orange),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      child: Text(
-                        'CẤP ĐỘ :',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        '0',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 20),
-          height: 160,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                child: Row(
-                  children: [
-                    Container(
-                      child: Text(
-                        'ĐIỂM :',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        '0',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: [
-                    Container(
-                      child: Text(
-                        'SỐ TRẬN :',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        '0',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: [
-                    Container(
-                      child: Text(
-                        'THẮNG :',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        '0',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Row(
-                  children: [
-                    Container(
-                      child: Text(
-                        'THUA :',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        '0',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                              fontSize: 25, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-    Widget personalInformation = Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          child: Row(
-            children: [
-              Container(
-                child: Text(
-                  'TÊN :',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
-                  'NGUYỄN VĂN A',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                Container(
-                  child: Text(
-                    'EMAIL :',
-                    style: GoogleFonts.bungee(
-                      textStyle:
-                          const TextStyle(fontSize: 25, color: Colors.orange),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 5),
-                  child: Text(
-                    'NVA@GMAIL.COM',
-                    style: GoogleFonts.bungee(
-                      textStyle:
-                          const TextStyle(fontSize: 25, color: Colors.orange),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          child: Row(
-            children: [
-              Container(
-                child: Text(
-                  'GIỚI TÍNH :',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
-                  'NAM',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          child: Row(
-            children: [
-              Container(
-                child: Text(
-                  'NGÀY SINH :',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 5),
-                child: Text(
-                  '20/12/2002',
-                  style: GoogleFonts.bungee(
-                    textStyle:
-                        const TextStyle(fontSize: 25, color: Colors.orange),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: Color.fromARGB(255, 221, 221, 221)),
-          child: TextButton(
-            onPressed: () {},
-            child: Text(
-              'HỦY KẾT BẠN',
-              style: GoogleFonts.bungee(
-                textStyle: const TextStyle(fontSize: 25, color: Colors.red),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-    return Scaffold(
-      body: Center(
-        child: Container(
-          //padding: EdgeInsets.all(20),
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/bg.jpg"), fit: BoxFit.cover),
-          ),
-          child: Column(
-            children: [
-              //title
-              Container(
-                child: rowTitle,
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    //stats
-                    Container(
-                      child: personalStats,
-                    ),
-                    // Personal Information
-                    Container(
-                      height: 350,
-                      margin: EdgeInsets.only(top: 20, left: 25),
-                      child: personalInformation,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        label: const Text(''),
-        shape: CircleBorder(side: BorderSide()),
-        icon: const Icon(Icons.arrow_back_ios_new),
-        backgroundColor: Colors.blue,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-    );
+  }
+
+  dynamic checkLevel(dynamic a) {
+    if (a < 1000) {
+      level = 1;
+      return level;
+    }
+    if (a >= 1000 && a < 3000) {
+      level = 2;
+      return level;
+    }
+    if (a >= 3000 && a < 7000) {
+      level = 3;
+      return level;
+    }
+    if (a >= 7000 && a < 10000) {
+      level = 4;
+      return level;
+    }
+    if (a >= 10000 && a < 15000) {
+      level = 5;
+      return level;
+    }
   }
 }

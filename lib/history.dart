@@ -63,6 +63,7 @@ class History extends StatelessWidget {
           stream: FirebaseFirestore.instance
               .collection('History')
               .where('Email', isEqualTo: _user.currentUser!.email.toString())
+              .limit(20)
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -151,152 +152,137 @@ class LichSu extends StatelessWidget {
           ]),
           //border: Border.all(width: 2, color: Colors.red),
         ),
-        child: Row(
-          children: [
-            Container(
-              child: const CircleAvatar(
-                backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                radius: 30,
-                child: Image(
-                  image: AssetImage('images/icon/logo_v2.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Column(
+        child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    'ĐÚNG: $numTrue',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'Fraunces',
-                      color: Color(0xFFFC5658),
-                      shadows: [
-                        Shadow(
-                          blurRadius: 5.0,
-                          color: Color(0xFFFf0099),
-                        ),
-                      ],
+                  child: const CircleAvatar(
+                    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                    radius: 30,
+                    child: Image(
+                      image: AssetImage('images/icon/logo_v2.png'),
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    'SAI: $numFalse',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'Fraunces',
-                      color: Color(0xFFFC5658),
-                      shadows: [
-                        Shadow(
-                          blurRadius: 5.0,
-                          color: Color(0xFFFf0099),
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        'ĐÚNG: $numTrue',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Fraunces',
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 5.0,
+                              color: Color(0xFFFf0099),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    'ĐIỂM: $score',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'Fraunces',
-                      color: Color(0xFFFC5658),
-                      shadows: [
-                        Shadow(
-                          blurRadius: 5.0,
-                          color: Color(0xFFFf0099),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    'Lĩnh vực: $linhVuc',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'Fraunces',
-                      color: Color(0xFFFC5658),
-                      shadows: [
-                        Shadow(
-                          blurRadius: 5.0,
-                          color: Color(0xFFFf0099),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    'Cấp độ: $capDo ',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'Fraunces',
-                      color: Color(0xFFFC5658),
-                      shadows: [
-                        Shadow(
-                          blurRadius: 5.0,
-                          color: Color(0xFFFf0099),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(padding: EdgeInsets.only(right: 20)),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  height: 100,
-                  width: 30,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    //color: Colors.orange,
-                    border: Border(
-                      left: BorderSide(
-                        width: 2,
-                        color: Color.fromARGB(255, 255, 255, 255),
                       ),
                     ),
-                  ),
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        'SAI: $numFalse',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Fraunces',
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 5.0,
+                              color: Color(0xFFFf0099),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        'ĐIỂM: $score',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Fraunces',
+                          color: Colors.orange,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 5.0,
+                              color: Color(0xFFFf0099),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            Container(
-              child: IconButton(
-                  color: Colors.white,
-                  onPressed: () {
-                    showDialog(
-                      barrierColor: Colors.black26,
-                      context: context,
-                      builder: (context) {
-                        return DetailHistory(
-                          score: score,
-                          name: '',
-                          numTrue: numTrue,
-                          numFalse: numFalse,
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Lĩnh vực: $linhVuc',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Fraunces',
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 5.0,
+                              color: Color(0xFFFf0099),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Cấp độ: $capDo ',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Fraunces',
+                          color: Colors.yellow,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 5.0,
+                              color: Color(0xFFFf0099),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(padding: EdgeInsets.only(left: 20)),
+                Container(
+                  child: IconButton(
+                      color: Colors.white,
+                      onPressed: () {
+                        showDialog(
+                          barrierColor: Colors.black26,
+                          context: context,
+                          builder: (context) {
+                            return new DetailHistory(
+                              score: score,
+                              name: '',
+                              type: type,
+                              timeLine: timeLine,
+                              numTrue: numTrue,
+                              numFalse: numFalse,
+                            );
+                          },
                         );
                       },
-                    );
-                  },
-                  icon: Icon(Icons.more_horiz_rounded)),
-            )
-          ],
-        ),
+                      icon: Icon(Icons.more_horiz_rounded)),
+                )
+              ],
+            )),
       ),
     );
   }

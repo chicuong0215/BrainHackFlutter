@@ -6,52 +6,57 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Result extends StatelessWidget {
   int numTrue;
-  int numFalse;
-  int s;
+  int scoreEarn;
+  int score;
   int time;
-  String linhVuc;
-  int capDo;
+  String type;
+  int level;
+
   Result(
       {Key? key,
-      required this.numFalse,
       required this.numTrue,
-      required this.s,
+      required this.scoreEarn,
+      required this.score,
       required this.time,
-      required this.linhVuc,
-      required this.capDo});
+      required this.type,
+      required this.level})
+      : super(key: key);
 
   final _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final CollectionReference _user =
-      FirebaseFirestore.instance.collection('Account');
 
-  Future<void> capNhatDiem() async {
-    DocumentReference col = _user.doc(_auth.currentUser?.email);
-    col.get().then((value) => {
-          _user.doc(_auth.currentUser?.email).update(
-              {"Score": s + value['Score'], linhVuc: s + value['Score']})
+  Future<void> updateScore() async {
+    final CollectionReference account =
+        FirebaseFirestore.instance.collection('Account');
+
+    DocumentReference document = account.doc(_auth.currentUser?.email);
+    document.get().then((value) => {
+          account.doc(_auth.currentUser?.email).update({
+            "Score": scoreEarn + value['Score'],
+            type: scoreEarn + value['Score']
+          })
         });
   }
 
-  Future<void> themLichSu() {
+  Future<void> addHistory() {
     CollectionReference history =
         FirebaseFirestore.instance.collection('History');
+
     return history.add({
       'Email': _auth.currentUser?.email,
       'NumTrue': numTrue,
       'NumFalse': 20 - numTrue,
       'TimeLine': time,
-      'Score': s,
-      'Type': linhVuc,
-      'Level': capDo,
+      'Score': scoreEarn,
+      'Type': type,
+      'Level': level,
       'Time': DateTime.now()
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    themLichSu();
-    capNhatDiem();
+    addHistory();
+    updateScore();
     Widget title = Container(
       decoration: const BoxDecoration(
         color: Color(0xFF090050),
@@ -144,8 +149,8 @@ class Result extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${linhVuc}',
-                  style: TextStyle(
+                  type,
+                  style: const TextStyle(
                     fontSize: 30,
                     color: Color(0xFF80AEFF),
                     shadows: [
@@ -168,7 +173,7 @@ class Result extends StatelessWidget {
                   child: Image(image: AssetImage('images/icon/logo.png')),
                 ),
                 Text(
-                  'BẠN',
+                  '---',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.orange,
@@ -236,7 +241,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${numTrue}',
+                        '${numTrue} câu',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -266,7 +271,7 @@ class Result extends StatelessWidget {
                         child: Image(image: AssetImage('images/icon/logo.png')),
                       ),
                       const Text(
-                        'NA',
+                        '---',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.orange,
@@ -356,7 +361,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${20 - numTrue}',
+                        '${20 - numTrue} câu',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -386,7 +391,7 @@ class Result extends StatelessWidget {
                         child: Image(image: AssetImage('images/icon/logo.png')),
                       ),
                       const Text(
-                        'NA',
+                        '--',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.orange,
@@ -420,7 +425,7 @@ class Result extends StatelessWidget {
         ],
       ),
     );
-    Widget score = Container(
+    Widget wscore = Container(
       alignment: Alignment.center,
       color: Color(0xff040020),
       margin: EdgeInsets.only(top: 5),
@@ -476,7 +481,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${s}',
+                        '${scoreEarn} ĐIỂM',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -506,7 +511,7 @@ class Result extends StatelessWidget {
                         child: Image(image: AssetImage('images/icon/logo.png')),
                       ),
                       const Text(
-                        'NA',
+                        '---',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.orange,
@@ -595,7 +600,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${time}',
+                        '${time} s',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 18,
@@ -621,7 +626,7 @@ class Result extends StatelessWidget {
                         child: Image(image: AssetImage('images/icon/logo.png')),
                       ),
                       const Text(
-                        'NA',
+                        '---',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.orange,
@@ -679,9 +684,9 @@ class Result extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 150),
+                  margin: EdgeInsets.only(left: 50),
                   child: Text(
-                    'MAX: 300',
+                    'MAX: $score',
                     style: GoogleFonts.bungee(
                       textStyle: const TextStyle(
                         fontSize: 30,
@@ -702,48 +707,50 @@ class Result extends StatelessWidget {
         ],
       ),
     );
-    return Scaffold(
-      backgroundColor: const Color(0xFF3168D8),
-      body: SingleChildScrollView(
-          child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
+    return WillPopScope(
+        child: Scaffold(
+          backgroundColor: const Color(0xFF3168D8),
+          body: SingleChildScrollView(
+              child: Stack(
+            alignment: Alignment.center,
             children: [
-              title,
-              vResult,
-              trueSentence,
-              falseSentence,
-              score,
-              txttime,
-              personWin,
-            ],
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (builder) => Menu()));
-            },
-            child: const Text(
-              'CHẠM VÀO MÀN HÌNH ĐỂ TIẾP TỤC',
-              style: TextStyle(
-                fontSize: 18,
-                color: Color(0xffC1FDFF),
-                shadows: [
-                  Shadow(
-                      blurRadius: 10.0,
-                      color: Color(0xFFFFFD47),
-                      offset: Offset(2.0, 2.0)),
-                  Shadow(
-                      blurRadius: 10.0,
-                      color: Color(0xFFFFFD47),
-                      offset: Offset(-2.0, -2.0)),
+              Column(
+                children: [
+                  title,
+                  vResult,
+                  trueSentence,
+                  falseSentence,
+                  wscore,
+                  txttime,
+                  personWin,
                 ],
               ),
-            ),
-          ),
-        ],
-      )),
-    );
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (builder) => Menu()));
+                },
+                child: const Text(
+                  'CHẠM VÀO MÀN HÌNH ĐỂ TIẾP TỤC',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xffC1FDFF),
+                    shadows: [
+                      Shadow(
+                          blurRadius: 10.0,
+                          color: Color(0xFFFFFD47),
+                          offset: Offset(2.0, 2.0)),
+                      Shadow(
+                          blurRadius: 10.0,
+                          color: Color(0xFFFFFD47),
+                          offset: Offset(-2.0, -2.0)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )),
+        ),
+        onWillPop: () async => false);
   }
 }

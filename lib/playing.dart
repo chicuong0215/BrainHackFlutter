@@ -5,33 +5,29 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 class Playing extends StatefulWidget {
-  String linhVuc;
+  String type;
   int level;
-  int time;
   int score;
-  static int totalScore = 0;
+  static int scoreEarn = 0;
   Playing(
-      {Key? key,
-      required this.linhVuc,
-      required this.level,
-      required this.time,
-      required this.score})
+      {Key? key, required this.type, required this.level, required this.score})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _Playing(
-      linhVuc: linhVuc, score: score, totalScore: totalScore, level: level);
+  State<StatefulWidget> createState() =>
+      _Playing(score: score, level: level, type: type, scoreEarn: scoreEarn);
 }
 
 class _Playing extends State<Playing> {
   dynamic listQuestion;
   int vt = 0;
+
   int numTrue = 0;
   int numFalse = 0;
-  String linhVuc;
   int level;
   int score;
-  int totalScore;
+  int scoreEarn;
+  String type;
 
   bool isShow = true;
 
@@ -39,15 +35,14 @@ class _Playing extends State<Playing> {
   late CountdownTimerController controller;
 
   _Playing(
-      {Key? key,
-      required this.linhVuc,
+      {required this.level,
       required this.score,
-      required this.totalScore,
-      required this.level});
+      required this.type,
+      required this.scoreEarn});
 
   Future<void> loadQuestion() async {
     setState(() {});
-    var a = FirebaseFirestore.instance.collection(linhVuc);
+    var a = FirebaseFirestore.instance.collection(type);
     QuerySnapshot querySnapshot = await a.get();
     listQuestion = querySnapshot.docs.map((doc) => doc.data()).toList();
     setState(() {});
@@ -76,12 +71,12 @@ class _Playing extends State<Playing> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (builder) => Result(
-                                            linhVuc: linhVuc,
-                                            capDo: level,
+                                            level: level,
                                             numTrue: numTrue,
-                                            numFalse: numFalse,
-                                            s: 1000,
                                             time: 30,
+                                            score: 30,
+                                            scoreEarn: 30,
+                                            type: type,
                                           )));
                             },
                             child: Text('Xem chi tiết'))
@@ -92,14 +87,6 @@ class _Playing extends State<Playing> {
             );
           }
         });
-  }
-
-  Future<void> addHistory(
-    String email,
-  ) {
-    DocumentReference dk =
-        FirebaseFirestore.instance.collection('History').doc('');
-    return dk.set({});
   }
 
   @override
@@ -150,12 +137,12 @@ class _Playing extends State<Playing> {
               context,
               MaterialPageRoute(
                   builder: (builder) => Result(
-                        linhVuc: linhVuc,
+                        level: level,
+                        type: type,
+                        score: score,
                         numTrue: numTrue,
-                        numFalse: numFalse,
-                        s: totalScore,
+                        scoreEarn: scoreEarn,
                         time: 20,
-                        capDo: level,
                       )));
         },
         child: Text('Xem chi tiết'));
@@ -179,7 +166,7 @@ class _Playing extends State<Playing> {
                         rowTitle,
                         tvTitle,
                         Text(
-                          'Lĩnh vực: $linhVuc',
+                          'Lĩnh vực: $type',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         Text(
@@ -207,7 +194,7 @@ class _Playing extends State<Playing> {
                                             if (listQuestion[vt]['a'] ==
                                                 listQuestion[vt]['result']) {
                                               numTrue++;
-                                              totalScore += score ~/ 10;
+                                              scoreEarn += score ~/ 10;
                                             } else {
                                               numFalse++;
                                             }
@@ -242,7 +229,7 @@ class _Playing extends State<Playing> {
                                             if (listQuestion[vt]['b'] ==
                                                 listQuestion[vt]['result']) {
                                               numTrue++;
-                                              totalScore += score ~/ 10;
+                                              scoreEarn += score ~/ 10;
                                             } else {
                                               numFalse++;
                                             }
@@ -282,7 +269,7 @@ class _Playing extends State<Playing> {
                                             if (listQuestion[vt]['c'] ==
                                                 listQuestion[vt]['result']) {
                                               numTrue++;
-                                              totalScore += score ~/ 10;
+                                              scoreEarn += score ~/ 10;
                                             } else {
                                               numFalse++;
                                             }
@@ -317,7 +304,7 @@ class _Playing extends State<Playing> {
                                             if (listQuestion[vt]['d'] ==
                                                 listQuestion[vt]['result']) {
                                               numTrue++;
-                                              totalScore += score ~/ 10;
+                                              scoreEarn += score ~/ 10;
                                             } else {
                                               numFalse++;
                                             }
@@ -542,7 +529,7 @@ class Score extends StatelessWidget {
         Text(
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.yellow,
               fontWeight: FontWeight.bold,
               fontSize: 21,

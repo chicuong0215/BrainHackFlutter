@@ -5,14 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 class ResultTraining extends StatelessWidget {
   int numTrue;
   int numFalse;
-  int s;
   int time;
   String linhVuc;
   ResultTraining(
       {Key? key,
       required this.numFalse,
       required this.numTrue,
-      required this.s,
       required this.time,
       required this.linhVuc});
 
@@ -156,7 +154,7 @@ class ResultTraining extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        '${numTrue}',
+                        '${numTrue} câu',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 45,
@@ -229,7 +227,7 @@ class ResultTraining extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        '${20 - numTrue}',
+                        '${20 - numTrue} câu',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 45,
@@ -301,7 +299,7 @@ class ResultTraining extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        '${time}',
+                        '${time} S',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 45,
@@ -326,44 +324,46 @@ class ResultTraining extends StatelessWidget {
     );
     return Scaffold(
       backgroundColor: const Color(0xFF3168D8),
-      body: SingleChildScrollView(
-          child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
+      body: WillPopScope(
+          child: SingleChildScrollView(
+              child: Stack(
+            alignment: Alignment.center,
             children: [
-              title,
-              vResult,
-              trueSentence,
-              falseSentence,
-              txtTime,
-            ],
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (builder) => Menu()));
-            },
-            child: const Text(
-              'CHẠM VÀO MÀN HÌNH ĐỂ TIẾP TỤC',
-              style: TextStyle(
-                fontSize: 18,
-                color: Color(0xffC1FDFF),
-                shadows: [
-                  Shadow(
-                      blurRadius: 10.0,
-                      color: Color(0xFFFFFD47),
-                      offset: Offset(2.0, 2.0)),
-                  Shadow(
-                      blurRadius: 10.0,
-                      color: Color(0xFFFFFD47),
-                      offset: Offset(-2.0, -2.0)),
+              Column(
+                children: [
+                  title,
+                  vResult,
+                  trueSentence,
+                  falseSentence,
+                  txtTime,
                 ],
               ),
-            ),
-          ),
-        ],
-      )),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (builder) => Menu()));
+                },
+                child: const Text(
+                  'CHẠM VÀO MÀN HÌNH ĐỂ TIẾP TỤC',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xffC1FDFF),
+                    shadows: [
+                      Shadow(
+                          blurRadius: 10.0,
+                          color: Color(0xFFFFFD47),
+                          offset: Offset(2.0, 2.0)),
+                      Shadow(
+                          blurRadius: 10.0,
+                          color: Color(0xFFFFFD47),
+                          offset: Offset(-2.0, -2.0)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )),
+          onWillPop: () async => false),
     );
   }
 }
