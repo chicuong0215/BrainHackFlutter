@@ -1,4 +1,8 @@
+import 'package:brain_hack/create_train.dart';
+import 'package:brain_hack/history.dart';
 import 'package:brain_hack/login.dart';
+import 'package:brain_hack/playing.dart';
+import 'package:brain_hack/update_information.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

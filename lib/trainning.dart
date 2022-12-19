@@ -1,30 +1,95 @@
-import 'dart:async';
+import 'package:brain_hack/result_training.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/countdown_controller.dart';
+import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
+import 'dart:async';
 
-class Trainning extends StatefulWidget {
-  const Trainning({super.key});
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+
+class Training extends StatefulWidget {
+  String linhVuc;
+  late int time = 0;
+  int level;
+  Training({Key? key, required this.linhVuc, required this.level})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _Trainning();
+  State<StatefulWidget> createState() =>
+      _Training(linhVuc: linhVuc, time: time, level: level);
 }
 
-class _Trainning extends State<Trainning> {
+class _Training extends State<Training> {
   dynamic listQuestion;
   int vt = 0;
+  int numTrue = 0;
+  int numFalse = 0;
+  String linhVuc;
+  int time;
+  int level;
+
+  bool isShow = true;
+
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
+  late CountdownTimerController controller;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  _Training(
+      {Key? key,
+      required this.linhVuc,
+      required this.time,
+      required this.level});
 
   Future<void> loadQuestion() async {
-    var a = FirebaseFirestore.instance.collection('Question');
-
-    QuerySnapshot querySnapshot = await a.get();
     setState(() {});
+    var a = FirebaseFirestore.instance.collection(linhVuc);
+    QuerySnapshot querySnapshot = await a.get();
     listQuestion = querySnapshot.docs.map((doc) => doc.data()).toList();
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
     loadQuestion();
+    controller = CountdownTimerController(
+        endTime: endTime,
+        onEnd: () {
+          if (isShow) {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return WillPopScope(
+                    child: AlertDialog(
+                      title: const Text("Thông báo"),
+                      content: const Text('Kết thúc!'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => ResultTraining(
+                                            linhVuc: linhVuc,
+                                            numTrue: numTrue,
+                                            numFalse: numFalse,
+                                            s: 1000,
+                                            time: 30,
+                                          )));
+                            },
+                            child: Text('Xem chi tiết'))
+                      ],
+                    ),
+                    onWillPop: () async => false);
+              },
+            );
+          }
+        });
   }
 
   @override
@@ -55,7 +120,7 @@ class _Trainning extends State<Trainning> {
       ],
     );
     Widget tvTitle = const Text(
-      "TRAINNING",
+      "TRAINING",
       textAlign: TextAlign.center,
       style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -69,88 +134,274 @@ class _Trainning extends State<Trainning> {
             )
           ]),
     );
+    Widget btnDetail = TextButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (builder) => ResultTraining(
+                        linhVuc: linhVuc,
+                        numTrue: numTrue,
+                        numFalse: numFalse,
+                        s: 1000,
+                        time: 20,
+                      )));
+        },
+        child: Text('Xem chi tiết'));
 
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Container(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Image.asset(
-                "images/bg.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-            Column(
-              children: [
-                rowTitle,
-                tvTitle,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Person(id: "an"), Person(id: "dung")],
-                ),
-                if (listQuestion != null)
-                  Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-                      Image.asset('images/playing_bg.png'),
-                      Column(
-                        children: [
-                          QuestionTitle(text: listQuestion[vt]['title']),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              QuestionContent(text: listQuestion[vt]['a']),
-                              QuestionContent(text: listQuestion[vt]['b'])
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              QuestionContent(text: listQuestion[vt]['c']),
-                              QuestionContent(text: listQuestion[vt]['d'])
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                Row(
+        body: WillPopScope(
+            child: SingleChildScrollView(
+              child: Container(
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TimeLeft(value: 25),
-                        ],
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: Image.asset(
+                        "images/bg.jpg",
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 140)),
-                    TextButton(
-                      onPressed: () {
-                        if (listQuestion != null &&
-                            vt < listQuestion.length - 1) {
-                          vt++;
-                          setState(() {});
-                        }
-                      },
-                      child: const Text(
-                        "NEXT>>",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 30),
-                      ),
+                    Column(
+                      children: [
+                        rowTitle,
+                        tvTitle,
+                        Text(
+                          'Lĩnh Vực: ${linhVuc}',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        Text(
+                          'Cấp Độ: ${level}',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        if (listQuestion != null)
+                          Stack(
+                            alignment: Alignment.topCenter,
+                            children: [
+                              Image.asset('images/playing_bg.png'),
+                              Column(
+                                children: [
+                                  QuestionTitle(
+                                      text: listQuestion[vt]['title']),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                          onPressed: () {
+                                            if (listQuestion[vt]['a'] ==
+                                                listQuestion[vt]['result']) {
+                                              numTrue++;
+                                            } else {
+                                              numFalse++;
+                                            }
+                                            if (listQuestion != null &&
+                                                vt < listQuestion.length - 1) {
+                                              vt++;
+                                              setState(() {});
+                                            } else {
+                                              isShow = false;
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WillPopScope(
+                                                      child: AlertDialog(
+                                                        title: const Text(
+                                                            "Thông báo"),
+                                                        content: const Text(
+                                                            'Kết thúc!'),
+                                                        actions: [btnDetail],
+                                                      ),
+                                                      onWillPop: () async =>
+                                                          false);
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: QuestionContent(
+                                              text: listQuestion[vt]['a'])),
+                                      TextButton(
+                                          onPressed: () {
+                                            if (listQuestion[vt]['b'] ==
+                                                listQuestion[vt]['result']) {
+                                              numTrue++;
+                                            } else {
+                                              numFalse++;
+                                            }
+                                            if (listQuestion != null &&
+                                                vt < listQuestion.length - 1) {
+                                              vt++;
+                                              setState(() {});
+                                            } else {
+                                              isShow = false;
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WillPopScope(
+                                                      child: AlertDialog(
+                                                        title: const Text(
+                                                            "Thông báo"),
+                                                        content: const Text(
+                                                            'Kết thúc!'),
+                                                        actions: [btnDetail],
+                                                      ),
+                                                      onWillPop: () async =>
+                                                          false);
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: QuestionContent(
+                                              text: listQuestion[vt]['b'])),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                          onPressed: () {
+                                            if (listQuestion[vt]['c'] ==
+                                                listQuestion[vt]['result']) {
+                                              numTrue++;
+                                            } else {
+                                              numFalse++;
+                                            }
+                                            if (listQuestion != null &&
+                                                vt < listQuestion.length - 1) {
+                                              vt++;
+                                              setState(() {});
+                                            } else {
+                                              isShow = false;
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WillPopScope(
+                                                      child: AlertDialog(
+                                                        title: const Text(
+                                                            "Thông báo"),
+                                                        content: const Text(
+                                                            'Kết thúc!'),
+                                                        actions: [btnDetail],
+                                                      ),
+                                                      onWillPop: () async =>
+                                                          false);
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: QuestionContent(
+                                              text: listQuestion[vt]['c'])),
+                                      TextButton(
+                                          onPressed: () {
+                                            if (listQuestion[vt]['d'] ==
+                                                listQuestion[vt]['result']) {
+                                              numTrue++;
+                                            } else {
+                                              numFalse++;
+                                            }
+                                            if (listQuestion != null &&
+                                                vt < listQuestion.length - 1) {
+                                              vt++;
+                                              setState(() {});
+                                            } else {
+                                              isShow = false;
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WillPopScope(
+                                                      child: AlertDialog(
+                                                        title: const Text(
+                                                            "Thông báo"),
+                                                        content: const Text(
+                                                            'Kết thúc!'),
+                                                        actions: [btnDetail],
+                                                      ),
+                                                      onWillPop: () async =>
+                                                          false);
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: QuestionContent(
+                                              text: listQuestion[vt]['d'])),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        if (listQuestion != null)
+                          Container(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CountdownTimer(
+                                  controller: controller,
+                                  endTime: endTime,
+                                  widgetBuilder: (context, time) {
+                                    if (time == null) {
+                                      return TimeLeft(value: 'Hết Giờ');
+                                    }
+                                    return Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'images/icon/circle_3.gif',
+                                          width: 90,
+                                          height: 90,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              time.sec.toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 30,
+                                                  shadows: [
+                                                    Shadow(
+                                                        offset: Offset(2, 2),
+                                                        blurRadius: 1,
+                                                        color: Colors.blue)
+                                                  ]),
+                                            ),
+                                            const Text(
+                                              'S',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 30,
+                                                  shadows: [
+                                                    Shadow(
+                                                        offset: Offset(2, 2),
+                                                        blurRadius: 1,
+                                                        color: Colors.red)
+                                                  ]),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  },
+                                ),
+                                Score(value: numTrue, text: 'SỐ CÂU ĐÚNG'),
+                                Score(
+                                  value: numFalse,
+                                  text: 'SỐ CÂU SAI',
+                                )
+                              ],
+                            ),
+                          ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
-          ],
-        ),
-      ),
-    ));
+            onWillPop: () async => false));
   }
 }
 
@@ -216,9 +467,18 @@ class QuestionContent extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class TimeLeft extends StatelessWidget {
-  int value;
+class TimeLeft extends StatefulWidget {
+  String value;
   TimeLeft({Key? key, required this.value}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return _TimeLeft(value: value);
+  }
+}
+
+class _TimeLeft extends State<TimeLeft> {
+  String value;
+  _TimeLeft({Key? key, required this.value});
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -252,51 +512,30 @@ class TimeLeft extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class Person extends StatelessWidget {
-  String id;
-  Person({Key? key, required this.id}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Account').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Column(
-              children: snapshot.data!.docs.map((document) {
-            return Row(children: [
-              // ignore: prefer_const_constructors
-              Icon(
-                Icons.person,
-                color: Colors.white,
-                size: 46,
-              ),
-              Text(
-                document['Id'].toString(),
-                style: const TextStyle(color: Colors.white),
-              ),
-
-              // ignore: prefer_const_constructors
-            ]);
-          }).toList()
-              // ignore: prefer_const_literals_to_create_immutables
-              );
-        });
-  }
-}
-
-// ignore: must_be_immutable
 class Score extends StatelessWidget {
   int value;
-  Score({Key? key, required this.value}) : super(key: key);
+  String text;
+  Score({Key? key, required this.value, required this.text}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.yellow,
+              fontWeight: FontWeight.bold,
+              fontSize: 21,
+              // ignore: prefer_const_literals_to_create_immutables
+              shadows: [
+                Shadow(
+                  offset: Offset(2, 2),
+                  blurRadius: 1,
+                  color: Colors.blue,
+                )
+              ]),
+        ),
         Text(
           value.toString(),
           style: const TextStyle(

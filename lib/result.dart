@@ -1,12 +1,57 @@
-import 'dart:ui';
-
 import 'package:brain_hack/menu.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Result extends StatelessWidget {
+  int numTrue;
+  int numFalse;
+  int s;
+  int time;
+  String linhVuc;
+  int capDo;
+  Result(
+      {Key? key,
+      required this.numFalse,
+      required this.numTrue,
+      required this.s,
+      required this.time,
+      required this.linhVuc,
+      required this.capDo});
+
+  final _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final CollectionReference _user =
+      FirebaseFirestore.instance.collection('Account');
+
+  Future<void> capNhatDiem() async {
+    DocumentReference col = _user.doc(_auth.currentUser?.email);
+    col.get().then((value) => {
+          _user.doc(_auth.currentUser?.email).update(
+              {"Score": s + value['Score'], linhVuc: s + value['Score']})
+        });
+  }
+
+  Future<void> themLichSu() {
+    CollectionReference history =
+        FirebaseFirestore.instance.collection('History');
+    return history.add({
+      'Email': _auth.currentUser?.email,
+      'NumTrue': numTrue,
+      'NumFalse': 20 - numTrue,
+      'TimeLine': time,
+      'Score': s,
+      'Type': linhVuc,
+      'Level': capDo,
+      'Time': DateTime.now()
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    themLichSu();
+    capNhatDiem();
     Widget title = Container(
       decoration: const BoxDecoration(
         color: Color(0xFF090050),
@@ -70,7 +115,7 @@ class Result extends StatelessWidget {
                   child: Image(image: AssetImage('images/icon/logo.png')),
                 ),
                 Text(
-                  'TD',
+                  'BẠN',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.orange,
@@ -79,34 +124,15 @@ class Result extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-            '2',
-            style: GoogleFonts.bungee(
-              textStyle: const TextStyle(
-                fontSize: 60,
-                color: Color(0xFF7843E6),
-                shadows: [
-                  Shadow(
-                      blurRadius: 1.0,
-                      color: Color(0xffFF00BF),
-                      offset: Offset(-2.0, 2.0)),
-                  Shadow(
-                      blurRadius: 1.0,
-                      color: Color(0xFF33f8ff),
-                      offset: Offset(2.0, -2.0)),
-                ],
-              ),
-            ),
-          ),
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '1VS3',
+                  '1VS1',
                   style: GoogleFonts.bungee(
                     textStyle: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 50,
                       color: Color(0xffFF00BF),
                       shadows: [
                         Shadow(
@@ -117,10 +143,10 @@ class Result extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Text(
-                  'KHÓA HỌC~DỄ',
+                Text(
+                  '${linhVuc}',
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 30,
                     color: Color(0xFF80AEFF),
                     shadows: [
                       Shadow(
@@ -136,109 +162,16 @@ class Result extends StatelessWidget {
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CircleAvatar(
-                  radius: 25,
+              children: const [
+                CircleAvatar(
+                  radius: 40,
                   child: Image(image: AssetImage('images/icon/logo.png')),
                 ),
-                const Text(
-                  'HG',
+                Text(
+                  'BẠN',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.orange,
-                  ),
-                ),
-                Text(
-                  '3',
-                  style: GoogleFonts.bungee(
-                    textStyle: const TextStyle(
-                      fontSize: 25,
-                      color: Color(0xFF7843E6),
-                      shadows: [
-                        Shadow(
-                            blurRadius: 1.0,
-                            color: Color(0xffFF00BF),
-                            offset: Offset(-1.0, 1.0)),
-                        Shadow(
-                            blurRadius: 1.0,
-                            color: Color(0xFF33f8ff),
-                            offset: Offset(1.0, -1.0)),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CircleAvatar(
-                  radius: 25,
-                  child: Image(image: AssetImage('images/icon/logo.png')),
-                ),
-                const Text(
-                  'CC',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.orange,
-                  ),
-                ),
-                Text(
-                  '1',
-                  style: GoogleFonts.bungee(
-                    textStyle: const TextStyle(
-                      fontSize: 25,
-                      color: Color(0xFF7843E6),
-                      shadows: [
-                        Shadow(
-                            blurRadius: 1.0,
-                            color: Color(0xffFF00BF),
-                            offset: Offset(-1.0, 1.0)),
-                        Shadow(
-                            blurRadius: 1.0,
-                            color: Color(0xFF33f8ff),
-                            offset: Offset(1.0, -1.0)),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CircleAvatar(
-                  radius: 25,
-                  child: Image(image: AssetImage('images/icon/logo.png')),
-                ),
-                const Text(
-                  'NA',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.orange,
-                  ),
-                ),
-                Text(
-                  '4',
-                  style: GoogleFonts.bungee(
-                    textStyle: const TextStyle(
-                      fontSize: 25,
-                      color: Color(0xFF7843E6),
-                      shadows: [
-                        Shadow(
-                            blurRadius: 1.0,
-                            color: Color(0xffFF00BF),
-                            offset: Offset(-1.0, 1.0)),
-                        Shadow(
-                            blurRadius: 1.0,
-                            color: Color(0xFF33f8ff),
-                            offset: Offset(1.0, -1.0)),
-                      ],
-                    ),
                   ),
                 ),
               ],
@@ -296,88 +229,14 @@ class Result extends StatelessWidget {
                         child: Image(image: AssetImage('images/icon/logo.png')),
                       ),
                       const Text(
-                        'TD',
+                        'Bạn',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.orange,
                         ),
                       ),
                       Text(
-                        '17',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Color(0xFF7843E6),
-                            shadows: [
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xffFF00BF),
-                                  offset: Offset(-1.0, 1.0)),
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xFF33f8ff),
-                                  offset: Offset(1.0, -1.0)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const CircleAvatar(
-                        radius: 20,
-                        child: Image(image: AssetImage('images/icon/logo.png')),
-                      ),
-                      const Text(
-                        'HG',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.orange,
-                        ),
-                      ),
-                      Text(
-                        '15',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Color(0xFF7843E6),
-                            shadows: [
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xffFF00BF),
-                                  offset: Offset(-1.0, 1.0)),
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xFF33f8ff),
-                                  offset: Offset(1.0, -1.0)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const CircleAvatar(
-                        radius: 20,
-                        child: Image(image: AssetImage('images/icon/logo.png')),
-                      ),
-                      const Text(
-                        'CC',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.orange,
-                        ),
-                      ),
-                      Text(
-                        '20',
+                        '${numTrue}',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -414,7 +273,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '14',
+                        '---',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -490,88 +349,14 @@ class Result extends StatelessWidget {
                         child: Image(image: AssetImage('images/icon/logo.png')),
                       ),
                       const Text(
-                        'TD',
+                        'Bạn',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.orange,
                         ),
                       ),
                       Text(
-                        '3',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Color(0xFF7843E6),
-                            shadows: [
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xffFF00BF),
-                                  offset: Offset(-1.0, 1.0)),
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xFF33f8ff),
-                                  offset: Offset(1.0, -1.0)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const CircleAvatar(
-                        radius: 20,
-                        child: Image(image: AssetImage('images/icon/logo.png')),
-                      ),
-                      const Text(
-                        'HG',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.orange,
-                        ),
-                      ),
-                      Text(
-                        '5',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Color(0xFF7843E6),
-                            shadows: [
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xffFF00BF),
-                                  offset: Offset(-1.0, 1.0)),
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xFF33f8ff),
-                                  offset: Offset(1.0, -1.0)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const CircleAvatar(
-                        radius: 20,
-                        child: Image(image: AssetImage('images/icon/logo.png')),
-                      ),
-                      const Text(
-                        'CC',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.orange,
-                        ),
-                      ),
-                      Text(
-                        '0',
+                        '${20 - numTrue}',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -608,7 +393,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '6',
+                        '---',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -684,88 +469,14 @@ class Result extends StatelessWidget {
                         child: Image(image: AssetImage('images/icon/logo.png')),
                       ),
                       const Text(
-                        'TD',
+                        'Bạn',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.orange,
                         ),
                       ),
                       Text(
-                        '260',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Color(0xFF7843E6),
-                            shadows: [
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xffFF00BF),
-                                  offset: Offset(-1.0, 1.0)),
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xFF33f8ff),
-                                  offset: Offset(1.0, -1.0)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const CircleAvatar(
-                        radius: 20,
-                        child: Image(image: AssetImage('images/icon/logo.png')),
-                      ),
-                      const Text(
-                        'HG',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.orange,
-                        ),
-                      ),
-                      Text(
-                        '220',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Color(0xFF7843E6),
-                            shadows: [
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xffFF00BF),
-                                  offset: Offset(-1.0, 1.0)),
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xFF33f8ff),
-                                  offset: Offset(1.0, -1.0)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const CircleAvatar(
-                        radius: 20,
-                        child: Image(image: AssetImage('images/icon/logo.png')),
-                      ),
-                      const Text(
-                        'CC',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.orange,
-                        ),
-                      ),
-                      Text(
-                        '300',
+                        '${s}',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -802,7 +513,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '200',
+                        '---',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 20,
@@ -829,7 +540,7 @@ class Result extends StatelessWidget {
         ],
       ),
     );
-    Widget time = Container(
+    Widget txttime = Container(
       alignment: Alignment.center,
       color: Color(0xff040020),
       margin: EdgeInsets.only(top: 5),
@@ -865,7 +576,6 @@ class Result extends StatelessWidget {
           ),
           Container(
             //color: Colors.red,
-
             margin: EdgeInsets.only(top: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -878,80 +588,14 @@ class Result extends StatelessWidget {
                         child: Image(image: AssetImage('images/icon/logo.png')),
                       ),
                       const Text(
-                        'TD',
+                        'Bạn',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.orange,
                         ),
                       ),
                       Text(
-                        '3P1S',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                            fontSize: 18,
-                            color: Color(0xFFFFDF2B),
-                            shadows: [
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xFF33f8ff),
-                                  offset: Offset(1.0, -1.0)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const CircleAvatar(
-                        radius: 20,
-                        child: Image(image: AssetImage('images/icon/logo.png')),
-                      ),
-                      const Text(
-                        'HG',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.orange,
-                        ),
-                      ),
-                      Text(
-                        '3P15S',
-                        style: GoogleFonts.bungee(
-                          textStyle: const TextStyle(
-                            fontSize: 18,
-                            color: Color(0xFFFFDF2B),
-                            shadows: [
-                              Shadow(
-                                  blurRadius: 1.0,
-                                  color: Color(0xFF33f8ff),
-                                  offset: Offset(1.0, -1.0)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const CircleAvatar(
-                        radius: 20,
-                        child: Image(image: AssetImage('images/icon/logo.png')),
-                      ),
-                      const Text(
-                        'CC',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.orange,
-                        ),
-                      ),
-                      Text(
-                        '2P30S',
+                        '${time}',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 18,
@@ -984,7 +628,7 @@ class Result extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '3P20S',
+                        '---',
                         style: GoogleFonts.bungee(
                           textStyle: const TextStyle(
                             fontSize: 18,
@@ -1018,30 +662,12 @@ class Result extends StatelessWidget {
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                CircleAvatar(
-                  radius: 30,
-                  child: Image(image: AssetImage('images/icon/logo.png')),
-                ),
-                Text(
-                  'CHICUONG',
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: 15,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'WINNER',
+                  'TỔNG ĐIỂM',
                   style: GoogleFonts.bungee(
                     textStyle: const TextStyle(
-                      fontSize: 40,
+                      fontSize: 30,
                       color: Color(0xFF94DD26),
                       shadows: [
                         Shadow(
@@ -1053,12 +679,12 @@ class Result extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 80),
+                  margin: EdgeInsets.only(left: 150),
                   child: Text(
                     'MAX: 300',
                     style: GoogleFonts.bungee(
                       textStyle: const TextStyle(
-                        fontSize: 15,
+                        fontSize: 30,
                         color: Color(0xFF3B4DA3),
                         shadows: [
                           Shadow(
@@ -1089,12 +715,15 @@ class Result extends StatelessWidget {
               trueSentence,
               falseSentence,
               score,
-              time,
+              txttime,
               personWin,
             ],
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (builder) => Menu()));
+            },
             child: const Text(
               'CHẠM VÀO MÀN HÌNH ĐỂ TIẾP TỤC',
               style: TextStyle(

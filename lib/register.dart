@@ -24,15 +24,19 @@ class _RegisterState extends State<Register> {
         .doc(_EmailController.text);
     return dk.set({
       'Email': email,
-      'Avatar': '',
+      'Avatar': 'images/avatar/avatar.png',
       'Birthday': '',
       'FullName': '',
       'Sex': true,
       'LossNum': 0,
       'WinNum': 0,
-      'TotalNum': 0,
       'SocialLink': '',
-      'Coin': 20,
+      'Coin': 0,
+      'Score': 0,
+      'Math': 0,
+      'Universe': 0,
+      'World cup': 0,
+      'Geography': 0,
       'Stt': true,
     });
   }
