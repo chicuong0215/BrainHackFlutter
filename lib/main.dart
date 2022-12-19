@@ -1,26 +1,12 @@
-import 'package:brain_hack/forget_password.dart';
-import 'package:brain_hack/list_friend.dart';
-import 'package:brain_hack/login.dart';
-import 'package:brain_hack/playing.dart';
-import 'package:brain_hack/profile.dart';
-import 'package:brain_hack/rooms.dart';
-import 'package:brain_hack/create_room.dart';
-import 'package:brain_hack/detail_history.dart';
-import 'package:brain_hack/field_rank.dart';
-import 'package:brain_hack/friend_item.dart';
-import 'package:brain_hack/friend_profile.dart';
-import 'package:brain_hack/history.dart';
-import 'package:brain_hack/list_friend.dart';
 import 'package:brain_hack/login.dart';
 import 'package:brain_hack/menu.dart';
-import 'package:brain_hack/playing.dart';
 import 'package:brain_hack/register.dart';
-import 'package:brain_hack/trainning.dart';
-import 'package:flutter_sms/flutter_sms.dart';
+import 'package:brain_hack/settings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'menu.dart';
+
+import 'notification.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,13 +16,12 @@ Future<void> main(List<String> args) async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ForgetPassword(),
+      home: Notifications(),
     );
   }
 }
