@@ -1,7 +1,22 @@
+import 'package:brain_hack/login.dart';
+import 'package:brain_hack/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class InputNewPassword extends StatelessWidget {
+class InputNewPassword extends StatefulWidget {
   const InputNewPassword({super.key});
+  @override
+  State<StatefulWidget> createState() {
+    return _InputNewPassword();
+  }
+}
+
+class _InputNewPassword extends State<InputNewPassword> {
+  bool _ShowPass = false;
+  TextEditingController _olPassword = TextEditingController();
+  TextEditingController _newPassword = TextEditingController();
+
+  final _user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +54,7 @@ class InputNewPassword extends StatelessWidget {
     );
 
     Widget edtOldPassword = TextField(
-      obscureText: true,
+      controller: _olPassword,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         filled: true,
@@ -50,26 +65,53 @@ class InputNewPassword extends StatelessWidget {
             color: Colors.blueGrey,
           ),
         ),
+        suffixIcon: _ShowPass
+            ? IconButton(
+                icon: Icon(Icons.panorama_fish_eye),
+                onPressed: () {
+                  onChangeShowPass();
+                },
+              )
+            : IconButton(
+                icon: Icon(Icons.remove_red_eye),
+                onPressed: () {
+                  onChangeShowPass();
+                },
+              ),
       ),
+      obscureText: !_ShowPass,
     );
 
     Widget edtNewPassword = TextField(
-      obscureText: true,
-      textAlignVertical: TextAlignVertical.center,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(
-            color: Colors.blueGrey,
+        controller: _newPassword,
+        textAlignVertical: TextAlignVertical.center,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: const BorderSide(
+              color: Colors.blueGrey,
+            ),
           ),
+          suffixIcon: _ShowPass
+              ? IconButton(
+                  icon: Icon(Icons.panorama_fish_eye),
+                  onPressed: () {
+                    onChangeShowPass();
+                  },
+                )
+              : IconButton(
+                  icon: Icon(Icons.remove_red_eye),
+                  onPressed: () {
+                    onChangeShowPass();
+                  },
+                ),
         ),
-      ),
-    );
+        obscureText: !_ShowPass);
 
     Widget tvOldPassword = const Text(
-      'MÃ XÁC NHẬN',
+      'MẬT KHẨU CŨ',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -96,7 +138,29 @@ class InputNewPassword extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      onPressed: () {},
+      onPressed: () async {
+        if (_newPassword.text.isEmpty || _olPassword.text.isEmpty) {
+          Utils.notification(context, 'Vui Lòng Nhập Đầy Đủ Thông Tin!');
+        } else {
+          if (await _changePassword(_olPassword.text, _newPassword.text)) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Thay đổi mật khẩu thành công!'),
+            ));
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => Login(),
+                  transitionDuration: const Duration(milliseconds: 200),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Thay đổi mật khẩu thất bại!'),
+            ));
+          }
+        }
+      },
       child: const Text(
         'THAY ĐỔI MẬT KHẨU',
         style: TextStyle(fontSize: 18, fontFamily: 'Alata'),
@@ -204,5 +268,34 @@ class InputNewPassword extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
+  }
+
+  Future<bool> _changePassword(
+      String currentPassword, String newPassword) async {
+    bool success = false;
+
+    //Create an instance of the current user.
+    var user = await FirebaseAuth.instance.currentUser!;
+    //Must re-authenticate user before updating the password. Otherwise it may fail or user get signed out.
+
+    final cred = await EmailAuthProvider.credential(
+        email: user.email!, password: currentPassword);
+    await user.reauthenticateWithCredential(cred).then((value) async {
+      await user.updatePassword(newPassword).then((_) {
+        success = true;
+      }).catchError((error) {
+        print(error);
+      });
+    }).catchError((err) {
+      print(err);
+    });
+
+    return success;
+  }
+
+  void onChangeShowPass() {
+    setState(() {
+      _ShowPass = !_ShowPass;
+    });
   }
 }

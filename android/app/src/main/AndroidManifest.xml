@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.brain_hack">
    <application
+   android:usesCleartextTraffic="true"
         android:label="brain_hack"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

@@ -1,4 +1,3 @@
-import 'package:brain_hack/playing.dart';
 import 'package:brain_hack/trainning.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +9,8 @@ class CreateTrain extends StatefulWidget {
 }
 
 class _CreateTrain extends State<CreateTrain> {
+  LinhVuc linhVuc = new LinhVuc();
+  CapDo capDo = new CapDo();
   @override
   Widget build(BuildContext context) {
     Widget rowTitle = Row(
@@ -59,7 +60,9 @@ class _CreateTrain extends State<CreateTrain> {
           Navigator.push(
               context,
               PageRouteBuilder(
-                pageBuilder: (_, __, ___) => Trainning(),
+                pageBuilder: (_, __, ___) => Training(
+                    linhVuc: linhVuc.getLinhVuc(),
+                    level: int.parse(capDo.getCapDo())),
                 transitionDuration: const Duration(milliseconds: 200),
                 transitionsBuilder: (_, a, __, c) =>
                     FadeTransition(opacity: a, child: c),
@@ -95,45 +98,32 @@ class _CreateTrain extends State<CreateTrain> {
         child: Column(
           children: [
             rowTitle,
+            Padding(padding: EdgeInsets.all(20)),
             tvCreateRoom,
-            Padding(padding: EdgeInsets.all(50)),
+            Padding(padding: EdgeInsets.all(30)),
             Row(
               children: [
-                Padding(padding: EdgeInsets.only(top: 20)),
                 TextCustom(title: "CẤP ĐỘ"),
+                Padding(padding: EdgeInsets.only(right: 30)),
                 Expanded(
-                  child: TextFieldCustom(),
+                  child: Container(
+                    child: capDo,
+                  ),
                 )
               ],
             ),
+            Padding(padding: EdgeInsets.only(bottom: 30)),
             Row(
               children: [
-                Padding(padding: EdgeInsets.only(top: 20)),
-                TextCustom(title: "THỜI GIAN"),
-                Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.only(top: 50)),
-                TextCustom(title: "SỐ CÂU HỎI"),
-                Expanded(
-                  child: TextFieldCustom(),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.only(bottom: 50)),
                 TextCustom(title: "LĨNH VỰC"),
+                Padding(padding: EdgeInsets.only(right: 30)),
                 Expanded(
-                  child: TextFieldCustom(),
-                )
+                    child: Container(
+                  child: linhVuc,
+                )),
               ],
             ),
-            Padding(padding: EdgeInsets.only(bottom: 100)),
+            Padding(padding: EdgeInsets.only(bottom: 60)),
             btnCreate
           ],
         ),
@@ -149,20 +139,23 @@ class TextCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 40,
-          color: Colors.white,
-          shadows: [
-            Shadow(
-              offset: Offset(3, 3),
-              blurRadius: 1,
-              color: Colors.blue,
-            )
-          ]),
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 35,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                offset: Offset(3, 3),
+                blurRadius: 1,
+                color: Colors.blue,
+              )
+            ]),
+      ),
     );
   }
 }
@@ -183,6 +176,110 @@ class TextFieldCustom extends StatelessWidget {
               borderRadius: BorderRadius.circular(25),
             ),
           )),
+    );
+  }
+}
+
+class LinhVuc extends StatefulWidget {
+  static String lv = 'Math';
+  const LinhVuc({super.key});
+
+  @override
+  State<LinhVuc> createState() => _LinhVuc();
+  String getLinhVuc() {
+    return lv;
+  }
+}
+
+class _LinhVuc extends State<LinhVuc> {
+  List<String> list = <String>['Math', 'World cup', 'Geography', 'Universe'];
+  String dropdownValue = "Math";
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        style: const TextStyle(color: Colors.deepPurple),
+        underline: Container(
+          height: 2,
+          color: Colors.white,
+        ),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            dropdownValue = value!;
+            LinhVuc.lv = value;
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                value,
+                style: TextStyle(fontSize: 26),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class CapDo extends StatefulWidget {
+  static String lv = '1';
+  const CapDo({super.key});
+
+  @override
+  State<CapDo> createState() => _CapDo();
+  String getCapDo() {
+    return lv;
+  }
+}
+
+class _CapDo extends State<CapDo> {
+  List<String> list = <String>['1', '2', '3'];
+  String dropdownValue = "1";
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        style: const TextStyle(color: Colors.deepPurple),
+        underline: Container(
+          height: 2,
+          color: Colors.white,
+        ),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            dropdownValue = value!;
+            CapDo.lv = value;
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                value,
+                style: TextStyle(fontSize: 26),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }

@@ -1,15 +1,18 @@
-import 'package:brain_hack/dialog_picture.dart';
-import 'package:brain_hack/input_new_password.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
-class DetailHistory extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _DetailHistory();
-}
-
-class _DetailHistory extends State<DetailHistory> {
+class DetailHistory extends StatelessWidget {
+  int score;
+  int numTrue;
+  int numFalse;
+  String name;
   String? gender;
+  DetailHistory(
+      {Key? key,
+      required this.score,
+      required this.numTrue,
+      required this.numFalse,
+      required this.name})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     Widget txtEditName = TextField(
@@ -45,23 +48,6 @@ class _DetailHistory extends State<DetailHistory> {
       ),
       child: Row(
         children: [
-          Container(
-            padding: EdgeInsets.only(left: 20),
-            child: const Text(
-              'I',
-              style: TextStyle(
-                fontSize: 45,
-                fontFamily: 'Fraunces',
-                color: Color(0xFFFC5658),
-                shadows: [
-                  Shadow(
-                    blurRadius: 5.0,
-                    color: Color(0xFFFf0099),
-                  ),
-                ],
-              ),
-            ),
-          ),
           Stack(
             alignment: Alignment.center,
             children: [
@@ -79,7 +65,7 @@ class _DetailHistory extends State<DetailHistory> {
           ),
           Container(
             child: const Text(
-              'Nguyễn Hoàng Giang',
+              'Tai khoan',
               style: TextStyle(
                 fontSize: 22,
                 fontFamily: 'Fraunces',
@@ -89,88 +75,8 @@ class _DetailHistory extends State<DetailHistory> {
           ),
           Container(
             padding: EdgeInsets.only(left: 20),
-            child: const Text(
-              '5000',
-              style: TextStyle(
-                fontSize: 15,
-                fontFamily: 'Fraunces',
-                color: Color(0xFFFC5658),
-                shadows: [
-                  Shadow(
-                    blurRadius: 5.0,
-                    color: Color(0xFFFf0099),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 0),
-          ),
-        ],
-      ),
-    );
-    Widget history2 = Container(
-      margin: EdgeInsets.only(top: 10),
-      width: 410,
-      height: 70,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        gradient: const LinearGradient(colors: [
-          Color.fromARGB(255, 0, 18, 91),
-          Color.fromARGB(255, 0, 0, 0),
-          Color.fromARGB(255, 0, 18, 91)
-        ]),
-        //border: Border.all(width: 2, color: Colors.red),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 20),
-            child: const Text(
-              '2',
-              style: TextStyle(
-                fontSize: 35,
-                fontFamily: 'Fraunces',
-                color: Color.fromARGB(198, 255, 191, 0),
-                shadows: [
-                  Shadow(
-                    blurRadius: 5.0,
-                    color: Color(0xFFFf0099),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                child: const CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                  radius: 30,
-                  child: Image(
-                    image: AssetImage('images/icon/logo_v2.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            child: const Text(
-              'Nguyễn Chí Cường',
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'Fraunces',
-                color: Color(0xFFFf0099),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 20),
-            child: const Text(
-              '4500',
+            child: Text(
+              '${score}',
               style: TextStyle(
                 fontSize: 15,
                 fontFamily: 'Fraunces',
@@ -282,7 +188,6 @@ class _DetailHistory extends State<DetailHistory> {
                   ),
                 ),
                 history,
-                history2,
               ],
             )
           ],
