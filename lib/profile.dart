@@ -120,7 +120,7 @@ class _ProfileState extends State<Profile> {
                                 child: CircleAvatar(
                                   radius: 85,
                                   backgroundImage:
-                                      NetworkImage("${data['Avatar']}"),
+                                      AssetImage("${data['Avatar']}"),
                                 ),
                               ),
                               Container(

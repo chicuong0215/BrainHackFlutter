@@ -58,7 +58,7 @@ class MenuDrawer extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             child: const CircleAvatar(
               radius: 45,
-              child: Image(image: AssetImage('images/icon/avatar.png')),
+              child: Image(image: AssetImage('images/avatar/avatar.png')),
             ),
           ),
           Container(
